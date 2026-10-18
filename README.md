@@ -129,7 +129,7 @@ installs on every supported device — there is no ABI to choose.
 
 | APK | Size | Devices |
 | :--- | :--- | :--- |
-| `FlowTube-1.0.0-universal.apk` | ~23 MB | Every supported phone and tablet |
+| `FlowTube-vX.Y.Z-universal.apk` | ~23 MB | Every supported phone and tablet |
 
 Grab it from the [latest release](https://github.com/NETO-DEV66/Flow-tub/releases/latest), or let the
 app update itself: it checks for a new release and installs it after you confirm.
@@ -150,7 +150,7 @@ Every APK is signed with the same release key, so the signature stays identical 
 Android can install a new release over an older one. You can confirm it yourself:
 
 ```bash
-apksigner verify --print-certs FlowTube-1.0.0-universal.apk
+apksigner verify --print-certs FlowTube-vX.Y.Z-universal.apk
 ```
 
 The certificate's SHA-256 fingerprint is:
@@ -254,7 +254,7 @@ unrecoverable update-path mistake from ever being published. When it is empty th
 
 ```bash
 # Publish a release
-git tag v1.0.0 && git push origin v1.0.0
+git tag v1.0.2 && git push origin v1.0.2
 ```
 
 ---
