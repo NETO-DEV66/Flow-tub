@@ -1428,8 +1428,6 @@
     <string name="import_yt_history_failed_template">Der Import des Wiedergabesverlaufs ist fehlgeschlagen: %1$s</string>
     <string name="channel_error_log_clip_label">Flow Tube Kanal-Fehlerprotokoll</string>
     <string name="about_creator">Entwickler</string>
-    <string name="about_creator_name">mrvoidxin</string>
-    <string name="about_website_address">github.com/mrvoidxin/Flow-tub</string>
     <string name="github_subtitle">Quellcode &amp; Probleme</string>
     <string name="newpipe_extractor_title">NewPipe Extractor</string>
     <string name="about_license_name">GNU GPL v3</string>

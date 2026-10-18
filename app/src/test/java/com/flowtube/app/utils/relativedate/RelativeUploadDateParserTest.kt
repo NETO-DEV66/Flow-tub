@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2025-2026 Flow Tube | A-EDev
  *
- * This file is part of Flow Tube (https://github.com/mrvoidxin/Flow-tub).
+ * This file is part of Flow Tube (https://github.com/NETO-DEV66/Flow-tub).
  */
 
 package com.flowtube.app.utils.relativedate

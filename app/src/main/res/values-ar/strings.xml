@@ -2103,8 +2103,6 @@
     <string name="discord_presence_privacy_body">يشارك Flow Tube العنوان واسم المنشئ والصورة ومدة التقدم لما تشغّله. يكون معطّلًا افتراضيًا. يتم تشفير رمز Discord الخاص بك ولا يتم تسجيله مطلقًا.</string>
     <string name="discord_presence_gateway_warning">يستخدم هذا تسجيل الدخول عبر رمز Discord الخاص بك بدلًا من تسجيل الدخول الرسمي. هذا يخالف شروط خدمة Discord وقد يؤدي إلى تقييد حسابك أو حظره.</string>
     <string name="discord_presence_risk_dialog_title">هل تقبل مخاطر استخدام حساب Discord؟</string>
-    <string name="about_creator_name">mrvoidxin</string>
-    <string name="about_website_address">github.com/mrvoidxin/Flow-tub</string>
     <string name="about_license_name">GNU GPL v3</string>
     <string name="discord_presence_risk_dialog_body">عند الاتصال، تمنح Flow Tube رمز Discord الخاص بك. يبقى مشفّرًا على هذا الجهاز ولا يُرسل إلا إلى Discord. تخالف هذه الطريقة شروط خدمة Discord، لذا قد يتم تقييد حسابك أو حظره.</string>
     <string name="discord_presence_risk_accept">أنا أفهم، اتصل</string>

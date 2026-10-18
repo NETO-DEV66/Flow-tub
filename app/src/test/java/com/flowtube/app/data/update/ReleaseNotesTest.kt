@@ -13,7 +13,7 @@ class ReleaseNotesTest {
 
         **Release date:** 2026-09-28
 
-        Flow Tube is free software. Star the project on [GitHub](https://github.com/mrvoidxin/Flow-tub) if it helps you.
+        Flow Tube is free software. Star the project on [GitHub](https://github.com/NETO-DEV66/Flow-tub) if it helps you.
 
         ## New features
 
@@ -35,7 +35,7 @@ class ReleaseNotesTest {
         assertThat(notes.intro.single().spans)
             .containsExactly(
                 Plain("Flow Tube is free software. Star the project on "),
-                Link("GitHub", "https://github.com/mrvoidxin/Flow-tub"),
+                Link("GitHub", "https://github.com/NETO-DEV66/Flow-tub"),
                 Plain(" if it helps you."),
             ).inOrder()
     }
@@ -53,7 +53,7 @@ class ReleaseNotesTest {
         val items = parseReleaseNotes(body).sections.first().items
 
         assertThat(items[0].spans.last()).isEqualTo(Link("@PastaHimself", "https://github.com/PastaHimself"))
-        assertThat(items[1].spans.last()).isEqualTo(Link("#823", "https://github.com/mrvoidxin/Flow-tub/issues/823"))
+        assertThat(items[1].spans.last()).isEqualTo(Link("#823", "https://github.com/NETO-DEV66/Flow-tub/issues/823"))
         assertThat(items[2].spans).containsExactly(Plain("A "), Strong("bold"), Plain(" claim")).inOrder()
     }
 
@@ -72,8 +72,8 @@ class ReleaseNotesTest {
 
     @Test
     fun `bare links become links`() {
-        val spans = parseInline("See https://github.com/mrvoidxin/Flow-tub/releases for more").spans
+        val spans = parseInline("See https://github.com/NETO-DEV66/Flow-tub/releases for more").spans
 
-        assertThat(spans[1]).isEqualTo(Link("https://github.com/mrvoidxin/Flow-tub/releases", "https://github.com/mrvoidxin/Flow-tub/releases"))
+        assertThat(spans[1]).isEqualTo(Link("https://github.com/NETO-DEV66/Flow-tub/releases", "https://github.com/NETO-DEV66/Flow-tub/releases"))
     }
 }

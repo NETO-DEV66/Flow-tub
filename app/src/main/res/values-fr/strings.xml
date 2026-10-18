@@ -2193,8 +2193,6 @@
     <string name="import_other_youtube_clients">Importer depuis d\'autres clients YouTube</string>
     <string name="fallback_your_saved_shorts">Vos shorts enregistrés</string>
     <string name="discord_presence_playing_fallback">Joué dans Flow Tube</string>
-    <string name="about_creator_name">mrvoidxin</string>
-    <string name="about_website_address">github.com/mrvoidxin/Flow-tub</string>
     <string name="about_license_name">GNU GPL v3</string>
     <string name="tv_music_empty">Aucune musique à recommander pour le moment</string>
     <string name="tv_music_charts">Classement musical</string>

@@ -1769,9 +1769,9 @@
     </plurals>
     <!-- About Screen -->
     <string name="about_creator">Creator</string>
-    <string name="about_creator_name">mrvoidxin</string>
+    <string name="about_creator_name" translatable="false">NETO-DEV66</string>
     <string name="about_website">Website</string>
-    <string name="about_website_address">github.com/mrvoidxin/Flow-tub</string>
+    <string name="about_website_address" translatable="false">github.com/NETO-DEV66/Flow-tub</string>
     <string name="github_subtitle">Source code &amp; Issues</string>
     <string name="newpipe_extractor_title">NewPipe Extractor</string>
     <string name="newpipe_extractor_subtitle">Core extraction library</string>

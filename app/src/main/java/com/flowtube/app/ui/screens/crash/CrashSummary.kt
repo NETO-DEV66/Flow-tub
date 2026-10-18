@@ -4,7 +4,7 @@ import java.net.URLEncoder
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-private const val NEW_ISSUE_URL = "https://github.com/mrvoidxin/Flow-tub/issues/new"
+private const val NEW_ISSUE_URL = "https://github.com/NETO-DEV66/Flow-tub/issues/new"
 private const val APP_PACKAGE = "com.flowtube.app"
 private const val MAX_URL_LOG_CHARS = 1_500
 private const val MAX_URL_ACTUAL_CHARS = 300
