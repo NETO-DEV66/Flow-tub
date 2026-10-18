@@ -1,41 +1,27 @@
-# Flow Tube v1.0.0
+# Flow Tube v1.0.1
 
-**Release date:** 2026-10-16
+**Release date:** 2026-10-18
 
-The first Flow Tube release. A privacy-first YouTube and Music client for Android: everything it
-learns about you stays on your device.
+A maintenance release. It fixes the in-app updater, which never worked in v1.0.0, and adds the
+attribution and disclaimer notices the project was missing.
 
-## Highlights
+## Fixed
 
-- **Videos, Shorts and music** with background playback, picture-in-picture, a queue you control and
-  gesture seeking.
-- **Recommendations that run on the device.** The app learns from what you actually watch; nothing
-  is sent to a server.
-- **Your library, your device.** Playlists, likes, Watch later, saved Shorts and downloads all live
-  in local storage.
-- **Device sync over your own network.** Pair two devices and move your library across with a QR
-  code, with no account and no cloud in between.
-- **No accounts, no tracking, no ads.**
+- **The in-app updater now works.** v1.0.0 asked GitHub for releases at an old repository address
+  that no longer exists, so every update check returned HTTP 404 and the app could never see or
+  install a new version. Update checks now point at this project, and the About screen links go to
+  the right place. If you are on v1.0.0, install this build once by hand; every release after it
+  can be installed from inside the app.
 
-## Playback
+## Added
 
-- SponsorBlock segment skipping, with per-category colours and a per-video off switch.
-- Quality and codec preferences, including a separate thumbnail quality for Wi-Fi and mobile data.
-- An equalizer, plus lyrics for music, read from the file or fetched for the track.
-- Sleep timer, playback speed, and a choice of player overlay styles.
+- **Not affiliated with Google or YouTube.** The app reads from YouTube but has no relationship with
+  Google, and now says so plainly on the About screen, on the website and in the store listing.
+- **Credit to the upstream project.** Flow Tube is built on the free software project Flow, and the
+  bundled notices now carry its licence and copyright.
 
-## Appearance
+## Notes
 
-- Material 3 theming with a true-black AMOLED style and named custom themes you can export.
-- A choice of launcher icons.
-- Home-screen widgets for now-playing and On Repeat.
-
-## Updates
-
-- Flow Tube updates itself: it checks this project's own releases and installs the new universal APK
-  after you confirm. Every release ships a single universal APK that installs on any supported
-  device.
-
-## Requirements
-
-Android 8.0 (API 26) or newer. Tested up to Android 16 (API 36).
+- No changes to playback, the library or your local data.
+- Same signing key as v1.0.0, so this installs as a normal update and your data is kept.
+- One universal APK for every supported device, as before.

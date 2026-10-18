@@ -1,0 +1,12 @@
+FLOW TUBE CHANGE LOG
+VERSION: 1.0.1
+DATE: 2026-10-18
+STATUS: RELEASE
+
+FIXES
+- In-app updates work again. v1.0.0 asked GitHub for releases at an old address that no longer exists, so every update check failed and the app could never offer a new version
+- Links on the About screen now open this project instead of a page that does not exist
+
+IMPROVEMENTS
+- The app states plainly that it is not affiliated with, endorsed by or sponsored by Google or YouTube
+- The bundled notices credit the upstream Flow project and carry its licence
