@@ -67,8 +67,8 @@ android {
         applicationId = "com.flowtube.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.0.0"
+        versionCode = 3
+        versionName = "1.0.1"
 
         buildConfigField("String", "APP_LANGUAGE_TAGS", "\"${(listOf("en") + translatedLocaleTags()).joinToString(",")}\"")
         // Discord Rich Presence stays off until a Discord application is registered for Flow Tube.

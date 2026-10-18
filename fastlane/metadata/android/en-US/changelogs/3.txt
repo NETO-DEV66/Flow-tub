@@ -1,0 +1,4 @@
+- Fixed in-app updates: v1.0.0 checked an old address that no longer exists, so it could never offer a new version
+- About screen links now open this project
+- States plainly that the app is not affiliated with Google or YouTube
+- Bundled notices credit the upstream Flow project and carry its licence
