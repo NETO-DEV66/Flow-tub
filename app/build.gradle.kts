@@ -20,6 +20,17 @@ val localProperties =
             ?.use { load(it) }
     }
 
+// Signing credentials live in their own file so the SDK path in local.properties and the release
+// key never share a lifetime. Never committed; see "Signing the release build" in the README.
+val keyProperties =
+    Properties().apply {
+        rootDir
+            .resolve("key.properties")
+            .takeIf { it.exists() }
+            ?.inputStream()
+            ?.use { load(it) }
+    }
+
 fun secretValue(
     property: String,
     localKey: String,
@@ -118,14 +129,17 @@ android {
         create("release") {
             storeFile = rootDir.resolve("release.keystore")
             storePassword = (project.findProperty("storePassword") as? String)
+                ?: keyProperties.getProperty("storePassword")
                 ?: localProperties.getProperty("storePassword")
                 ?: System.getenv("STORE_PASSWORD")
                 ?: ""
             keyAlias = (project.findProperty("keyAlias") as? String)
+                ?: keyProperties.getProperty("keyAlias")
                 ?: localProperties.getProperty("keyAlias")
                 ?: System.getenv("KEY_ALIAS")
                 ?: ""
             keyPassword = (project.findProperty("keyPassword") as? String)
+                ?: keyProperties.getProperty("keyPassword")
                 ?: localProperties.getProperty("keyPassword")
                 ?: System.getenv("KEY_PASSWORD")
                 ?: ""
