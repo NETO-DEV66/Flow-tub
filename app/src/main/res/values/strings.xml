@@ -1778,6 +1778,10 @@
     <string name="about_license">License</string>
     <string name="about_notices">Open source notices</string>
     <string name="about_notices_summary">Word lists and code from other projects</string>
+    <string name="about_disclaimer">Disclaimer</string>
+    <string name="about_disclaimer_summary">Not affiliated with Google or YouTube</string>
+    <string name="about_disclaimer_title">Disclaimer</string>
+    <string name="about_disclaimer_body">Flow Tube is an independent, open-source client. It is not affiliated with, endorsed by, sponsored by, or approved by Google LLC or YouTube. "YouTube" and "YouTube Music" are trademarks of Google LLC. All content streamed through the app belongs to its respective owners and is accessed at the user\'s own risk, subject to the terms of service of the source platform.</string>
     <string name="about_license_name">GNU GPL v3</string>
     <string name="about_changelog">Changelog</string>
     <string name="whats_new_in_flow">What\'s new in Flow Tube</string>
