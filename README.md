@@ -15,7 +15,7 @@
 
   <p>
     <a href="https://github.com/NETO-DEV66/Flow-tub/releases/latest"><b>Download APK</b></a> ·
-    <a href="#set-up-flow-tube-no-account-no-login"><b>Set up</b></a> ·
+    <a href="#set-up-flow-tube--no-account-no-login"><b>Set up</b></a> ·
     <a href="#build-from-source"><b>Build</b></a> ·
     <a href="privacy.md"><b>Privacy</b></a> ·
     <a href="CONTRIBUTING.md"><b>Contribute</b></a> ·
@@ -24,7 +24,7 @@
 
   <p>
     <b>No account and no login.</b> Flow Tube never asks you to sign in. You bring your own YouTube
-    data in from a Google Takeout export — <a href="#set-up-flow-tube-no-account-no-login">here is how</a>.
+    data in from a Google Takeout export — <a href="#set-up-flow-tube--no-account-no-login">here is how</a>.
   </p>
 
   <p>
