@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flow Tube — privacy-first YouTube for Android</title>
+    <meta
+      name="description"
+      content="Flow Tube is a privacy-first YouTube and YouTube Music client for Android, with recommendations that never leave your phone."
+    />
+    <link rel="icon" href="logo.png" />
+    <style>
+      :root {
+        --bg: #0f0f0f;
+        --surface: #1a1a1a;
+        --surface-2: #242424;
+        --text: #f5f5f5;
+        --muted: #a8a8a8;
+        --accent: #ff0033;
+        --border: #2e2e2e;
+        --radius: 16px;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #fafafa;
+          --surface: #ffffff;
+          --surface-2: #f0f0f0;
+          --text: #141414;
+          --muted: #5f5f5f;
+          --border: #e2e2e2;
+        }
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+      a { color: var(--accent); }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 18px; }
+      .brand img { width: 34px; height: 34px; border-radius: 9px; }
+      nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 15px; }
+      nav a:hover { color: var(--text); }
+
+      .hero { text-align: center; padding: 72px 0 56px; }
+      .hero img.mark { width: 104px; height: 104px; border-radius: 24px; }
+      .hero h1 { font-size: clamp(32px, 6vw, 52px); margin: 20px 0 12px; letter-spacing: -0.02em; }
+      .hero p { font-size: clamp(16px, 2.2vw, 19px); color: var(--muted); max-width: 620px; margin: 0 auto 32px; }
+      .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+      .btn {
+        display: inline-block;
+        padding: 13px 26px;
+        border-radius: 999px;
+        font-weight: 600;
+        text-decoration: none;
+        border: 1px solid var(--border);
+        color: var(--text);
+        background: var(--surface);
+        transition: transform .12s ease, background .12s ease;
+      }
+      .btn:hover { transform: translateY(-1px); }
+      .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+      .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
+      .badges span {
+        font-size: 13px; color: var(--muted);
+        border: 1px solid var(--border); border-radius: 999px;
+        padding: 5px 13px; background: var(--surface);
+      }
+
+      section { padding: 44px 0; border-top: 1px solid var(--border); }
+      h2 { font-size: 26px; margin: 0 0 20px; letter-spacing: -0.01em; }
+
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+      }
+      .card h3 { margin: 0 0 8px; font-size: 17px; }
+      .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+      table { width: 100%; border-collapse: collapse; font-size: 15px; }
+      th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+      th { color: var(--muted); font-weight: 600; }
+      td code { background: var(--surface-2); padding: 2px 7px; border-radius: 6px; font-size: 13px; }
+
+      .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+      .shots img { width: 100%; border-radius: var(--radius); border: 1px solid var(--border); }
+
+      pre {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px 18px;
+        overflow-x: auto;
+        font-size: 14px;
+      }
+      code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+
+      footer {
+        padding: 40px 0 56px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 14px;
+        text-align: center;
+      }
+      footer a { color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="brand"><img src="logo.png" alt="" />Flow Tube</div>
+        <nav>
+          <a href="#features">Features</a>
+          <a href="#download">Download</a>
+          <a href="#build">Build</a>
+          <a href="https://github.com/NETO-DEV66/Flow-tub">GitHub</a>
+        </nav>
+      </header>
+
+      <section class="hero" style="border-top: none">
+        <img class="mark" src="logo.png" alt="Flow Tube" />
+        <h1>YouTube, without the tracking</h1>
+        <p>
+          A privacy-first YouTube and YouTube Music client for Android, with a recommendation
+          engine that runs entirely on your phone. No account, no analytics, no data leaves your device.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="https://github.com/NETO-DEV66/Flow-tub/releases/latest">Download APK</a>
+          <a class="btn" href="https://github.com/NETO-DEV66/Flow-tub">View source</a>
+        </div>
+        <div class="badges">
+          <span>Android 8.0+</span>
+          <span>GPL-3.0</span>
+          <span>Kotlin · Compose · Media3</span>
+          <span>No ads</span>
+          <span>No telemetry</span>
+        </div>
+      </section>
+
+      <section id="features">
+        <h2>What you get</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>On-device recommendations</h3>
+            <p>Learns from what you watch, skip, and like — entirely offline. Inspect it, adjust it, or wipe it.</p>
+          </div>
+          <div class="card">
+            <h3>Video that behaves</h3>
+            <p>Resolution switching, SponsorBlock, DeArrow, background play, PiP, casting, gestures, and downloads.</p>
+          </div>
+          <div class="card">
+            <h3>A real music player</h3>
+            <p>Album art, queue control, shuffle and repeat, synced lyrics, and a persistent mini player.</p>
+          </div>
+          <div class="card">
+            <h3>Local library</h3>
+            <p>Watch history, favourites, playlists, a Shorts feed, and cached subscription feeds.</p>
+          </div>
+          <div class="card">
+            <h3>Private by default</h3>
+            <p>No Google account, no trackers. Import from NewPipe, export or delete everything anytime.</p>
+          </div>
+          <div class="card">
+            <h3>Made to look good</h3>
+            <p>Eleven themes, Material 3 throughout, a home-screen widget, and a TV interface.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="download">
+        <h2>Download</h2>
+        <p style="color: var(--muted); margin-top: -8px">
+          Every release ships one universal APK. It carries both 32-bit and 64-bit ARM code, so it installs on every supported device.
+        </p>
+        <table>
+          <thead>
+            <tr><th>APK</th><th>Size</th><th>Devices</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>FlowTube-1.0.0-universal.apk</code></td><td>~23 MB</td><td>Every supported phone and tablet</td></tr>
+          </tbody>
+        </table>
+        <p style="color: var(--muted)">
+          The app also updates itself: it checks for a new release and installs it after you confirm.
+        </p>
+      </section>
+
+      <section id="screenshots">
+        <h2>Screenshots</h2>
+        <div class="shots">
+          <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/Home.jpeg" alt="Home feed" />
+          <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/VideoPlayer.jpeg" alt="Video player" />
+          <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/MusicPlayer.jpeg" alt="Music player" />
+          <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/Library.jpeg" alt="Library" />
+          <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/Shorts.jpeg" alt="Shorts" />
+          <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/Subscriptions.jpeg" alt="Subscriptions" />
+        </div>
+      </section>
+
+      <section id="build">
+        <h2>Build from source</h2>
+        <p style="color: var(--muted); margin-top: -8px">You need JDK 17+ and the Android SDK (API 37).</p>
+        <pre><code>git clone https://github.com/NETO-DEV66/Flow-tub.git
+cd Flow-tub
+
+# Debug build
+./gradlew :app:assembleGithubDebug
+
+# Release build — the single universal APK
+./gradlew :app:assembleGithubRelease</code></pre>
+        <p style="color: var(--muted)">Output lands in <code>app/build/outputs/apk/github/release/</code>.</p>
+      </section>
+
+      <footer>
+        <p>
+          Flow Tube is free software under the
+          <a href="https://github.com/NETO-DEV66/Flow-tub/blob/main/License">GNU GPL v3</a>.
+        </p>
+        <p>A rebranded fork; upstream copyright is retained as the licence requires.</p>
+      </footer>
+    </div>
+  </body>
+</html>

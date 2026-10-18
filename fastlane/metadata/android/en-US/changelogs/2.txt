@@ -1,0 +1,8 @@
+- First Flow Tube release: privacy-first YouTube and Music client for Android
+- On-device recommendations that learn from what you watch, with nothing sent to a server
+- Videos, Shorts and music with background playback, picture-in-picture and a queue you control
+- Playlists, likes, Watch later, saved Shorts and downloads, all stored on the device
+- Import and export your data, and pair two devices to sync over your own network
+- SponsorBlock, quality and codec preferences, an equalizer and lyrics
+- Material 3 themes, a true-black AMOLED style, home-screen widgets and a choice of launcher icons
+- In-app updates from this project's own releases

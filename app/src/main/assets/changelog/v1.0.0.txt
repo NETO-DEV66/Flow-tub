@@ -1,0 +1,15 @@
+FLOW TUBE CHANGE LOG
+VERSION: 1.0.0
+DATE: 2026-10-16
+STATUS: RELEASE
+
+NEW FEATURES
+- Privacy-first YouTube and Music client for Android, built with Jetpack Compose and Media3
+- Play videos, Shorts and music with background playback, picture-in-picture and a queue you control
+- On-device recommendations: the app learns from what you actually watch, with nothing sent to a server
+- Playlists, likes, Watch later, saved Shorts and downloads, all stored on the device
+- Import and export your data, and pair two devices to sync your library over your own network
+- SponsorBlock, quality and codec preferences, an equalizer and lyrics for music
+- Themes built on Material 3, including a true-black AMOLED style and a choice of launcher icons
+- Home-screen widgets for now-playing and On Repeat
+- In-app updates: the app checks its own releases and installs the new universal APK after you confirm

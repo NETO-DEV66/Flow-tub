@@ -1,0 +1,67 @@
+package com.flowtube.app.ui.screens.subscriptions
+
+import com.flowtube.app.data.local.ChannelSubscription
+import com.flowtube.app.data.model.Channel
+import com.flowtube.app.data.model.SubscriptionGroup
+import com.flowtube.app.data.model.Video
+import com.flowtube.app.utils.ThumbnailUrlResolver
+
+enum class SubscriptionSortMode {
+    DEFAULT,
+    NAME_ASC,
+    RECENTLY_UPDATED,
+    ;
+
+    companion object {
+        fun fromStorage(value: String?): SubscriptionSortMode = entries.firstOrNull { it.name == value } ?: DEFAULT
+    }
+}
+
+internal fun List<ChannelSubscription>.toSubscribedChannels(): List<Channel> =
+    map { sub ->
+        Channel(
+            id = sub.channelId,
+            name = sub.channelName,
+            thumbnailUrl = ThumbnailUrlResolver.resolveChannelAvatar(sub.channelThumbnail),
+            subscriberCount = 0L,
+            isSubscribed = true,
+            isMusic = sub.isMusic,
+        )
+    }
+
+data class SubscriptionsUiState(
+    val subscribedChannels: List<Channel> = emptyList(),
+    val recentVideos: List<Video> = emptyList(),
+    val shorts: List<Video> = emptyList(),
+    val selectedChannelId: String? = null,
+    val isLoading: Boolean = false,
+    val isFullWidthView: Boolean = false,
+    val sortMode: SubscriptionSortMode = SubscriptionSortMode.DEFAULT,
+    val isShortsShelfEnabled: Boolean = true,
+    val notificationStates: Map<String, Boolean> = emptyMap(),
+    val groups: List<SubscriptionGroup> = emptyList(),
+    val selectedGroupName: String? = null,
+    val refreshProcessedChannels: Int = 0,
+    val refreshTotalChannels: Int = 0,
+    val lastRefreshTime: Long = 0L,
+    val lastRefreshText: String? = null,
+    val lastRefreshVideoCount: Int = 0,
+    val showLastRefreshVideoCount: Boolean = true,
+    val showSubscriptionVideos: Boolean = true,
+    val showSubscriptionShorts: Boolean = true,
+    val showSubscriptionLive: Boolean = true,
+    val excludedShortsChannelIds: Set<String> = emptySet(),
+    /** Channels the last refresh could not reach at all; surfaced instead of silently showing less. */
+    val failedChannelIds: Set<String> = emptySet(),
+    val failedChannelReasons: Map<String, String> = emptyMap(),
+) {
+    /** Display names for [failedChannelIds], falling back to the raw id for an unknown channel. */
+    val failedChannelNames: List<String>
+        get() {
+            if (failedChannelIds.isEmpty()) return emptyList()
+            val namesById = subscribedChannels.associate { it.id to it.name }
+            return failedChannelIds
+                .map { id -> namesById[id]?.takeIf { it.isNotBlank() } ?: id }
+                .sorted()
+        }
+}

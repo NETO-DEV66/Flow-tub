@@ -1,0 +1,245 @@
+name: Android CI/CD
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+# Collapse superseded runs on branches and PRs. Tag runs publish the release
+# artifacts and must never be cancelled by a subsequent push.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/v') }}
+
+permissions:
+  contents: read
+
+env:
+  # Certificate of the release key. Every installed client pins this value; an
+  # APK signed with anything else cannot be installed as an update. Override it
+  # with a repository variable (Settings -> Variables) once a real release key
+  # exists. When it is empty the verification step is skipped.
+  EXPECTED_SIGNER_SHA256: ${{ vars.EXPECTED_SIGNER_SHA256 }}
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v6
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Check generated Snowball stemmers
+        run: |
+          sh scripts/neuro/gen_snowball.sh
+          git status --porcelain -- app/src/main/java/org/tartarus/snowball
+          test -z "$(git status --porcelain -- app/src/main/java/org/tartarus/snowball)"
+
+      # Spotless' ratchet needs a recorded base commit to diff against, and there
+      # is none here, so the check stays informative (it still runs) and does not
+      # block CI.
+      - name: Check Kotlin formatting
+        continue-on-error: true
+        run: >
+          ./gradlew spotlessCheck
+          --build-cache --stacktrace
+
+      - name: Decode Keystore
+        id: keystore
+        env:
+          RELEASE_KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$RELEASE_KEYSTORE_BASE64" ]; then
+            echo "$RELEASE_KEYSTORE_BASE64" | base64 --decode > release.keystore
+            echo "signed=true" >> "$GITHUB_OUTPUT"
+            echo "Release keystore decoded."
+          else
+            # No signing secret is configured, so fall back to an unsigned
+            # CI build instead of failing. app/build.gradle.kts sets
+            # signingConfig = null when no keystore is present.
+            echo "signed=false" >> "$GITHUB_OUTPUT"
+            echo "Release keystore secret is not available. Continuing with an unsigned CI build."
+          fi
+
+      - name: Run unit tests
+        run: >
+          ./gradlew :app:testGithubDebugUnitTest
+          --max-workers=1 --build-cache --stacktrace
+
+      # Instrumentation tests are not executed in CI, but they must still
+      # compile: breakage here otherwise lands on main unnoticed.
+      - name: Compile instrumentation tests
+        run: >
+          ./gradlew :app:compileGithubDebugAndroidTestKotlin
+          --build-cache --stacktrace
+
+      - name: Lint
+        run: >
+          ./gradlew :app:lintGithubRelease
+          --build-cache --stacktrace
+
+      - name: Build the universal APK
+        run: >
+          ./gradlew :app:assembleGithubRelease
+          --max-workers=1 --build-cache --stacktrace
+        env:
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
+          LASTFM_API_SECRET: ${{ secrets.LASTFM_API_SECRET }}
+
+      # Guards the update path: a wrong or missing key here is unrecoverable for
+      # installed users, so fail the build rather than publish. Skipped when no
+      # keystore was configured.
+      - name: Verify release signing certificate
+        if: ${{ steps.keystore.outputs.signed == 'true' && env.EXPECTED_SIGNER_SHA256 != '' }}
+        run: |
+          set -uo pipefail
+          apksigner=$(find "$ANDROID_SDK_ROOT/build-tools" -name apksigner -type f | sort -V | tail -1)
+          if [ -z "$apksigner" ]; then
+            echo "::error::apksigner was not found in the runner Android SDK."
+            exit 1
+          fi
+
+          apk=app/build/outputs/apk/github/release/app-github-release.apk
+          if [ ! -f "$apk" ]; then
+            echo "::error::Missing expected APK $apk"
+            exit 1
+          fi
+          actual=$("$apksigner" verify --print-certs "$apk" | grep -m1 'certificate SHA-256 digest' | awk '{print $NF}')
+          # apksigner prints lowercase without separators; the variable is a
+          # fingerprint with colons. Compare the hex only.
+          normalize() { tr -d ':' <<<"$1" | tr 'A-Z' 'a-z'; }
+          if [ "$(normalize "$actual")" != "$(normalize "$EXPECTED_SIGNER_SHA256")" ]; then
+            echo "::error::$(basename "$apk") is signed with '$actual', expected '$EXPECTED_SIGNER_SHA256'"
+            exit 1
+          fi
+          echo "OK $(basename "$apk") -> $actual"
+
+      - name: Name and checksum the APK
+        run: |
+          set -euo pipefail
+          version=$(grep -oP 'versionName = "\K[^"]+' app/build.gradle.kts)
+          # AGP appends "-unsigned" when no keystore is configured, so accept either.
+          apk=$(ls app/build/outputs/apk/github/release/app-github-release*.apk | head -1)
+          mkdir -p dist
+          cp "$apk" "dist/FlowTube-${version}-universal.apk"
+          (cd dist && sha256sum FlowTube-*.apk | tee checksums.txt)
+          ls -lh dist
+
+      - name: Report APK size
+        shell: bash
+        run: |
+          set -euo pipefail
+          apk=$(ls dist/FlowTube-*-universal.apk)
+          bytes=$(stat --format='%s' "$apk")
+          size=$(awk -v bytes="$bytes" 'BEGIN { printf "%.2f MiB", bytes / 1048576 }')
+          {
+            echo '## Universal APK'
+            echo
+            echo '| APK | Size | Exact bytes |'
+            echo '|---|---:|---:|'
+            printf '| `%s` | %s | %s |\n' "$(basename "$apk")" "$size" "$bytes"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the universal APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: flowtube-universal-apk
+          path: dist/FlowTube-*-universal.apk
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0
+
+      - name: Upload checksums
+        uses: actions/upload-artifact@v7
+        with:
+          name: flowtube-checksums
+          path: dist/checksums.txt
+          if-no-files-found: error
+          retention-days: 30
+
+      # Crash reports name the R8 map id in every frame; the matching mapping turns them back into
+      # source lines with retrace. Kept longer than the APK because reports arrive weeks later.
+      - name: Upload R8 mappings
+        uses: actions/upload-artifact@v7
+        with:
+          name: flowtube-r8-mappings
+          path: app/build/outputs/mapping/*/mapping.txt
+          if-no-files-found: warn
+          retention-days: 90
+
+  release:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Download the universal APK
+        uses: actions/download-artifact@v8
+        with:
+          name: flowtube-universal-apk
+          path: dist/
+
+      - name: Download checksums
+        uses: actions/download-artifact@v8
+        with:
+          name: flowtube-checksums
+          path: dist/
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+
+      - name: Validate release notes
+        env:
+          RELEASE_VERSION: ${{ steps.get_version.outputs.VERSION }}
+        run: |
+          test -s release-notes.md
+          grep -Fqx "# Flow Tube ${RELEASE_VERSION}" release-notes.md
+
+      # The in-app updater reads /releases/latest and matches the universal APK.
+      # This must stay a full release, never a prerelease, or "latest" skips it.
+      - name: Create Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ steps.get_version.outputs.VERSION }}
+          name: Flow Tube ${{ steps.get_version.outputs.VERSION }}
+          body_path: release-notes.md
+          generate_release_notes: false
+          files: |
+            dist/FlowTube-*-universal.apk
+            dist/checksums.txt
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
