@@ -15,10 +15,16 @@
 
   <p>
     <a href="https://github.com/NETO-DEV66/Flow-tub/releases/latest"><b>Download APK</b></a> ·
+    <a href="#set-up-flow-tube-no-account-no-login"><b>Set up</b></a> ·
     <a href="#build-from-source"><b>Build</b></a> ·
     <a href="privacy.md"><b>Privacy</b></a> ·
     <a href="CONTRIBUTING.md"><b>Contribute</b></a> ·
     <a href="SECURITY.md"><b>Security</b></a>
+  </p>
+
+  <p>
+    <b>No account and no login.</b> Flow Tube never asks you to sign in. You bring your own YouTube
+    data in from a Google Takeout export — <a href="#set-up-flow-tube-no-account-no-login">here is how</a>.
   </p>
 
   <p>
@@ -37,6 +43,77 @@ use the official app and get tracked, or you use an alternative and lose recomme
 Flow Tube gives you both. A recommendation engine learns what you like by analysing your watch
 behaviour **locally**. Nothing leaves your device. You can inspect everything it knows about you,
 adjust it, or wipe it at any time.
+
+---
+
+## Set up Flow Tube — no account, no login
+
+Flow Tube never asks you to sign in. There is no Google login, no password, and no cookie to hand
+over — so nothing about your Google account is ever at risk from using this app.
+
+To bring **your own** YouTube data in — subscriptions, watch history, liked videos, searches and
+playlists — you export a copy from Google and import the file. It takes about two minutes.
+
+> **Your data never leaves your phone.** The export is read on your device and written straight into
+> the app's private database. Flow Tube has no server, no analytics, and no upload of any kind.
+
+### Step 1 — Ask Google for your data
+
+1. On any browser, open **[takeout.google.com](https://takeout.google.com/)** and sign in with the
+   Google account whose YouTube data you want.
+2. Click **Deselect all** at the top. Takeout ticks every Google product by default — you only need two.
+3. Scroll down and tick **YouTube and YouTube Music**.
+4. Keep scrolling and tick **My Activity** as well.
+   - **YouTube and YouTube Music** carries your **subscriptions**, **playlists** and **watch history**.
+   - **My Activity** carries your **liked videos** and your **search history**. If you skip it, likes
+     and searches will be missing.
+5. Click **Next step**.
+6. Leave the defaults — *Send download link via email*, `.zip`, 2 GB — then click **Create export**.
+
+Google now builds the archive. That takes anywhere from a few minutes to a few hours, depending on how
+much history you have. You will get an email when it is ready.
+
+### Step 2 — Download the ZIP
+
+Open the email titled **"Your Google data is ready to download"** and click **Download**, or go back
+to [takeout.google.com](https://takeout.google.com/) → **Manage exports** → **Download**. A large
+export arrives as **several ZIP parts** — download all of them.
+
+### Step 3 — Import into Flow Tube
+
+1. Open Flow Tube.
+2. Go to **Settings → Backup & restore → Import**.
+3. Tap **Import from Google Takeout**.
+4. Pick **every ZIP** from your export and let it run. A progress line names each part as it lands:
+   *Subscriptions*, *Watch history*, *Likes and searches*, *Playlists*, *YouTube Music library*.
+
+When it finishes you get a summary of exactly what came in, for example:
+
+```
+412 subscriptions · 8,930 history entries · 1,204 likes · 6 playlists
+```
+
+### What gets imported
+
+| Your data | Where it lands in the app |
+| :--- | :--- |
+| Subscriptions | Subscriptions feed |
+| Watch history | History |
+| Liked videos | Favourites |
+| Playlists | Library → Playlists |
+| YouTube Music library | Music → Music Playlists |
+| Searches | Search suggestions |
+| Channel names and avatars | Channel pages |
+
+### Good to know
+
+- **Re-importing is safe.** Import as often as you like — nothing is duplicated.
+- **It is a snapshot.** Your Flow Tube history does not sync back to YouTube, and videos you watch
+  after the export appear only after your next export.
+- **Delete the ZIP afterwards.** It holds your entire watch history and search history — the most
+  personal file on your phone. Once the import is done, delete it.
+- **Subscriptions fetch channel avatars** from YouTube so the list looks right. That request carries a
+  public channel ID and nothing else — no account, no history, no identifier of you.
 
 ---
 
@@ -85,9 +162,10 @@ adjust it, or wipe it at any time.
 - Subscription management with cached feeds
 
 ### Privacy
-- No Google account required
+- No Google account required — no login, no password, no cookie
 - No ads, analytics, or tracking
 - All data stored locally on your device
+- Bring your own YouTube data in from a **Google Takeout** export (subscriptions, history, likes, playlists)
 - Import subscriptions and history from NewPipe
 - Export or delete everything at any time
 

@@ -3,238 +3,1374 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Flow Tube — privacy-first YouTube for Android</title>
+    <title>Flow Tube — a privacy-first YouTube client for Android</title>
     <meta
       name="description"
-      content="Flow Tube is a privacy-first YouTube and YouTube Music client for Android, with recommendations that never leave your phone."
+      content="Flow Tube is a privacy-first YouTube and YouTube Music client for Android. No login, no ads, no telemetry — recommendations run on your phone. Bring your own subscriptions, history and likes in from a Google Takeout export."
     />
+    <meta name="theme-color" content="#08080a" />
+    <meta property="og:title" content="Flow Tube — a privacy-first YouTube client for Android" />
+    <meta
+      property="og:description"
+      content="No login. No ads. No telemetry. Your recommendations never leave your phone."
+    />
+    <meta property="og:type" content="website" />
     <link rel="icon" href="logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
-        --bg: #0f0f0f;
-        --surface: #1a1a1a;
-        --surface-2: #242424;
-        --text: #f5f5f5;
-        --muted: #a8a8a8;
-        --accent: #ff0033;
-        --border: #2e2e2e;
-        --radius: 16px;
+        --bg: #08080a;
+        --bg-2: #0e0e11;
+        --panel: #131317;
+        --panel-2: #1a1a20;
+        --line: #26262e;
+        --line-soft: #1d1d23;
+        --text: #f4f4f6;
+        --muted: #9b9ba6;
+        --dim: #6c6c78;
+        --accent: #ff1f3d;
+        --accent-deep: #c4001f;
+        --accent-soft: rgba(255, 31, 61, 0.12);
+        --green: #37d67a;
+        --radius: 18px;
+        --radius-sm: 12px;
+        --display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+        --body: "Instrument Sans", system-ui, sans-serif;
+        --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
       }
-      @media (prefers-color-scheme: light) {
-        :root {
-          --bg: #fafafa;
-          --surface: #ffffff;
-          --surface-2: #f0f0f0;
-          --text: #141414;
-          --muted: #5f5f5f;
-          --border: #e2e2e2;
-        }
+
+      * {
+        box-sizing: border-box;
       }
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 84px;
+        -webkit-text-size-adjust: 100%;
+      }
       body {
         margin: 0;
         background: var(--bg);
         color: var(--text);
-        font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-family: var(--body);
+        font-size: 16.5px;
+        line-height: 1.62;
         -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
       }
-      .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
-      a { color: var(--accent); }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.3;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+      }
+      .wrap {
+        position: relative;
+        z-index: 1;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      a {
+        color: var(--text);
+      }
+      img {
+        max-width: 100%;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--display);
+        line-height: 1.06;
+        letter-spacing: -0.028em;
+        margin: 0;
+        font-weight: 800;
+      }
 
-      header {
+      /* ---------- nav ---------- */
+      header.nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: saturate(180%) blur(14px);
+        -webkit-backdrop-filter: saturate(180%) blur(14px);
+        background: rgba(8, 8, 10, 0.72);
+        border-bottom: 1px solid var(--line-soft);
+      }
+      .nav-in {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 14px 0;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        font-family: var(--display);
+        font-weight: 800;
+        font-size: 19px;
+        letter-spacing: -0.02em;
+        text-decoration: none;
+        color: var(--text);
+      }
+      .brand img {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+        display: block;
+      }
+      .nav-links {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 14.5px;
+        font-weight: 500;
+        padding: 8px 12px;
+        border-radius: 999px;
+        transition: color 0.2s, background 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+        background: var(--panel);
+      }
+      .nav-links a.gh {
+        border: 1px solid var(--line);
+        color: var(--text);
+      }
+      .nav-links a.gh:hover {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+      }
+      @media (max-width: 800px) {
+        .nav-links a:not(.gh) {
+          display: none;
+        }
+      }
+
+      /* ---------- hero ---------- */
+      .hero {
+        position: relative;
+        padding: 84px 0 72px;
+        overflow: hidden;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: -280px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1100px;
+        height: 700px;
+        background: radial-gradient(circle, rgba(255, 31, 61, 0.16), transparent 62%);
+        filter: blur(28px);
+        pointer-events: none;
+        animation: pulse 9s var(--ease) infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.75;
+          transform: translateX(-50%) scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: translateX(-50%) scale(1.08);
+        }
+      }
+      .hero-grid {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 56px;
+        align-items: center;
+      }
+      @media (max-width: 900px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+          gap: 44px;
+        }
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        border: 1px solid var(--line);
+        background: var(--panel);
+        padding: 6px 13px;
+        border-radius: 999px;
+        margin-bottom: 24px;
+      }
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green);
+        animation: ping 2.4s var(--ease) infinite;
+      }
+      @keyframes ping {
+        0% {
+          box-shadow: 0 0 0 0 rgba(55, 214, 122, 0.55);
+        }
+        70%,
+        100% {
+          box-shadow: 0 0 0 9px rgba(55, 214, 122, 0);
+        }
+      }
+      h1.title {
+        font-size: clamp(40px, 7.4vw, 74px);
+      }
+      h1.title .strike {
+        color: var(--dim);
+        text-decoration: line-through;
+        text-decoration-color: var(--accent);
+        text-decoration-thickness: 3px;
+      }
+      .lede {
+        color: var(--muted);
+        font-size: clamp(16.5px, 2vw, 19px);
+        max-width: 30em;
+        margin: 22px 0 0;
+      }
+      .cta {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 32px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 14px 26px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 15.5px;
+        text-decoration: none;
+        border: 1px solid var(--line);
+        color: var(--text);
+        background: var(--panel);
+        transition: transform 0.18s var(--ease), border-color 0.18s, background 0.18s, box-shadow 0.18s;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        border-color: var(--dim);
+      }
+      .btn.primary {
+        background: linear-gradient(180deg, var(--accent), var(--accent-deep));
+        border-color: transparent;
+        color: #fff;
+        box-shadow: 0 10px 30px -10px rgba(255, 31, 61, 0.6);
+      }
+      .btn.primary:hover {
+        box-shadow: 0 16px 40px -12px rgba(255, 31, 61, 0.75);
+      }
+      .btn svg {
+        width: 17px;
+        height: 17px;
+      }
+      .trust {
+        margin-top: 26px;
+        font-size: 13.5px;
+        color: var(--dim);
+      }
+      .trust b {
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      /* ---------- phone mock ---------- */
+      .phone {
+        position: relative;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        border-radius: 30px;
+        border: 1px solid var(--line);
+        background: linear-gradient(170deg, var(--panel-2), var(--bg-2));
+        padding: 16px;
+        box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+        animation: float 7s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+      .phone .bar {
+        height: 4px;
+        width: 52px;
+        border-radius: 999px;
+        background: var(--line);
+        margin: 2px auto 16px;
+      }
+      .np-art {
+        position: relative;
+        aspect-ratio: 1;
+        border-radius: var(--radius);
+        background: linear-gradient(135deg, #2a0d14, #12060a 55%, #1c1c26);
+        overflow: hidden;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+      }
+      .np-art::after {
+        content: "";
+        position: absolute;
+        inset: -40%;
+        background: conic-gradient(from 0deg, transparent, rgba(255, 31, 61, 0.35), transparent 40%);
+        animation: spin 7s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .np-art img {
+        position: relative;
+        width: 54px;
+        opacity: 0.95;
+      }
+      .np-meta {
+        margin-top: 16px;
+      }
+      .np-meta .t {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: 15.5px;
+        letter-spacing: -0.01em;
+      }
+      .np-meta .s {
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 2px;
+      }
+      .eq {
+        display: flex;
+        align-items: flex-end;
+        gap: 3px;
+        height: 26px;
+        margin-top: 16px;
+      }
+      .eq i {
+        flex: 1;
+        background: linear-gradient(180deg, var(--accent), var(--accent-deep));
+        border-radius: 2px;
+        animation: bounce 1.05s ease-in-out infinite;
+      }
+      .eq i:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .eq i:nth-child(2) {
+        animation-delay: 0.12s;
+      }
+      .eq i:nth-child(3) {
+        animation-delay: 0.24s;
+      }
+      .eq i:nth-child(4) {
+        animation-delay: 0.36s;
+      }
+      .eq i:nth-child(5) {
+        animation-delay: 0.48s;
+      }
+      .eq i:nth-child(6) {
+        animation-delay: 0.6s;
+      }
+      .eq i:nth-child(7) {
+        animation-delay: 0.72s;
+      }
+      .eq i:nth-child(8) {
+        animation-delay: 0.84s;
+      }
+      .eq i:nth-child(9) {
+        animation-delay: 0.96s;
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          height: 18%;
+        }
+        50% {
+          height: 100%;
+        }
+      }
+      .np-row {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 18px 0;
-        border-bottom: 1px solid var(--border);
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid var(--line-soft);
       }
-      .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 18px; }
-      .brand img { width: 34px; height: 34px; border-radius: 9px; }
-      nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 15px; }
-      nav a:hover { color: var(--text); }
-
-      .hero { text-align: center; padding: 72px 0 56px; }
-      .hero img.mark { width: 104px; height: 104px; border-radius: 24px; }
-      .hero h1 { font-size: clamp(32px, 6vw, 52px); margin: 20px 0 12px; letter-spacing: -0.02em; }
-      .hero p { font-size: clamp(16px, 2.2vw, 19px); color: var(--muted); max-width: 620px; margin: 0 auto 32px; }
-      .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-      .btn {
-        display: inline-block;
-        padding: 13px 26px;
+      .chip {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--muted);
+        border: 1px solid var(--line);
         border-radius: 999px;
-        font-weight: 600;
-        text-decoration: none;
-        border: 1px solid var(--border);
-        color: var(--text);
-        background: var(--surface);
-        transition: transform .12s ease, background .12s ease;
+        padding: 4px 9px;
       }
-      .btn:hover { transform: translateY(-1px); }
-      .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-
-      .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
-      .badges span {
-        font-size: 13px; color: var(--muted);
-        border: 1px solid var(--border); border-radius: 999px;
-        padding: 5px 13px; background: var(--surface);
+      .chip.on {
+        color: var(--green);
+        border-color: rgba(55, 214, 122, 0.35);
+        background: rgba(55, 214, 122, 0.08);
       }
 
-      section { padding: 44px 0; border-top: 1px solid var(--border); }
-      h2 { font-size: 26px; margin: 0 0 20px; letter-spacing: -0.01em; }
+      /* ---------- ticker ---------- */
+      .ticker {
+        border-top: 1px solid var(--line-soft);
+        border-bottom: 1px solid var(--line-soft);
+        padding: 16px 0;
+        overflow: hidden;
+        background: var(--bg-2);
+      }
+      .ticker-track {
+        display: flex;
+        gap: 44px;
+        width: max-content;
+        animation: slide 34s linear infinite;
+      }
+      .ticker span {
+        font-family: var(--mono);
+        font-size: 12.5px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--dim);
+        white-space: nowrap;
+      }
+      .ticker span b {
+        color: var(--muted);
+        font-weight: 500;
+      }
+      @keyframes slide {
+        to {
+          transform: translateX(-50%);
+        }
+      }
 
-      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
-      .card {
-        background: var(--surface);
-        border: 1px solid var(--border);
+      /* ---------- sections ---------- */
+      section {
+        padding: 84px 0;
+        border-bottom: 1px solid var(--line-soft);
+      }
+      .sec-head {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 12px;
+      }
+      .num {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--accent);
+        letter-spacing: 0.1em;
+        padding-top: 6px;
+      }
+      h2 {
+        font-size: clamp(28px, 4.2vw, 42px);
+      }
+      .sec-sub {
+        color: var(--muted);
+        max-width: 62ch;
+        margin: 14px 0 0;
+        font-size: 16.5px;
+      }
+
+      /* ---------- setup ---------- */
+      .callout {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 14px;
+        margin-top: 34px;
+      }
+      .facts {
+        border: 1px solid var(--line);
         border-radius: var(--radius);
+        background: var(--panel);
         padding: 20px;
       }
-      .card h3 { margin: 0 0 8px; font-size: 17px; }
-      .card p { margin: 0; color: var(--muted); font-size: 15px; }
-
-      table { width: 100%; border-collapse: collapse; font-size: 15px; }
-      th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--border); }
-      th { color: var(--muted); font-weight: 600; }
-      td code { background: var(--surface-2); padding: 2px 7px; border-radius: 6px; font-size: 13px; }
-
-      .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
-      .shots img { width: 100%; border-radius: var(--radius); border: 1px solid var(--border); }
-
-      pre {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 16px 18px;
-        overflow-x: auto;
-        font-size: 14px;
+      .facts .k {
+        font-family: var(--display);
+        font-weight: 800;
+        font-size: 30px;
+        letter-spacing: -0.03em;
+        line-height: 1;
       }
-      code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
-
-      footer {
-        padding: 40px 0 56px;
-        border-top: 1px solid var(--border);
+      .facts .k.red {
+        color: var(--accent);
+      }
+      .facts .k.green {
+        color: var(--green);
+      }
+      .facts .l {
         color: var(--muted);
         font-size: 14px;
-        text-align: center;
+        margin-top: 9px;
       }
-      footer a { color: var(--muted); }
+
+      .steps {
+        margin-top: 42px;
+        display: grid;
+        gap: 16px;
+      }
+      .step {
+        display: grid;
+        grid-template-columns: 58px 1fr;
+        gap: 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: linear-gradient(180deg, var(--panel), var(--bg-2));
+        padding: 26px 26px 26px 20px;
+        transition: border-color 0.25s, transform 0.25s var(--ease);
+      }
+      .step:hover {
+        border-color: #34343e;
+        transform: translateY(-2px);
+      }
+      .step .idx {
+        font-family: var(--display);
+        font-weight: 800;
+        font-size: 30px;
+        color: transparent;
+        -webkit-text-stroke: 1.4px var(--accent);
+        line-height: 1;
+      }
+      .step h3 {
+        font-size: 21px;
+        font-weight: 600;
+      }
+      .step p,
+      .step ul {
+        color: var(--muted);
+        font-size: 15.5px;
+        margin: 11px 0 0;
+      }
+      .step ul {
+        padding-left: 20px;
+      }
+      .step li {
+        margin: 6px 0;
+      }
+      .step li::marker {
+        color: var(--accent);
+      }
+      .kbd {
+        font-family: var(--mono);
+        font-size: 13px;
+        background: var(--panel-2);
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 2px 8px;
+        color: var(--text);
+        white-space: nowrap;
+      }
+      .go {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 16px;
+        font-family: var(--mono);
+        font-size: 13.5px;
+        color: var(--text);
+        text-decoration: none;
+        border-bottom: 1px solid var(--accent);
+        padding-bottom: 3px;
+      }
+      .go:hover {
+        color: var(--accent);
+      }
+
+      .map {
+        margin-top: 34px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: var(--panel);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 15px;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 13px 18px;
+        border-bottom: 1px solid var(--line-soft);
+      }
+      th {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: var(--dim);
+        font-weight: 500;
+        background: var(--bg-2);
+      }
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+      tbody tr:hover td {
+        background: rgba(255, 255, 255, 0.017);
+      }
+      td:first-child {
+        color: var(--muted);
+      }
+      td:last-child {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      .note {
+        margin-top: 26px;
+        border-left: 2px solid var(--accent);
+        background: var(--accent-soft);
+        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        padding: 18px 22px;
+        color: var(--muted);
+        font-size: 15.5px;
+      }
+      .note b {
+        color: var(--text);
+      }
+
+      /* ---------- features ---------- */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+        gap: 14px;
+        margin-top: 40px;
+      }
+      .card {
+        position: relative;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel);
+        padding: 24px;
+        overflow: hidden;
+        transition: border-color 0.25s, transform 0.25s var(--ease);
+      }
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), transparent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s var(--ease);
+      }
+      .card:hover {
+        border-color: #34343e;
+        transform: translateY(-3px);
+      }
+      .card:hover::before {
+        transform: scaleX(1);
+      }
+      .card h3 {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .card p {
+        color: var(--muted);
+        font-size: 15px;
+        margin: 10px 0 0;
+      }
+      .card ul {
+        color: var(--muted);
+        font-size: 14.5px;
+        margin: 12px 0 0;
+        padding-left: 18px;
+      }
+      .card li {
+        margin: 5px 0;
+      }
+      .card li::marker {
+        color: var(--accent);
+      }
+
+      /* ---------- screenshots ---------- */
+      .shots {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+        gap: 14px;
+        margin-top: 38px;
+      }
+      .shot {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        background: var(--panel);
+        transition: transform 0.3s var(--ease), border-color 0.3s;
+      }
+      .shot:hover {
+        transform: translateY(-5px) scale(1.02);
+        border-color: var(--dim);
+      }
+      .shot img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 9 / 16;
+        object-fit: cover;
+      }
+      .shot figcaption {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--dim);
+        padding: 10px 12px;
+      }
+
+      /* ---------- download / build ---------- */
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        margin-top: 38px;
+      }
+      @media (max-width: 820px) {
+        .split {
+          grid-template-columns: 1fr;
+        }
+      }
+      .box {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel);
+        padding: 26px;
+      }
+      .box h3 {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .box p {
+        color: var(--muted);
+        font-size: 15px;
+        margin: 10px 0 0;
+      }
+      pre {
+        margin: 18px 0 0;
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 16px 18px;
+        overflow-x: auto;
+        font-family: var(--mono);
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+      pre .c {
+        color: var(--dim);
+      }
+      code {
+        font-family: var(--mono);
+        font-size: 0.92em;
+      }
+      p code,
+      li code,
+      td code {
+        background: var(--panel-2);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 1px 6px;
+      }
+      .finger {
+        margin-top: 16px;
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--dim);
+        word-break: break-all;
+        line-height: 1.6;
+      }
+
+      /* ---------- footer ---------- */
+      footer {
+        padding: 60px 0 72px;
+        color: var(--dim);
+        font-size: 14px;
+      }
+      footer .cols {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 28px;
+        margin-bottom: 40px;
+      }
+      footer h4 {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 12px;
+        font-weight: 500;
+      }
+      footer ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      footer li {
+        margin: 8px 0;
+      }
+      footer a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+      footer a:hover {
+        color: var(--text);
+      }
+      footer .fine {
+        border-top: 1px solid var(--line-soft);
+        padding-top: 26px;
+        line-height: 1.75;
+        font-size: 13px;
+      }
+
+      /* ---------- reveal ---------- */
+      /* Only hide when JS is available, so the page still reads with JS disabled. */
+      .js .reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        transition-delay: var(--d, 0ms);
+      }
+      .js .reveal.in {
+        opacity: 1;
+        transform: none;
+      }
+      :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 6px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+      }
     </style>
   </head>
   <body>
-    <div class="wrap">
-      <header>
-        <div class="brand"><img src="logo.png" alt="" />Flow Tube</div>
-        <nav>
+    <header class="nav">
+      <div class="wrap nav-in">
+        <a class="brand" href="#top"><img src="logo.png" alt="" />Flow Tube</a>
+        <nav class="nav-links">
+          <a href="#setup">Set up</a>
           <a href="#features">Features</a>
+          <a href="#screens">Screens</a>
           <a href="#download">Download</a>
-          <a href="#build">Build</a>
-          <a href="https://github.com/NETO-DEV66/Flow-tub">GitHub</a>
+          <a class="gh" href="https://github.com/NETO-DEV66/Flow-tub">GitHub</a>
         </nav>
-      </header>
+      </div>
+    </header>
 
-      <section class="hero" style="border-top: none">
-        <img class="mark" src="logo.png" alt="Flow Tube" />
-        <h1>YouTube, without the tracking</h1>
-        <p>
-          A privacy-first YouTube and YouTube Music client for Android, with a recommendation
-          engine that runs entirely on your phone. No account, no analytics, no data leaves your device.
-        </p>
-        <div class="cta">
-          <a class="btn primary" href="https://github.com/NETO-DEV66/Flow-tub/releases/latest">Download APK</a>
-          <a class="btn" href="https://github.com/NETO-DEV66/Flow-tub">View source</a>
-        </div>
-        <div class="badges">
-          <span>Android 8.0+</span>
-          <span>GPL-3.0</span>
-          <span>Kotlin · Compose · Media3</span>
-          <span>No ads</span>
-          <span>No telemetry</span>
+    <main id="top">
+      <!-- ============ HERO ============ -->
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div>
+            <span class="eyebrow"><span class="dot"></span>No login · No ads · No telemetry</span>
+            <h1 class="title">YouTube,<br />without the <span class="strike">tracking</span>.</h1>
+            <p class="lede">
+              A privacy-first YouTube and YouTube Music client for Android. The recommendation engine
+              runs entirely on your phone, and your watch history never leaves it.
+            </p>
+            <div class="cta">
+              <a class="btn primary" href="https://github.com/NETO-DEV66/Flow-tub/releases/latest">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12" /><path d="m7 10 5 5 5-5" /><path d="M5 21h14" /></svg>
+                Download the APK
+              </a>
+              <a class="btn" href="#setup">Bring your data in</a>
+            </div>
+            <p class="trust"><b>One universal APK</b> · Android 8.0+ · GPL-3.0 · ~23 MB</p>
+          </div>
+
+          <div class="phone" aria-hidden="true">
+            <div class="bar"></div>
+            <div class="np-art"><img src="logo.png" alt="" /></div>
+            <div class="np-meta">
+              <div class="t">Now playing</div>
+              <div class="s">On-device recommendations</div>
+            </div>
+            <div class="eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="np-row">
+              <span class="chip on">No account</span>
+              <span class="chip">SponsorBlock</span>
+            </div>
+          </div>
         </div>
       </section>
 
+      <!-- ============ TICKER ============ -->
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span><b>SponsorBlock</b> · skips the sponsor reads</span>
+          <span><b>DeArrow</b> · ends clickbait</span>
+          <span><b>Return YouTube Dislike</b></span>
+          <span><b>Background play</b></span>
+          <span><b>Picture-in-Picture</b></span>
+          <span><b>Casting</b> to your TV</span>
+          <span><b>Downloads</b> · VP9 / AV1</span>
+          <span><b>Synced lyrics</b></span>
+          <span><b>11 themes</b></span>
+          <span><b>TV interface</b></span>
+          <span><b>SponsorBlock</b> · skips the sponsor reads</span>
+          <span><b>DeArrow</b> · ends clickbait</span>
+          <span><b>Return YouTube Dislike</b></span>
+          <span><b>Background play</b></span>
+          <span><b>Picture-in-Picture</b></span>
+          <span><b>Casting</b> to your TV</span>
+          <span><b>Downloads</b> · VP9 / AV1</span>
+          <span><b>Synced lyrics</b></span>
+          <span><b>11 themes</b></span>
+          <span><b>TV interface</b></span>
+        </div>
+      </div>
+
+      <!-- ============ SETUP ============ -->
+      <section id="setup">
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <span class="num">01</span>
+            <h2>Set up — no account, no login</h2>
+          </div>
+          <p class="sec-sub reveal" style="--d: 60ms">
+            Flow Tube never asks you to sign in. There is no Google login, no password, and no cookie to
+            hand over — so nothing about your Google account is ever at risk. Instead, you export a copy
+            of your own YouTube data and import the file. It takes about two minutes.
+          </p>
+
+          <div class="callout">
+            <div class="facts reveal" style="--d: 100ms">
+              <div class="k green">0</div>
+              <div class="l">logins, passwords or cookies ever requested</div>
+            </div>
+            <div class="facts reveal" style="--d: 160ms">
+              <div class="k">2 min</div>
+              <div class="l">to export your data and import it</div>
+            </div>
+            <div class="facts reveal" style="--d: 220ms">
+              <div class="k red">100%</div>
+              <div class="l">of the import happens on your device</div>
+            </div>
+          </div>
+
+          <div class="steps">
+            <article class="step reveal">
+              <div class="idx">1</div>
+              <div>
+                <h3>Ask Google for your data</h3>
+                <p>
+                  Open <a href="https://takeout.google.com/"><b>takeout.google.com</b></a> in any
+                  browser and sign in with the Google account whose YouTube data you want.
+                </p>
+                <ul>
+                  <li>Click <span class="kbd">Deselect all</span> — Takeout ticks every Google product by default.</li>
+                  <li>Tick <span class="kbd">YouTube and YouTube Music</span> — this carries your <b>subscriptions</b>, <b>playlists</b> and <b>watch history</b>.</li>
+                  <li>Tick <span class="kbd">My Activity</span> as well — this is where your <b>liked videos</b> and <b>search history</b> live. Skip it and likes will be missing.</li>
+                  <li>Click <span class="kbd">Next step</span>, leave the defaults (email link, <code>.zip</code>, 2 GB) and click <span class="kbd">Create export</span>.</li>
+                </ul>
+                <a class="go" href="https://takeout.google.com/">
+                  Open Google Takeout
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg>
+                </a>
+              </div>
+            </article>
+
+            <article class="step reveal">
+              <div class="idx">2</div>
+              <div>
+                <h3>Wait, then download the ZIP</h3>
+                <p>
+                  Google builds the archive in the background — minutes to a few hours depending on how
+                  much history you have. You get an email titled
+                  <i>“Your Google data is ready to download”</i> with a <b>Download</b> button, or you can
+                  return to Takeout → <span class="kbd">Manage exports</span> → <b>Download</b>.
+                </p>
+                <ul>
+                  <li>A large export arrives as <b>several ZIP parts</b>. Download all of them.</li>
+                  <li>Keep them together — Flow Tube reads every part of one export.</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="step reveal">
+              <div class="idx">3</div>
+              <div>
+                <h3>Import it into Flow Tube</h3>
+                <ul>
+                  <li>Open Flow Tube → <span class="kbd">Settings</span> → <span class="kbd">Backup &amp; restore</span> → <span class="kbd">Import</span>.</li>
+                  <li>Tap <span class="kbd">Import from Google Takeout</span>.</li>
+                  <li>Select <b>every ZIP</b> from your export and let it run. The progress line names each part as it lands: <i>Subscriptions</i>, <i>Watch history</i>, <i>Likes and searches</i>, <i>Playlists</i>, <i>YouTube Music library</i>.</li>
+                </ul>
+                <p>When it finishes you get a summary of exactly what came in:</p>
+                <pre><span class="c"># example result</span>
+412 subscriptions · 8,930 history entries · 1,204 likes · 6 playlists</pre>
+              </div>
+            </article>
+          </div>
+
+          <div class="map reveal">
+            <table>
+              <thead>
+                <tr><th>Your data</th><th>Where it lands in the app</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Subscriptions</td><td>Subscriptions feed</td></tr>
+                <tr><td>Watch history</td><td>History</td></tr>
+                <tr><td>Liked videos</td><td>Favourites</td></tr>
+                <tr><td>Playlists</td><td>Library → Playlists</td></tr>
+                <tr><td>YouTube Music library</td><td>Music → Music Playlists</td></tr>
+                <tr><td>Searches</td><td>Search suggestions</td></tr>
+                <tr><td>Channel names and avatars</td><td>Channel pages</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="note reveal">
+            <p style="margin: 0">
+              <b>Your data never leaves your phone.</b> The export is read on your device and written
+              straight into the app's private database. Flow Tube has no server, no analytics and no
+              upload of any kind.
+            </p>
+            <p style="margin: 14px 0 0">
+              <b>Delete the ZIP afterwards.</b> It holds your entire watch and search history — the most
+              personal file on your phone. Once the import is done, remove it. Re-importing later is safe
+              and never duplicates anything.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ FEATURES ============ -->
       <section id="features">
-        <h2>What you get</h2>
-        <div class="grid">
-          <div class="card">
-            <h3>On-device recommendations</h3>
-            <p>Learns from what you watch, skip, and like — entirely offline. Inspect it, adjust it, or wipe it.</p>
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <span class="num">02</span>
+            <h2>What you get</h2>
           </div>
-          <div class="card">
-            <h3>Video that behaves</h3>
-            <p>Resolution switching, SponsorBlock, DeArrow, background play, PiP, casting, gestures, and downloads.</p>
-          </div>
-          <div class="card">
-            <h3>A real music player</h3>
-            <p>Album art, queue control, shuffle and repeat, synced lyrics, and a persistent mini player.</p>
-          </div>
-          <div class="card">
-            <h3>Local library</h3>
-            <p>Watch history, favourites, playlists, a Shorts feed, and cached subscription feeds.</p>
-          </div>
-          <div class="card">
-            <h3>Private by default</h3>
-            <p>No Google account, no trackers. Import from NewPipe, export or delete everything anytime.</p>
-          </div>
-          <div class="card">
-            <h3>Made to look good</h3>
-            <p>Eleven themes, Material 3 throughout, a home-screen widget, and a TV interface.</p>
+          <p class="sec-sub reveal" style="--d: 60ms">
+            A full-featured client built with Kotlin, Jetpack Compose and Media3 — not a web wrapper.
+          </p>
+
+          <div class="cards">
+            <div class="card reveal">
+              <h3>On-device recommendations</h3>
+              <p>Learns from what you watch, skip, like and search for — entirely offline. Inspect it, adjust it, or wipe it.</p>
+              <ul>
+                <li>Weekday vs weekend, morning vs night patterns</li>
+                <li>Detects topic boredom and mixes in new content</li>
+                <li>Transparency dashboard — see why something was recommended</li>
+              </ul>
+            </div>
+            <div class="card reveal" style="--d: 60ms">
+              <h3>Video that behaves</h3>
+              <ul>
+                <li>Resolution switching up to 1080p</li>
+                <li>SponsorBlock — skips sponsors, intros, outros, filler</li>
+                <li>DeArrow — replaces clickbait thumbnails and titles</li>
+                <li>Return YouTube Dislike</li>
+                <li>Background play and Picture-in-Picture</li>
+                <li>Casting to smart TVs and streaming sticks</li>
+                <li>Gesture controls for brightness, volume and seeking</li>
+                <li>Downloads with VP9, AV1 and standard formats</li>
+              </ul>
+            </div>
+            <div class="card reveal" style="--d: 120ms">
+              <h3>A real music player</h3>
+              <ul>
+                <li>Album art and audio visualisations</li>
+                <li>Queue management with add, remove, reorder</li>
+                <li>Shuffle and repeat</li>
+                <li>Synchronised lyrics</li>
+                <li>Persistent mini player across the app</li>
+              </ul>
+            </div>
+            <div class="card reveal" style="--d: 180ms">
+              <h3>Library that stays local</h3>
+              <ul>
+                <li>Watch history, favourites and custom playlists</li>
+                <li>Shorts feed with bookmarking</li>
+                <li>Continue-watching shelf</li>
+                <li>Subscription management with cached feeds</li>
+              </ul>
+            </div>
+            <div class="card reveal" style="--d: 240ms">
+              <h3>Private by default</h3>
+              <ul>
+                <li>No Google account, login or cookie</li>
+                <li>No ads, analytics or tracking SDKs</li>
+                <li>All data in app-private local storage</li>
+                <li>Bring your own data in from Google Takeout</li>
+                <li>Export or delete everything at any time</li>
+              </ul>
+            </div>
+            <div class="card reveal" style="--d: 300ms">
+              <h3>Made to look good</h3>
+              <ul>
+                <li>11 themes, including OLED black</li>
+                <li>Material 3 throughout</li>
+                <li>Home-screen now-playing widget</li>
+                <li>Adaptive navigation rail and a TV interface</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
+      <!-- ============ SCREENS ============ -->
+      <section id="screens">
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <span class="num">03</span>
+            <h2>Screens</h2>
+          </div>
+          <p class="sec-sub reveal" style="--d: 60ms">
+            Built entirely in Jetpack Compose, in both video and music modes.
+          </p>
+          <div class="shots">
+            <figure class="shot reveal" style="margin: 0">
+              <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/Home.jpeg" alt="Home feed" loading="lazy" />
+              <figcaption>Home feed</figcaption>
+            </figure>
+            <figure class="shot reveal" style="margin: 0; --d: 50ms">
+              <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/VideoPlayer.jpeg" alt="Video player" loading="lazy" />
+              <figcaption>Video player</figcaption>
+            </figure>
+            <figure class="shot reveal" style="margin: 0; --d: 100ms">
+              <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/MusicPlayer.jpeg" alt="Music player" loading="lazy" />
+              <figcaption>Music player</figcaption>
+            </figure>
+            <figure class="shot reveal" style="margin: 0; --d: 150ms">
+              <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/Music.jpeg" alt="Music hub" loading="lazy" />
+              <figcaption>Music hub</figcaption>
+            </figure>
+            <figure class="shot reveal" style="margin: 0; --d: 200ms">
+              <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/Library.jpeg" alt="Library" loading="lazy" />
+              <figcaption>Your library</figcaption>
+            </figure>
+            <figure class="shot reveal" style="margin: 0; --d: 250ms">
+              <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/Shorts.jpeg" alt="Shorts" loading="lazy" />
+              <figcaption>Shorts</figcaption>
+            </figure>
+            <figure class="shot reveal" style="margin: 0; --d: 300ms">
+              <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/Subscriptions.jpeg" alt="Subscriptions" loading="lazy" />
+              <figcaption>Subscriptions</figcaption>
+            </figure>
+            <figure class="shot reveal" style="margin: 0; --d: 350ms">
+              <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/Channel.jpeg" alt="Channel" loading="lazy" />
+              <figcaption>Channel</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ DOWNLOAD ============ -->
       <section id="download">
-        <h2>Download</h2>
-        <p style="color: var(--muted); margin-top: -8px">
-          Every release ships one universal APK. It carries both 32-bit and 64-bit ARM code, so it installs on every supported device.
-        </p>
-        <table>
-          <thead>
-            <tr><th>APK</th><th>Size</th><th>Devices</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><code>FlowTube-vX.Y.Z-universal.apk</code></td><td>~23 MB</td><td>Every supported phone and tablet</td></tr>
-          </tbody>
-        </table>
-        <p style="color: var(--muted)">
-          The app also updates itself: it checks for a new release and installs it after you confirm.
-        </p>
-      </section>
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <span class="num">04</span>
+            <h2>Download</h2>
+          </div>
+          <p class="sec-sub reveal" style="--d: 60ms">
+            Every release ships one universal APK with both 32-bit and 64-bit ARM code, so there is no
+            ABI to choose. The app also updates itself — it checks for a new release and installs it
+            after you confirm.
+          </p>
 
-      <section id="screenshots">
-        <h2>Screenshots</h2>
-        <div class="shots">
-          <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/Home.jpeg" alt="Home feed" />
-          <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/VideoPlayer.jpeg" alt="Video player" />
-          <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/MusicPlayer.jpeg" alt="Music player" />
-          <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/Library.jpeg" alt="Library" />
-          <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/Shorts.jpeg" alt="Shorts" />
-          <img src="https://raw.githubusercontent.com/NETO-DEV66/Flow-tub/main/Assets/Subscriptions.jpeg" alt="Subscriptions" />
+          <div class="split">
+            <div class="box reveal">
+              <h3>Get the latest build</h3>
+              <p>
+                Signed with the same key every time, so a new release installs straight over the old one
+                without losing your data.
+              </p>
+              <div class="cta" style="margin-top: 20px">
+                <a class="btn primary" href="https://github.com/NETO-DEV66/Flow-tub/releases/latest">Download APK</a>
+                <a class="btn" href="https://github.com/NETO-DEV66/Flow-tub/releases">All releases</a>
+              </div>
+              <p style="margin-top: 18px; font-size: 14px">
+                <code>FlowTube-vX.Y.Z-universal.apk</code> · ~23 MB · Android 8.0+
+              </p>
+            </div>
+
+            <div class="box reveal" style="--d: 80ms">
+              <h3>Verify what you downloaded</h3>
+              <p>Each release publishes a <code>checksums.txt</code> next to the APK.</p>
+              <pre>sha256sum -c checksums.txt
+
+apksigner verify --print-certs \
+  FlowTube-vX.Y.Z-universal.apk</pre>
+              <p class="finger">
+                SHA-256 of the signing certificate:<br />
+                DF:F2:DC:23:A3:59:FA:73:2E:7C:38:C2:26:E4:C0:2F:7C:BE:21:9E:C6:C9:F7:FC:A7:E6:14:07:05:57:58:99
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
+      <!-- ============ BUILD ============ -->
       <section id="build">
-        <h2>Build from source</h2>
-        <p style="color: var(--muted); margin-top: -8px">You need JDK 17+ and the Android SDK (API 37).</p>
-        <pre><code>git clone https://github.com/NETO-DEV66/Flow-tub.git
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <span class="num">05</span>
+            <h2>Build from source</h2>
+          </div>
+          <p class="sec-sub reveal" style="--d: 60ms">
+            You need JDK 21 and the Android SDK (platform <code>android-37.0</code>, build-tools
+            <code>37.0.0</code>). One product flavour exists: <code>github</code> — always use
+            flavour-prefixed tasks.
+          </p>
+
+          <div class="split">
+            <div class="box reveal">
+              <h3>Compile it</h3>
+              <pre>git clone https://github.com/NETO-DEV66/Flow-tub.git
 cd Flow-tub
 
-# Debug build
+<span class="c"># debug</span>
 ./gradlew :app:assembleGithubDebug
 
-# Release build — the single universal APK
-./gradlew :app:assembleGithubRelease</code></pre>
-        <p style="color: var(--muted)">Output lands in <code>app/build/outputs/apk/github/release/</code>.</p>
-      </section>
+<span class="c"># release — the universal APK</span>
+./gradlew :app:assembleGithubRelease</pre>
+              <p>Output lands in <code>app/build/outputs/apk/github/release/</code>.</p>
+            </div>
 
-      <footer>
-        <p>
-          Flow Tube is free software under the
-          <a href="https://github.com/NETO-DEV66/Flow-tub/blob/main/License">GNU GPL v3</a>.
-        </p>
-        <p>A rebranded fork of <a href="https://github.com/Flow-Tube/Flow">Flow</a>; upstream copyright is retained as the licence requires.</p>
-        <p>Not affiliated with, endorsed by, or sponsored by Google LLC or YouTube. "YouTube" and "YouTube Music" are trademarks of Google LLC.</p>
-      </footer>
-    </div>
+            <div class="box reveal" style="--d: 80ms">
+              <h3>Under the hood</h3>
+              <ul style="color: var(--muted); font-size: 15px; padding-left: 18px; margin: 12px 0 0">
+                <li><b style="color: var(--text)">Kotlin</b> with Jetpack Compose and Material 3</li>
+                <li><b style="color: var(--text)">Hilt</b> for dependency injection</li>
+                <li><b style="color: var(--text)">Media3 / ExoPlayer</b> for playback</li>
+                <li><b style="color: var(--text)">Room</b> and DataStore for local data</li>
+                <li><b style="color: var(--text)">InnerTube</b> client with a NewPipeExtractor fallback</li>
+                <li><b style="color: var(--text)">Glance</b> for the home-screen widget</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <div class="cols">
+          <div>
+            <h4>Flow Tube</h4>
+            <ul>
+              <li><a href="#setup">Set up</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#download">Download</a></li>
+              <li><a href="#build">Build from source</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Project</h4>
+            <ul>
+              <li><a href="https://github.com/NETO-DEV66/Flow-tub">Source code</a></li>
+              <li><a href="https://github.com/NETO-DEV66/Flow-tub/releases">Releases</a></li>
+              <li><a href="https://github.com/NETO-DEV66/Flow-tub/blob/main/CONTRIBUTING.md">Contributing</a></li>
+              <li><a href="https://github.com/NETO-DEV66/Flow-tub/blob/main/SECURITY.md">Security</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Your data</h4>
+            <ul>
+              <li><a href="https://takeout.google.com/">Google Takeout</a></li>
+              <li><a href="https://github.com/NETO-DEV66/Flow-tub/blob/main/privacy.md">Privacy</a></li>
+              <li><a href="https://github.com/NETO-DEV66/Flow-tub/blob/main/License">Licence (GPL-3.0)</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="fine">
+          <p>
+            Flow Tube is free software under the
+            <a href="https://github.com/NETO-DEV66/Flow-tub/blob/main/License">GNU General Public License v3</a>.
+            It is a rebranded fork of <a href="https://github.com/Flow-Tube/Flow">Flow</a>; upstream
+            copyright is retained as the licence requires.
+          </p>
+          <p>
+            Not affiliated with, endorsed by, or sponsored by Google LLC or YouTube. "YouTube" and
+            "YouTube Music" are trademarks of Google LLC, used only to describe what the app can play.
+            Flow Tube ships no content of its own and has no Google account, login or cookie of any kind.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        document.documentElement.classList.add("js");
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var items = document.querySelectorAll(".reveal");
+        if (reduce || !("IntersectionObserver" in window)) {
+          items.forEach(function (el) {
+            el.classList.add("in");
+          });
+          return;
+        }
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add("in");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+        );
+        items.forEach(function (el) {
+          io.observe(el);
+        });
+
+        // Safety net: if anything is still hidden shortly after load (observer never fired for it),
+        // reveal it. Keeps the page readable rather than blank.
+        setTimeout(function () {
+          items.forEach(function (el) {
+            var r = el.getBoundingClientRect();
+            if (r.top < window.innerHeight && r.bottom > 0) el.classList.add("in");
+          });
+        }, 900);
+      })();
+    </script>
   </body>
 </html>
