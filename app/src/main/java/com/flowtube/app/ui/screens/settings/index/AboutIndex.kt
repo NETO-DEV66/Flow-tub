@@ -28,7 +28,8 @@ internal object AboutIndex {
     val license = entry("license", R.string.about_license, R.string.section_legal, R.string.about_license_name)
     val newPipe = entry("newpipe", R.string.newpipe_extractor_title, R.string.section_legal, R.string.newpipe_extractor_subtitle)
     val notices = entry("notices", R.string.about_notices, R.string.section_legal, R.string.about_notices_summary)
+    val disclaimer = entry("disclaimer", R.string.about_disclaimer, R.string.section_legal, R.string.about_disclaimer_summary)
     val deviceInfo = entry("device_info", R.string.about_device_info, R.string.section_device)
 
-    val all = listOf(changelog, website, github, creator, license, newPipe, notices, deviceInfo)
+    val all = listOf(changelog, website, github, creator, license, newPipe, notices, disclaimer, deviceInfo)
 }

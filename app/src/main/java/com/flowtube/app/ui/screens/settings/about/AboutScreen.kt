@@ -14,6 +14,7 @@ import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Extension
 import androidx.compose.material.icons.outlined.Gavel
 import androidx.compose.material.icons.outlined.History
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Public
 import androidx.compose.material.icons.outlined.Smartphone
@@ -45,14 +46,14 @@ import com.flowtube.app.ui.components.settings.SettingsPage
 import com.flowtube.app.ui.components.settings.nav
 import com.flowtube.app.ui.screens.settings.index.AboutIndex
 
-private enum class AboutDialog { CHANGELOG, DEVICE, NOTICES }
+private enum class AboutDialog { CHANGELOG, DEVICE, NOTICES, DISCLAIMER }
 
-private const val WEBSITE_URL = "https://github.com/mrvoidxin/Flow-tub"
-private const val GITHUB_URL = "https://github.com/mrvoidxin/Flow-tub"
-private const val CREATOR_URL = "https://github.com/mrvoidxin"
+private const val WEBSITE_URL = "https://github.com/NETO-DEV66/Flow-tub"
+private const val GITHUB_URL = "https://github.com/NETO-DEV66/Flow-tub"
+private const val CREATOR_URL = "https://github.com/NETO-DEV66"
 private const val NEWPIPE_URL = "https://github.com/TeamNewPipe/NewPipeExtractor"
-private const val LICENSE_URL = "https://github.com/mrvoidxin/Flow-tub/blob/main/License"
-private const val CREATOR_AVATAR_URL = "https://github.com/mrvoidxin.png?size=144"
+private const val LICENSE_URL = "https://github.com/NETO-DEV66/Flow-tub/blob/main/License"
+private const val CREATOR_AVATAR_URL = "https://github.com/NETO-DEV66.png?size=144"
 
 private val LogoSize = 72.dp
 private val HeaderPadding = 24.dp
@@ -89,6 +90,7 @@ internal fun AboutScreen(
             nav(AboutIndex.license, icon = Icons.Outlined.Description, showChevron = false, onClick = { open(LICENSE_URL) })
             nav(AboutIndex.newPipe, icon = Icons.Outlined.Extension, showChevron = false, onClick = { open(NEWPIPE_URL) })
             nav(AboutIndex.notices, icon = Icons.Outlined.Gavel, showChevron = false, onClick = { dialog = AboutDialog.NOTICES })
+            nav(AboutIndex.disclaimer, icon = Icons.Outlined.Info, showChevron = false, onClick = { dialog = AboutDialog.DISCLAIMER })
         }
         group(key = "about.device", header = R.string.section_device) {
             nav(
@@ -105,6 +107,7 @@ internal fun AboutScreen(
         AboutDialog.CHANGELOG -> ChangelogSheet(onDismiss = { dialog = null })
         AboutDialog.DEVICE -> DeviceInfoDialog(onDismiss = { dialog = null })
         AboutDialog.NOTICES -> NoticesDialog(onDismiss = { dialog = null })
+        AboutDialog.DISCLAIMER -> DisclaimerDialog(onDismiss = { dialog = null })
         null -> Unit
     }
 }

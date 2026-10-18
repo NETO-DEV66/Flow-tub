@@ -20,6 +20,7 @@ import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Extension
 import androidx.compose.material.icons.outlined.Forum
 import androidx.compose.material.icons.outlined.History
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Public
 import androidx.compose.material.icons.outlined.Tv
@@ -29,6 +30,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -37,14 +42,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.flowtube.app.BuildConfig
 import com.flowtube.app.R
+import com.flowtube.app.ui.screens.settings.about.DisclaimerDialog
 import com.flowtube.app.ui.tv.components.TvNavRow
 import com.flowtube.app.ui.tv.components.TvSectionHeader
 import com.flowtube.app.ui.tv.focus.ProvideTvColumnPivot
 
-private const val FLOW_WEBSITE_URL = "https://github.com/mrvoidxin/Flow-tub"
-private const val FLOW_RELEASES_URL = "https://github.com/mrvoidxin/Flow-tub/releases"
-private const val FLOW_GITHUB_URL = "https://github.com/mrvoidxin/Flow-tub"
-private const val FLOW_CREATOR_URL = "https://github.com/mrvoidxin"
+private const val FLOW_WEBSITE_URL = "https://github.com/NETO-DEV66/Flow-tub"
+private const val FLOW_RELEASES_URL = "https://github.com/NETO-DEV66/Flow-tub/releases"
+private const val FLOW_GITHUB_URL = "https://github.com/NETO-DEV66/Flow-tub"
+private const val FLOW_CREATOR_URL = "https://github.com/NETO-DEV66"
 private const val FLOW_LICENSE_URL = "https://www.gnu.org/licenses/gpl-3.0.html"
 private const val NEWPIPE_EXTRACTOR_URL = "https://github.com/TeamNewPipe/NewPipeExtractor"
 
@@ -52,6 +58,11 @@ private const val NEWPIPE_EXTRACTOR_URL = "https://github.com/TeamNewPipe/NewPip
 @Composable
 fun TvAboutSettingsPane(modifier: Modifier = Modifier) {
     val context = LocalContext.current
+    var showDisclaimer by remember { mutableStateOf(false) }
+
+    if (showDisclaimer) {
+        DisclaimerDialog(onDismiss = { showDisclaimer = false })
+    }
 
     ProvideTvColumnPivot {
         LazyColumn(
@@ -119,6 +130,14 @@ fun TvAboutSettingsPane(modifier: Modifier = Modifier) {
                     supportingText = stringResource(R.string.newpipe_extractor_subtitle),
                     leadingIcon = Icons.Outlined.Extension,
                     onClick = { context.openUrl(NEWPIPE_EXTRACTOR_URL) },
+                )
+            }
+            item(key = "disclaimer") {
+                TvNavRow(
+                    label = stringResource(R.string.about_disclaimer),
+                    supportingText = stringResource(R.string.about_disclaimer_summary),
+                    leadingIcon = Icons.Outlined.Info,
+                    onClick = { showDisclaimer = true },
                 )
             }
 
