@@ -21,3 +21,5 @@ Features:
 - Swipe gesture controls for volume and brightness
 - Modern Material 3 interface
 - Export and backup your local algorithm data
+
+Flow Tube is an independent, open-source project. It is not affiliated with, endorsed by, sponsored by, or approved by Google LLC or YouTube. "YouTube" and "YouTube Music" are trademarks of Google LLC, used only to describe what the app can play. The app ships no content of its own.

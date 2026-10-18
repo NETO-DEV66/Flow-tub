@@ -20,6 +20,11 @@
     <a href="CONTRIBUTING.md"><b>Contribute</b></a> ·
     <a href="SECURITY.md"><b>Security</b></a>
   </p>
+
+  <p>
+    <sub>Not affiliated with, endorsed by, or sponsored by Google LLC or YouTube. "YouTube" and
+    "YouTube Music" are trademarks of Google LLC.</sub>
+  </p>
 </div>
 
 ---
@@ -288,8 +293,14 @@ For security issues, follow [SECURITY.md](SECURITY.md) instead of opening a publ
 
 ## Acknowledgements
 
-Flow Tube builds on excellent open-source work:
+Flow Tube is a rebranded fork of **[Flow](https://github.com/Flow-Tube/Flow)** (`io.github.aedev.flow`),
+a GPL-3.0 Android YouTube and YouTube Music client. The upstream project and its authors retain the
+copyright on the code this project derives from, and their notices are kept as the GPL requires.
 
+It also builds on excellent open-source work:
+
+- **[Flow](https://github.com/Flow-Tube/Flow)** — the upstream Android client this project is forked from.
+- **[Flow Desktop](https://github.com/Flow-Tube/Flow-Desktop)** — the desktop counterpart whose sync format and recommendation model this app mirrors.
 - **[NewPipeExtractor](https://github.com/TeamNewPipe/NewPipeExtractor)** — the fallback data extraction path.
 - **[NewPipe](https://github.com/TeamNewPipe/NewPipe)** — inspiration for YouTube data handling.
 - **[PipePipe](https://codeberg.org/NullPointerException/PipePipe)** — guidance on the SABR and InnerTube playback pipeline.
@@ -300,14 +311,28 @@ Flow Tube builds on excellent open-source work:
 
 ---
 
+## Disclaimer
+
+Flow Tube is an independent, open-source client. It is **not affiliated with, endorsed by, sponsored
+by, or approved by Google LLC or YouTube**. "YouTube" and "YouTube Music" are trademarks of Google LLC,
+used here only to describe what the app can play.
+
+The app ships no content of its own. Everything it streams or downloads comes from third-party services,
+belongs to its respective owners, and is accessed at your own risk, subject to the terms of service of
+the platform you use. Downloading content may be restricted by those terms in your region.
+
+Screenshots in this README are for illustration only.
+
+---
+
 ## License
 
 Flow Tube is free software, distributed under the **GNU General Public License v3 (GPLv3)**. You may
 use, study, share, and improve it.
 
-This project is a rebranded fork. The upstream code is copyright © 2025-2026 its original authors,
-and that notice is retained as the GPL requires. Any project that reuses this source must also be
-released as open source under the GPLv3 — you may not ship it in a proprietary or closed-source
-application.
+This project is a rebranded fork of [Flow](https://github.com/Flow-Tube/Flow). The upstream code is
+copyright © 2025-2026 the Flow authors, and that notice is retained as the GPL requires. Any project
+that reuses this source must also be released as open source under the GPLv3 — you may not ship it in
+a proprietary or closed-source application.
 
 See [License](License) for the full text.
