@@ -1955,9 +1955,7 @@
         <item quantity="other">%1$d 個執行緒</item>
     </plurals>
     <string name="about_creator">開發者</string>
-    <string name="about_creator_name">mrvoidxin</string>
     <string name="about_website">網站</string>
-    <string name="about_website_address">github.com/mrvoidxin/Flow-tub</string>
     <string name="github_subtitle">原始碼與問題回報</string>
     <string name="newpipe_extractor_title">NewPipe Extractor</string>
     <string name="newpipe_extractor_subtitle">核心擷取函式庫</string>

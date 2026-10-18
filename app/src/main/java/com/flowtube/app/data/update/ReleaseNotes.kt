@@ -1,6 +1,6 @@
 package com.flowtube.app.data.update
 
-private const val REPO_URL = "https://github.com/mrvoidxin/Flow-tub"
+private const val REPO_URL = "https://github.com/NETO-DEV66/Flow-tub"
 private const val GITHUB_URL = "https://github.com"
 private const val RELEASE_DATE_LABEL = "**release date"
 

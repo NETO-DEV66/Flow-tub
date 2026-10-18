@@ -1188,9 +1188,7 @@
     <string name="location_badge_active">Đang dùng</string>
     <string name="select_threads_count_desc">Chọn số luồng (1-8):</string>
     <string name="about_creator">Tác giả</string>
-    <string name="about_creator_name">mrvoidxin</string>
     <string name="about_website">Trang web</string>
-    <string name="about_website_address">github.com/mrvoidxin/Flow-tub</string>
     <string name="github_subtitle">Mã nguồn &amp; Vấn đề</string>
     <string name="newpipe_extractor_title">NewPipe Extractor</string>
     <string name="newpipe_extractor_subtitle">Thư viện trích xuất cốt lõi</string>

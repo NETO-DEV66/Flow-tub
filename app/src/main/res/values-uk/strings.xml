@@ -1964,8 +1964,6 @@
     <string name="ui_downloading">Завантаження</string>
     <string name="ui_in_library">В бібліотеці</string>
     <string name="ui_flowtube_logo">Логотип Flow Tube</string>
-    <string name="about_creator_name">mrvoidxin</string>
-    <string name="about_website_address">github.com/mrvoidxin/Flow-tub</string>
     <string name="about_license_name">GNU GPL v3</string>
     <string name="discord_error_enable_before_connect">Увімкніть Розширену активність у Discord перед прив’язуванням облікового запису.</string>
     <string name="discord_error_unavailable">Розширена активність у Discord недоступна у цій збірці.</string>

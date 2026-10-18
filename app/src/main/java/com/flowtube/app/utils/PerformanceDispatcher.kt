@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2026 Flow Tube | A-EDev
  *
- * This file is part of Flow Tube (https://github.com/mrvoidxin/Flow-tub).
+ * This file is part of Flow Tube (https://github.com/NETO-DEV66/Flow-tub).
  *
  * Flow Tube is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

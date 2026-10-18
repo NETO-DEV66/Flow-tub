@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private const val STABLE_RELEASE_API = "https://api.github.com/repos/mrvoidxin/Flow-tub/releases/latest"
+private const val STABLE_RELEASE_API = "https://api.github.com/repos/NETO-DEV66/Flow-tub/releases/latest"
 private const val GITHUB_JSON = "application/vnd.github+json"
 
 /** Where an automatic check may surface a release; each announces a version once. */

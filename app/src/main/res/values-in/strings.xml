@@ -1853,8 +1853,6 @@
     <string name="playback_speed_multiplier">%1$s×</string>
     <string name="playback_speed_multiplier_precise">%1$.2f×</string>
     <string name="channel_metadata_unavailable">Informasi kanal tidak tersedia</string>
-    <string name="about_creator_name">mrvoidxin</string>
-    <string name="about_website_address">github.com/mrvoidxin/Flow-tub</string>
     <string name="about_license_name">GNU GPL v3</string>
     <string name="equalizer">Ekualiser</string>
     <string name="action_save_preset">Simpan prasetel</string>

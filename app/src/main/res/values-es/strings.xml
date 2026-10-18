@@ -2046,8 +2046,6 @@
     <string name="download_url_expired">URL caducada (403). Es necesario volver a obtenerla.</string>
     <string name="download_sabr_failed">Error en la descarga SABR</string>
     <string name="download_sabr_failed_try_again">Error en la descarga SABR. Inténtalo de nuevo.</string>
-    <string name="about_creator_name">mrvoidxin</string>
-    <string name="about_website_address">github.com/mrvoidxin/Flow-tub</string>
     <string name="about_license_name">GNU GPL v3</string>
     <string name="discord_presence_title">Discord Rich Presence</string>
     <string name="discord_presence_enable">Compartir actividad de reproducción</string>

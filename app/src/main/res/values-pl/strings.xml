@@ -1595,8 +1595,6 @@
     <string name="location_internal_app_desc">Dostępne wyłącznie dla aplikacji — pliki mogą zostać usunięte w przypadku odinstalowania aplikacji</string>
     <string name="location_manual_hint">/storage/emulated/0/…</string>
     <string name="location_badge_active">Aktywny</string>
-    <string name="about_creator_name">mrvoidxin</string>
-    <string name="about_website_address">github.com/mrvoidxin/Flow-tub</string>
     <string name="about_license_name">GNU GPL v3</string>
     <string name="section_device">Urządzenie</string>
     <string name="btn_ok">OK</string>
