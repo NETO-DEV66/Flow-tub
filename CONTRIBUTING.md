@@ -14,7 +14,7 @@ AI assistant, point it at `AGENTS.md`.
 
 ## ❓ Asking Questions About the Codebase
 
-**Use [GitHub Discussions](https://github.com/NETO-DEV66/Flow-tub/discussions) — that is the right place, and
+**Use [GitHub Discussions](https://github.com/NETO-DEV66/NeuroTube/discussions) — that is the right place, and
 questions are welcome.** The codebase is deliberately light on comments (see "Comments" below), so
 asking is expected rather than a sign you missed something.
 
@@ -59,7 +59,7 @@ git clone https://github.com/YOUR_USERNAME/Flow-tub.git
 cd Flow-tub
 
 # Add upstream remote
-git remote add upstream https://github.com/NETO-DEV66/Flow-tub.git
+git remote add upstream https://github.com/NETO-DEV66/NeuroTube.git
 
 # Create a feature branch
 git checkout -b feature/your-feature-name
@@ -606,7 +606,7 @@ keystore (or let CI generate one) for `v*` tag builds.
 
 ## ❓ Questions?
 
-- Open a [discussion](https://github.com/NETO-DEV66/Flow-tub/discussions) — including questions about how the
+- Open a [discussion](https://github.com/NETO-DEV66/NeuroTube/discussions) — including questions about how the
   codebase works
 - Comment on existing issues
 - Reach out to maintainers

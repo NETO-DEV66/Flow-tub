@@ -17,7 +17,7 @@ Always update to the newest release before reporting a security issue.
 **Do not report security vulnerabilities through public GitHub issues.**
 
 Report privately through
-[GitHub Security Advisories](https://github.com/NETO-DEV66/Flow-tub/security/advisories/new).
+[GitHub Security Advisories](https://github.com/NETO-DEV66/NeuroTube/security/advisories/new).
 
 Please include:
 
@@ -44,4 +44,4 @@ sha256sum -c checksums.txt
 NeuroTube ships one universal APK per release. Any file that is not named
 `NeuroTube-<version>-universal.apk`, or that fails the checksum, is not an
 official build. Official distribution is the
-[GitHub Releases page](https://github.com/NETO-DEV66/Flow-tub/releases).
+[GitHub Releases page](https://github.com/NETO-DEV66/NeuroTube/releases).

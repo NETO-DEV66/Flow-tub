@@ -47,9 +47,9 @@ import com.flowtube.app.ui.tv.components.TvNavRow
 import com.flowtube.app.ui.tv.components.TvSectionHeader
 import com.flowtube.app.ui.tv.focus.ProvideTvColumnPivot
 
-private const val FLOW_WEBSITE_URL = "https://github.com/NETO-DEV66/Flow-tub"
-private const val FLOW_RELEASES_URL = "https://github.com/NETO-DEV66/Flow-tub/releases"
-private const val FLOW_GITHUB_URL = "https://github.com/NETO-DEV66/Flow-tub"
+private const val FLOW_WEBSITE_URL = "https://github.com/NETO-DEV66/NeuroTube"
+private const val FLOW_RELEASES_URL = "https://github.com/NETO-DEV66/NeuroTube/releases"
+private const val FLOW_GITHUB_URL = "https://github.com/NETO-DEV66/NeuroTube"
 private const val FLOW_CREATOR_URL = "https://github.com/NETO-DEV66"
 private const val FLOW_LICENSE_URL = "https://www.gnu.org/licenses/gpl-3.0.html"
 private const val NEWPIPE_EXTRACTOR_URL = "https://github.com/TeamNewPipe/NewPipeExtractor"

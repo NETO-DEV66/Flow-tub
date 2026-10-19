@@ -4,7 +4,7 @@ Upstream Android YouTube and YouTube Music client, GPL-3.0-only.
 This application is a rebranded fork of Flow. The upstream source is copyright (c) 2025-2026 the
 Flow authors, and that copyright notice is retained here as the GNU GPL requires. The full licence
 text is bundled with this application and is also available at
-https://github.com/NETO-DEV66/Flow-tub/blob/main/License
+https://github.com/NETO-DEV66/NeuroTube/blob/main/License
 
 -------------------------------------------------------------------------------
 

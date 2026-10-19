@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2025-2026 NeuroTube | A-EDev
  *
- * This file is part of NeuroTube (https://github.com/NETO-DEV66/Flow-tub).
+ * This file is part of NeuroTube (https://github.com/NETO-DEV66/NeuroTube).
  */
 
 package com.flowtube.app.ui.components.music.header

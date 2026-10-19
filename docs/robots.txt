@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://neto-dev66.github.io/Flow-tub/sitemap.xml
+Sitemap: https://neto-dev66.github.io/NeuroTube/sitemap.xml

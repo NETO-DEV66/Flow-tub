@@ -6,16 +6,16 @@
   <h3>A privacy-first YouTube and YouTube Music client for Android, with recommendations that never leave your phone.</h3>
 
   <p>
-    <a href="https://github.com/NETO-DEV66/Flow-tub/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/NETO-DEV66/Flow-tub?style=for-the-badge&label=download&color=7c3aed"></a>
-    <a href="https://github.com/NETO-DEV66/Flow-tub/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/NETO-DEV66/Flow-tub/total?style=for-the-badge&color=7c3aed"></a>
+    <a href="https://github.com/NETO-DEV66/NeuroTube/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/NETO-DEV66/NeuroTube?style=for-the-badge&label=download&color=7c3aed"></a>
+    <a href="https://github.com/NETO-DEV66/NeuroTube/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/NETO-DEV66/NeuroTube/total?style=for-the-badge&color=7c3aed"></a>
     <a href="License"><img alt="License: GPL-3.0" src="https://img.shields.io/badge/license-GPL--3.0-blue?style=for-the-badge"></a>
     <img alt="Android 8.0+" src="https://img.shields.io/badge/android-8.0%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white">
     <img alt="Kotlin" src="https://img.shields.io/badge/kotlin-2.4-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white">
   </p>
 
   <p>
-    <a href="https://neto-dev66.github.io/Flow-tub/"><b>Website</b></a> ·
-    <a href="https://github.com/NETO-DEV66/Flow-tub/releases/latest"><b>Download APK</b></a> ·
+    <a href="https://neto-dev66.github.io/NeuroTube/"><b>Website</b></a> ·
+    <a href="https://github.com/NETO-DEV66/NeuroTube/releases/latest"><b>Download APK</b></a> ·
     <a href="#set-up-neurotube--no-account-no-login"><b>Set up</b></a> ·
     <a href="#build-from-source"><b>Build</b></a> ·
     <a href="privacy.md"><b>Privacy</b></a> ·
@@ -210,7 +210,7 @@ installs on every supported device — there is no ABI to choose.
 | :--- | :--- | :--- |
 | `NeuroTube-vX.Y.Z-universal.apk` | ~23 MB | Every supported phone and tablet |
 
-Grab it from the [latest release](https://github.com/NETO-DEV66/Flow-tub/releases/latest), or let the
+Grab it from the [latest release](https://github.com/NETO-DEV66/NeuroTube/releases/latest), or let the
 app update itself: it checks for a new release and installs it after you confirm.
 
 ### Requirements
@@ -246,7 +246,7 @@ You need **JDK 21** and the **Android SDK** (platform `android-37.0`, build-tool
 The project uses Gradle with a version catalogue in `gradle/libs.versions.toml`.
 
 ```bash
-git clone https://github.com/NETO-DEV66/Flow-tub.git
+git clone https://github.com/NETO-DEV66/NeuroTube.git
 cd Flow-tub
 
 # Debug build

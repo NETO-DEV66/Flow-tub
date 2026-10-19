@@ -48,11 +48,11 @@ import com.flowtube.app.ui.screens.settings.index.AboutIndex
 
 private enum class AboutDialog { CHANGELOG, DEVICE, NOTICES, DISCLAIMER }
 
-private const val WEBSITE_URL = "https://github.com/NETO-DEV66/Flow-tub"
-private const val GITHUB_URL = "https://github.com/NETO-DEV66/Flow-tub"
+private const val WEBSITE_URL = "https://github.com/NETO-DEV66/NeuroTube"
+private const val GITHUB_URL = "https://github.com/NETO-DEV66/NeuroTube"
 private const val CREATOR_URL = "https://github.com/NETO-DEV66"
 private const val NEWPIPE_URL = "https://github.com/TeamNewPipe/NewPipeExtractor"
-private const val LICENSE_URL = "https://github.com/NETO-DEV66/Flow-tub/blob/main/License"
+private const val LICENSE_URL = "https://github.com/NETO-DEV66/NeuroTube/blob/main/License"
 private const val CREATOR_AVATAR_URL = "https://github.com/NETO-DEV66.png?size=144"
 
 private val LogoSize = 72.dp

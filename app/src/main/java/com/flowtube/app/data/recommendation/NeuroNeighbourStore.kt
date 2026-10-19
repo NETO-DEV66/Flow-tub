@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2025-2026 NeuroTube | A-EDev
  *
- * This file is part of NeuroTube (https://github.com/NETO-DEV66/Flow-tub).
+ * This file is part of NeuroTube (https://github.com/NETO-DEV66/NeuroTube).
  *
  * This recommendation algorithm (FlowNeuroEngine) is the intellectual property
  * of the NeuroTube project. Any use of this code in other projects must
