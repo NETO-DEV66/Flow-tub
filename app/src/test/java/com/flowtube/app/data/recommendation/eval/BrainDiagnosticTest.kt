@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2025-2026 Flow Tube | A-EDev
+ * Copyright (C) 2025-2026 NeuroTube | A-EDev
  *
- * This file is part of Flow Tube (https://github.com/NETO-DEV66/Flow-tub).
+ * This file is part of NeuroTube (https://github.com/NETO-DEV66/Flow-tub).
  */
 
 package com.flowtube.app.data.recommendation.eval
@@ -19,7 +19,7 @@ import java.io.File
  * Runs [BrainDiagnostic] against a real exported brain when one is present.
  *
  * Usage: export the engine profile on the device (Settings → Export Data →
- * engine profile, or Flow Tube Personality → export), copy the JSON to
+ * engine profile, or NeuroTube Personality → export), copy the JSON to
  * `diagnostics/brain.json` at the repo root (or pass -Dflow.brainPath=...),
  * then run this test. Reports land in app/build/reports/neuro-benchmark/
  * as brain-diagnostic.txt and brain-diagnostic.json.

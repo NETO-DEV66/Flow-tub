@@ -723,7 +723,7 @@ class PlayerPreferences(
         }
     }
 
-    // Flow Tube for reading the stored SB User ID (may be null)
+    // NeuroTube for reading the stored SB User ID (may be null)
     val sbUserId: Flow<String?> =
         context.playerPreferencesDataStore.data
             .map { prefs -> prefs[Keys.SB_USER_ID]?.takeIf { it.isNotBlank() } }

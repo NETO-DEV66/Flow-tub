@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Flow Tube</string>
+    <string name="app_name">NeuroTube</string>
     <string name="subscriptions_search_placeholder">Abonnements durchsuchen ...</string>
     <string name="top_bar_subscriptions_title">Abonnements</string>
     <string name="view_all_button_label">Alle</string>
@@ -164,7 +164,7 @@
     <string name="release_notes">VERSIONSHINWEISE</string>
     <string name="premiere_date_prefix">Premieren %1$s</string>
     <string name="maybe_later">Vielleicht später</string>
-    <string name="update_flow">Flow Tube Aktualisieren</string>
+    <string name="update_flow">NeuroTube Aktualisieren</string>
     <string name="nav_home">Startseite</string>
     <string name="nav_shorts">Shorts</string>
     <string name="nav_music">Musik</string>
@@ -197,7 +197,7 @@
     <string name="chapters">Kapitel</string>
     <string name="artist">Künstler</string>
     <string name="playlist">Playlist</string>
-    <string name="app_name_uppercase">FLOW TUBE</string>
+    <string name="app_name_uppercase">NEUROTUBE</string>
     <string name="notification_badge_9_plus">9+</string>
     <string name="personalized_feed">Dein persönlicher Feed</string>
     <string name="import_newpipe_backup">NewPipe-Backup importieren</string>
@@ -278,14 +278,14 @@
     <string name="peace_and_quiet">Ruhe und Frieden</string>
     <string name="notifications_empty_body">Jetzt bist du auf dem neuesten Stand! Neue Updates aus deinen Abonnements werden hier angezeigt.</string>
     <string name="settings_title">Einstellungen</string>
-    <string name="settings_flow_engine_header">Flow Tube Engine</string>
+    <string name="settings_flow_engine_header">NeuroTube Engine</string>
     <string name="settings_active_learning">AKTIVES LERNEN</string>
-    <string name="settings_reset_brain_title">Flow Tube-Persönlichkeit zurücksetzen?</string>
-    <string name="settings_reset_brain_body">Dadurch wird dein „Flow Tube Brain“-Profil gelöscht.\n\n• Erlernte Themen werden vergessen.\n• Persönlichkeitsmerkmale werden zurückgesetzt.\n• Empfehlungen werden auf die Standardeinstellungen zurückgesetzt.\n\nDies kann nicht rückgängig gemacht werden.</string>
+    <string name="settings_reset_brain_title">NeuroTube-Persönlichkeit zurücksetzen?</string>
+    <string name="settings_reset_brain_body">Dadurch wird dein „NeuroTube Brain“-Profil gelöscht.\n\n• Erlernte Themen werden vergessen.\n• Persönlichkeitsmerkmale werden zurückgesetzt.\n• Empfehlungen werden auf die Standardeinstellungen zurückgesetzt.\n\nDies kann nicht rückgängig gemacht werden.</string>
     <string name="settings_reset_everything">Alles zurücksetzen</string>
     <string name="settings_analyzing_interactions">Analysieren Sie Ihre Interaktionen...</string>
     <string name="settings_view_analytics">Analysen anzeigen</string>
-    <string name="deep_focus_mode_title">Deep-Flow Tube-Modus</string>
+    <string name="deep_focus_mode_title">Deep-NeuroTube-Modus</string>
     <string name="deep_focus_mode_subtitle">Lernen unterbrechen – während du stöberst</string>
     <string name="deep_focus_learning_paused">Lernen pausiert</string>
     <string name="deep_focus_expires_in">Läuft in %s ab</string>
@@ -311,7 +311,7 @@
     <string name="settings_header_about">Über</string>
     <string name="settings_header_notifications">Benachrichtigungen</string>
     <string name="settings_item_notifications">Benachrichtigungseinstellungen</string>
-    <string name="settings_item_notifications_subtitle">Steuern Sie, welche Benachrichtigungen Flow Tube senden kann</string>
+    <string name="settings_item_notifications_subtitle">Steuern Sie, welche Benachrichtigungen NeuroTube senden kann</string>
     <string name="notif_settings_title">Benachrichtigungseinstellungen</string>
     <string name="notif_type_new_videos">Neue Videos</string>
     <string name="notif_type_new_videos_subtitle">Benachrichtigen, wenn abonnierte Kanäle neue Videos hochladen</string>
@@ -320,7 +320,7 @@
     <string name="notif_type_reminders">Bildschirmzeit-Erinnerungen</string>
     <string name="notif_type_reminders_subtitle">Erinnerungen an die Schlafenszeit und Pausen von „Zeitmanagement“</string>
     <string name="notif_type_updates">App-Updates</string>
-    <string name="notif_type_updates_subtitle">Werden Sie benachrichtigt, wenn eine neue Version von Flow Tube verfügbar ist</string>
+    <string name="notif_type_updates_subtitle">Werden Sie benachrichtigt, wenn eine neue Version von NeuroTube verfügbar ist</string>
     <string name="notif_type_general">Allgemeine Benachrichtigungen</string>
     <string name="notif_type_general_subtitle">Verschiedene App-Benachrichtigungen und Ankündigungen</string>
     <string name="notif_system_settings">Einstellungen für die Systembenachrichtigung</string>
@@ -329,7 +329,7 @@
     <string name="notif_check_interval">Neue Videos – Überprüfungsintervall</string>
     <string name="notif_check_interval_subtitle_template">Überprüfen Sie alle %s</string>
     <string name="notif_check_interval_dialog_title">Prüfintervall</string>
-    <string name="notif_check_interval_dialog_body">Wie oft überprüft Flow Tube nach neuen Videos aus Ihren abonnierten Kanälen.</string>
+    <string name="notif_check_interval_dialog_body">Wie oft überprüft NeuroTube nach neuen Videos aus Ihren abonnierten Kanälen.</string>
     <string name="notif_interval_15m">15 Minuten</string>
     <string name="notif_interval_30m">30 Minuten</string>
     <string name="notif_interval_1h">1 Stunde</string>
@@ -366,7 +366,7 @@
     <string name="settings_item_export_data_subtitle">Sichern Sie Ihre Daten</string>
     <string name="settings_item_import_data">Daten importieren</string>
     <string name="settings_item_import_data_subtitle">Aus einem Backup wiederherstellen oder Import aus anderen Apps</string>
-    <string name="settings_item_about_flow">Über Flow Tube</string>
+    <string name="settings_item_about_flow">Über NeuroTube</string>
     <string name="settings_item_about_flow_subtitle">Version, Lizenz, Mitwirkende</string>
     <string name="settings_region_dialog_title">Region auswählen</string>
     <string name="settings_language_dialog_title">App-Sprache auswählen</string>
@@ -374,7 +374,7 @@
     <string name="settings_export_success">Daten erfolgreich exportiert</string>
     <string name="settings_export_failed">Export fehlgeschlagen: %1$s</string>
     <string name="appearance_title">Aussehen</string>
-    <string name="appearance_subtitle">Personalisieren Sie Ihre Flow Tube-Erfahrung</string>
+    <string name="appearance_subtitle">Personalisieren Sie Ihre NeuroTube-Erfahrung</string>
     <string name="appearance_current_theme">AKTUELLES DESIGN</string>
     <string name="appearance_category_all">Alle</string>
     <string name="appearance_category_light">Hell</string>
@@ -423,7 +423,7 @@
     <string name="app_icon_picker_subtitle">Wählen Sie einen Launcher-Symbol-Stil. Die Änderung wird sofort wirksam und der Launcher wird kurz aktualisiert.</string>
     <string name="app_icon_picker_warning">Achtung: Beim Wechseln der Symbole wird ein Android-Systemmechanismus verwendet, der die App-Verknüpfung möglicherweise kurzzeitig von deinem Startbildschirm entfernt. Halte den Launcher bei Bedarf lange gedrückt, um sie wieder hinzuzufügen.</string>
     <string name="app_icon_apply_toast">Symbol aktualisiert - Ihr Launcher wird neu geladen</string>
-    <string name="icon_name_flow_red">Flow Tube Rot</string>
+    <string name="icon_name_flow_red">NeuroTube Rot</string>
     <string name="icon_name_amoled">AMOLED Dunkel</string>
     <string name="icon_name_monochrome">Monochrom</string>
     <string name="icon_name_ghost">Geist</string>
@@ -456,8 +456,8 @@
     <string name="theme_desc_sky_blue">Eine leichte luftige Farbpalette mit offenem Himmelsblau.</string>
     <string name="theme_name_cream_paper">Cremepapier</string>
     <string name="theme_desc_cream_paper">Warme Papiertöne für gemütliches tägliches Lesen.</string>
-    <string name="theme_name_classic_dark">Flow Tube Standard</string>
-    <string name="theme_desc_classic_dark">Die ursprüngliche Flow Tube Farbpalette mit dem YouTube Rot.</string>
+    <string name="theme_name_classic_dark">NeuroTube Standard</string>
+    <string name="theme_desc_classic_dark">Die ursprüngliche NeuroTube Farbpalette mit dem YouTube Rot.</string>
     <string name="theme_name_true_black">Echtes Schwarz</string>
     <string name="theme_desc_true_black">Reines OLED</string>
     <string name="theme_name_monochrome">Monochrom</string>
@@ -540,7 +540,7 @@
     <string name="content_settings_video_card_mark_watched_title">Schaltfläche „Als angesehen markieren“-Button anzeigen</string>
     <string name="content_settings_video_card_mark_watched_subtitle">Zeige auf den Vollbild- und Kompakt-Videokarten eine „Auge“-Schaltfläche an, um Videos schnell als angesehen zu markieren</string>
     <string name="content_settings_show_app_logo_title">App-Logo-Symbol anzeigen</string>
-    <string name="content_settings_show_app_logo_subtitle">Das Flow Tube-Logo neben dem App-Namen in der oberen Leiste des Startbildschirms anzeigen</string>
+    <string name="content_settings_show_app_logo_subtitle">Das NeuroTube-Logo neben dem App-Namen in der oberen Leiste des Startbildschirms anzeigen</string>
     <string name="content_settings_header_content_components">Inhaltskomponenten</string>
     <string name="content_settings_hide_watched_title">Angesehene Videos Ausblenden</string>
     <string name="content_settings_hide_watched_subtitle">Filtern Sie Videos, die Sie bereits von Ihrem Home-Feed und Abonnements angesehen haben</string>
@@ -588,7 +588,7 @@
     <string name="hide_channel_shorts">Shorts dieses Kanals ausblenden</string>
     <string name="show_channel_shorts">Shorts dieses Kanals anzeigen</string>
     <string name="notif_master_toggle">Benachrichtigungen aktivieren</string>
-    <string name="notif_master_toggle_subtitle">Lasse Flow Tube, im Hintergrund nach neuen Videos suchen</string>
+    <string name="notif_master_toggle_subtitle">Lasse NeuroTube, im Hintergrund nach neuen Videos suchen</string>
     <string name="notif_check_interval_disabled">Hintergrundüberprüfungen sind deaktiviert</string>
     <string name="appearance_role_surface_variant">Oberflächenvariante</string>
     <string name="appearance_role_on_surface_variant">Zur Surface-Variante</string>
@@ -638,7 +638,7 @@
     <string name="categories_switch_to_list">Zur Listenansicht wechseln</string>
     <string name="category_all">Alle</string>
     <string name="category_trending">Im Trend</string>
-    <string name="icon_name_flow_light">Flow Tube hell</string>
+    <string name="icon_name_flow_light">NeuroTube hell</string>
     <string name="lyrics_provider_lyrics_plus">LyricsPlus</string>
     <string name="content_settings_subs_show_shorts_subtitle">„Shorts“ im Abonnement-Feed anzeigen</string>
     <string name="content_settings_subs_show_live_title">Live-Streams im Abonnement</string>
@@ -883,7 +883,7 @@
     <string name="interests_tab">Interessen</string>
     <string name="blocked_tab">Gesperrt</string>
     <string name="your_interests_title">Deine Interessen</string>
-    <string name="your_interests_desc">Die von dir ausgewählten Themen helfen Flow Tube dabei, dir passendere Inhalte vorzuschlagen. Tippe unten auf die Themen, um sie hinzuzufügen oder zu entfernen.</string>
+    <string name="your_interests_desc">Die von dir ausgewählten Themen helfen NeuroTube dabei, dir passendere Inhalte vorzuschlagen. Tippe unten auf die Themen, um sie hinzuzufügen oder zu entfernen.</string>
     <string name="currently_following">Derzeit abonniert</string>
     <string name="tap_to_remove">Zum Entfernen antippen</string>
     <string name="add_topics">Themen hinzufügen</string>
@@ -936,7 +936,7 @@
     <string name="local_media_empty_title">Es wurden keine %1$s gefunden</string>
     <string name="local_media_empty_body">Die auf diesem Gerät gespeicherten Videos und Musikdateien werden hier angezeigt.</string>
     <string name="local_media_permission_title">Erforderliche Berechtigung</string>
-    <string name="local_media_permission_body">Erlauben Sie den Zugriff auf Ihre Medien, damit Flow Tube lokale Videos und Musik finden und abspielen kann.</string>
+    <string name="local_media_permission_body">Erlauben Sie den Zugriff auf Ihre Medien, damit NeuroTube lokale Videos und Musik finden und abspielen kann.</string>
     <string name="local_media_grant">Zugriff gewähren</string>
     <string name="history_tab_local_videos">Lokale Videos</string>
     <string name="history_tab_local_music">Lokale Musik</string>
@@ -998,12 +998,12 @@
     <string name="shorts_player_ui_impressive">Beeindruckend</string>
     <string name="shorts_saved">Short gespeichert</string>
     <string name="shorts_unsaved">Short, nicht gespeichert</string>
-    <string name="import_flow_backup_success">Flow Tube-Backup erfolgreich importiert</string>
-    <string name="import_flow_backup_failed_template">Der Import des Flow Tube-Backups ist fehlgeschlagen: %1$s</string>
+    <string name="import_flow_backup_success">NeuroTube-Backup erfolgreich importiert</string>
+    <string name="import_flow_backup_failed_template">Der Import des NeuroTube-Backups ist fehlgeschlagen: %1$s</string>
     <string name="import_newpipe_failed_template">Der Import des NewPipe-Backups ist fehlgeschlagen: %1$s</string>
     <string name="import_youtube_failed_template">Der Import des YouTube-Backups ist fehlgeschlagen: %1$s</string>
-    <string name="import_flow_backup_item_title">Flow Tube-Backup importieren</string>
-    <string name="import_flow_backup_desc">Stellen Sie Ihren Verlauf, Ihre Einstellungen und Ihre Abonnements aus einer Flow Tube-Backup wieder her.</string>
+    <string name="import_flow_backup_item_title">NeuroTube-Backup importieren</string>
+    <string name="import_flow_backup_desc">Stellen Sie Ihren Verlauf, Ihre Einstellungen und Ihre Abonnements aus einer NeuroTube-Backup wieder her.</string>
     <string name="import_from_newpipe">Aus NewPipe importieren</string>
     <string name="player_settings_display">Anzeige</string>
     <string name="sleep_timer_stops_in">Schaltet sich nach</string>
@@ -1248,7 +1248,7 @@
     <string name="subtitle_background_color">Hintergrundfarbe</string>
     <string name="check_for_updates">Nach Updates suchen</string>
     <string name="checking_for_updates">Suche nach Updates…</string>
-    <string name="flow_is_up_to_date">Flow Tube ist auf dem neuesten Stand!</string>
+    <string name="flow_is_up_to_date">NeuroTube ist auf dem neuesten Stand!</string>
     <string name="update_check_failed">Konnte nicht nach Updates suchen. Überprüfe deine Verbindung.</string>
     <string name="sync_devices_title">Synchronisiere Geräte</string>
     <string name="sync_notification_title">Geräte synchronisieren</string>
@@ -1358,7 +1358,7 @@
     <string name="processing">Verarbeiten…</string>
     <string name="recognition_error">Erkennung fehlgeschlagen</string>
     <string name="try_again">Erneut versuchen</string>
-    <string name="search_in_flow">In Flow Tube suchen</string>
+    <string name="search_in_flow">In NeuroTube suchen</string>
     <string name="recognition_clear_history">Verlauf leeren?</string>
     <string name="appearance_variant_title">Designstil</string>
     <string name="appearance_variant_amoled">AMOLED</string>
@@ -1426,13 +1426,13 @@
     <string name="import_yt_music_playlist">YouTube-Musik-Playlist importieren</string>
     <string name="import_yt_music_playlist_desc">Importieren Sie eine Musik-Playlist aus einer YouTube Music Auszug-CSV-Datei. Diese wird unter „Musik-Playlists“ angezeigt.</string>
     <string name="import_yt_history_failed_template">Der Import des Wiedergabesverlaufs ist fehlgeschlagen: %1$s</string>
-    <string name="channel_error_log_clip_label">Flow Tube Kanal-Fehlerprotokoll</string>
+    <string name="channel_error_log_clip_label">NeuroTube Kanal-Fehlerprotokoll</string>
     <string name="about_creator">Entwickler</string>
     <string name="github_subtitle">Quellcode &amp; Probleme</string>
     <string name="newpipe_extractor_title">NewPipe Extractor</string>
     <string name="about_license_name">GNU GPL v3</string>
     <string name="about_changelog">Änderungsprotokoll</string>
-    <string name="whats_new_in_flow">Was gibt es Neues bei Flow Tube?</string>
+    <string name="whats_new_in_flow">Was gibt es Neues bei NeuroTube?</string>
     <string name="no_changelog_found_message">Es wurde kein Änderungsprotokoll gefunden.</string>
     <string name="error_changelog_load">Die Änderungsprotokoll-Datei konnte nicht geladen werden.</string>
     <string name="app_logo_desc">App Logo</string>
@@ -1461,7 +1461,7 @@
     <string name="playlist_sort_date_published_oldest">Veröffentlichungsdatum (ältestes)</string>
     <string name="remove_selected_playlist_text">Sie werden aus dieser Playlist entfernt.</string>
     <string name="remove_selected_watch_later_text">Sie werden aus „Später ansehen“ entfernt.</string>
-    <string name="welcome_to_flow">Willkommen bei Flow Tube</string>
+    <string name="welcome_to_flow">Willkommen bei NeuroTube</string>
     <string name="onboarding_interests_title">Was macht dir Spaß?</string>
     <string name="onboarding_interests_hint">Wähle mindestens %1$d Themen aus, um deinen Feed individuell anzupassen. Es fehlen noch %2$d.</string>
     <string name="onboarding_channels_empty_prompt">Gib einen Kanalnamen ein, um danach zu suchen</string>
@@ -1472,7 +1472,7 @@
     <string name="onboarding_btn_continue">Weiter</string>
     <string name="category_creative">Kreativ</string>
     <string name="category_news_current_events">Nachrichten &amp; Aktuelles</string>
-    <string name="flow_control_center">Flow Tube Kontrollzentrum</string>
+    <string name="flow_control_center">NeuroTube Kontrollzentrum</string>
     <string name="filter_deep_cuts">Deep cuts</string>
     <string name="player_portrait_seekbar_width_title">Breite der Suchleiste im Hochformat</string>
     <string name="player_settings_stable_voice">Stabiler Ton</string>
@@ -1489,8 +1489,8 @@
     <string name="location_dialog_subtitle">Wählen Sie aus, wo die heruntergeladenen Dateien auf Ihrem Gerät gespeichert werden sollen.</string>
     <string name="location_preset_header">Voreingestellte Standorte</string>
     <string name="location_custom_header">Benutzerdefinierter Standort</string>
-    <string name="location_downloads_label">Downloads / Flow Tube</string>
-    <string name="location_movies_label">Movies / Flow Tube</string>
+    <string name="location_downloads_label">Downloads / NeuroTube</string>
+    <string name="location_movies_label">Movies / NeuroTube</string>
     <string name="location_internal_app_label">Interner App-Speicher</string>
     <string name="location_internal_app_desc">Nur in der App verfügbar – Dateien werden möglicherweise gelöscht, wenn Sie die App deinstallieren</string>
     <string name="location_custom_saf_desc">Wählen Sie mithilfe der System-Dateiauswahl einen beliebigen Ordner aus.</string>
@@ -1531,7 +1531,7 @@
     <string name="persona_initiate_title">Der Eingeweihte</string>
     <string name="persona_initiate_description">Du fängst gerade erst an. Dein Profil ist noch im Aufbau.</string>
     <string name="persona_audiophile_title">Der Audiophile</string>
-    <string name="persona_audiophile_description">Du nutzt Flow Tube hauptsächlich für Musik. Die Stimmung ist das Wichtigste.</string>
+    <string name="persona_audiophile_description">Du nutzt NeuroTube hauptsächlich für Musik. Die Stimmung ist das Wichtigste.</string>
     <string name="persona_skimmer_title">Der Skimmer</string>
     <string name="persona_skimmer_description">Rasante, kurze Inhalte. Dopamin auf Abruf.</string>
     <string name="screen_title_music_library">Bildschirm „Musik-Playlists“</string>
@@ -1629,7 +1629,7 @@
     <string name="sync_receive_scan_hint">Verwenden Sie diese Option, wenn dieses Gerät über eine Kamera verfügt und auf dem anderen Gerät ein sende QR-Code angezeigt wird.</string>
     <string name="playlist_filter_owned">Im Besitz</string>
     <string name="notif_background_restricted_title">Hintergrund Prüfungen sind beschränkt</string>
-    <string name="notif_background_restricted_subtitle">Android hindert Flow Tube im Hintergrund nach neuen Videos zu suchen. Klicke hier um uneingeschränkte Hintergrundaktivitäten zuzulassen.</string>
+    <string name="notif_background_restricted_subtitle">Android hindert NeuroTube im Hintergrund nach neuen Videos zu suchen. Klicke hier um uneingeschränkte Hintergrundaktivitäten zuzulassen.</string>
     <string name="player_appearance_long_press_speed_title">Wiedergabetempo beim gedrückthalten</string>
     <string name="select_threads_count_desc">Wähle die Anzahl der Threads (1-8):</string>
     <string name="topic_weights_subtitle">Volle Transparenz wodurch dein Feed beeinflusst wird</string>
@@ -1656,7 +1656,7 @@
     <string name="diagnostics_clear_crashes">Absturzberichte löschen</string>
     <string name="diagnostics_clear_confirm_title">Absturzberichte löschen?</string>
     <string name="diagnostics_clear_confirm_body">Alle gespeicherten Absturzberichte werden endgültig gelöscht. Dieser Vorgang kann nicht rückgängig gemacht werden.</string>
-    <string name="tv_settings_flow_engine">Flow Tube Engine</string>
+    <string name="tv_settings_flow_engine">NeuroTube Engine</string>
     <string name="newpipe_extractor_subtitle">Kern-Extraktionsbibliothek</string>
     <string name="onboarding_step_interests">Interessen</string>
     <plurals name="subscriptions_refresh_progress_template">
@@ -1675,7 +1675,7 @@
     <string name="import_master_backup_desc">App-Daten als auch das Engine-Profil aus einer einzigen Master-Backup Datei wiederherstellen</string>
     <string name="import_master_backup_success">Master Backup erfolgreich wiederhergestellt</string>
     <string name="import_master_backup_failed">Master Backup Import fehlgeschlagen</string>
-    <string name="import_engine_data">Flow Tube Engine Daten importieren</string>
+    <string name="import_engine_data">NeuroTube Engine Daten importieren</string>
     <string name="import_engine_data_desc">Stellen Sie Ihr KI-Persönlichkeitsprofil aus einer Backup Datei wieder her</string>
     <string name="sync_devices_subtitle">Bibliothek, Verlauf und Profil über lokales WLAN synchronisieren</string>
     <string name="sync_send_option_body">Kopieren Sie die Bibliothek dieses Geräts auf ein anderes Gerät.</string>
@@ -1727,8 +1727,8 @@
     <string name="profile_action_import_detail">Ein Profil Backup wiederherstellen</string>
     <string name="notification_import_complete">Import abgeschlossen!</string>
     <string name="notification_channel_import_description">Zeigt den Fortschritt beim Importieren von Abonnements oder des Wiedergabeverlaufs an</string>
-    <string name="import_migrate_description">Übertragen Sie Ihre Abonnements und Ihren Verlauf nahtlos von anderen Plattformen auf Flow Tube.</string>
-    <string name="import_manage_backups">Verwalten Sie Ihre Flow Tube Backups</string>
+    <string name="import_migrate_description">Übertragen Sie Ihre Abonnements und Ihren Verlauf nahtlos von anderen Plattformen auf NeuroTube.</string>
+    <string name="import_manage_backups">Verwalten Sie Ihre NeuroTube Backups</string>
     <string name="import_label_newpipe_subscriptions">NewPipe Abonnements</string>
     <string name="import_label_youtube_subscriptions">YouTube-Abonnements</string>
     <string name="import_label_youtube_watch_history">YouTube Wiedergabeverlauf</string>
@@ -1740,7 +1740,7 @@
     <string name="import_label_libretube_playlists">LibreTube Playlisten</string>
     <string name="import_label_youtube_takeout">YouTube-Auszug</string>
     <string name="imported_from_google_takeout">Aus Google-Auszug importieren</string>
-    <string name="flow_neural_profile_export_subject">Flow Tube Neural Profil Export</string>
+    <string name="flow_neural_profile_export_subject">NeuroTube Neural Profil Export</string>
     <string name="export_music_brain_title">Export Musik Engine Daten</string>
     <string name="export_music_brain_desc">Speichere Sie ihr Musikgeschmacksprofil als JSON-Datei</string>
     <string name="music_brain_export_success">Musik Engine Daten exportiert</string>
@@ -1757,7 +1757,7 @@
     <string name="export_newpipe_subs_failed">NewPipe Abonnements Export fehlgeschlagen</string>
     <string name="export_app_data_title">App Daten Backup</string>
     <string name="export_app_data_desc">Exportieren Sie Ihre Abonnements, Wiedergabeverläufe, Wiedergabelisten und Einstellungen</string>
-    <string name="export_watch_history_desc">Export als YouTube-Verlauf JSON (importierbar in LibreTube und Flow Tube)</string>
+    <string name="export_watch_history_desc">Export als YouTube-Verlauf JSON (importierbar in LibreTube und NeuroTube)</string>
     <string name="history_export_failed">Wiedergabeverlauf Export fehlgeschlagen</string>
     <string name="shorts_quality_settings_subtitle">Qualität beim Anschauen von Shorts</string>
     <string name="ui_custom_interest_title">Benutzerdefinierte Interessen hinzufügen</string>
@@ -1900,7 +1900,7 @@
         <item quantity="one">%1$d Stunde</item>
         <item quantity="other">%1$d Stunden</item>
     </plurals>
-    <string name="icon_name_flow_play">Flow Tube Play</string>
+    <string name="icon_name_flow_play">NeuroTube Play</string>
     <string name="player_appearance_haptics_title">Vibration</string>
     <string name="player_appearance_gesture_overlay_subtitle">Wie Lautstärke und Helligkeit gezeigt werden, während du wischst</string>
     <string name="gesture_overlay_style_vertical">Vertikal</string>
@@ -1926,7 +1926,7 @@
         <item quantity="one">%1$d Eintrag</item>
         <item quantity="other">%1$d Einträge</item>
     </plurals>
-    <string name="downloads_recover_body">Flow Tube speichert Dowloads in Download/Flow Tube und Music/Flow Tube. Um die Dateien aufzulisten, die eine frühere Installation dort gespeichert hat, erlaube Zugriff auf Videos und Musik.</string>
+    <string name="downloads_recover_body">NeuroTube speichert Dowloads in Download/NeuroTube und Music/NeuroTube. Um die Dateien aufzulisten, die eine frühere Installation dort gespeichert hat, erlaube Zugriff auf Videos und Musik.</string>
     <string name="downloads_recover_allow">Zugriff erlauben</string>
     <string name="downloads_recover_dismiss">Nicht jetzt</string>
     <plurals name="downloads_recovered_count">
@@ -2103,7 +2103,7 @@
         <item quantity="other">%1$d Videos entfernen?</item>
     </plurals>
     <string name="onboarding_channels_results_header">Kanäle</string>
-    <string name="onboarding_import_source_flow">Flow Tube Backup</string>
+    <string name="onboarding_import_source_flow">NeuroTube Backup</string>
     <string name="onboarding_import_source_youtube">YouTube</string>
     <string name="onboarding_import_done">Importiert</string>
     <string name="onboarding_progress">Schritt %1$d von %2$d</string>

@@ -23,8 +23,8 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 /**
- * Reads the tags Flow Tube embedded into a download (see [Mp4Remuxer] and [Mp4TagWriter]) back from a
- * file or content Uri. Files without Flow Tube ids still yield their title, artist, album and cover,
+ * Reads the tags NeuroTube embedded into a download (see [Mp4Remuxer] and [Mp4TagWriter]) back from a
+ * file or content Uri. Files without NeuroTube ids still yield their title, artist, album and cover,
  * falling back to the platform retriever when Media3 finds nothing.
  */
 @OptIn(UnstableApi::class)

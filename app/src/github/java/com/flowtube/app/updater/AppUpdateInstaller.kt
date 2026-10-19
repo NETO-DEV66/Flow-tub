@@ -37,7 +37,7 @@ private const val INSTALL_REQUEST = 7301
 
 /**
  * Downloads a release in the background and installs it through a platform installer session.
- * Android still asks the user to confirm, and refuses any APK not signed with Flow Tube's key.
+ * Android still asks the user to confirm, and refuses any APK not signed with NeuroTube's key.
  */
 @Singleton
 class AppUpdateInstaller

@@ -5,8 +5,8 @@ import org.junit.Test
 
 class DiscordPresenceMapperTest {
     private val mapper = DiscordPresenceMapper(
-        appName = "Flow Tube",
-        playingFallback = "Playing in Flow Tube",
+        appName = "NeuroTube",
+        playingFallback = "Playing in NeuroTube",
         creatorLabel = { creator -> "by $creator" },
     )
 

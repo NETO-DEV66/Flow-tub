@@ -551,7 +551,7 @@ internal class PlaybackSessionApplier(
 
     /**
      * Adds the subtitle file at [uri] to the device file or download that is playing and remembers
-     * it for that video; false when it is not a subtitle file Flow Tube can read.
+     * it for that video; false when it is not a subtitle file NeuroTube can read.
      */
     suspend fun addSubtitleFile(uri: Uri): Boolean {
         val videoId = playerManager.playerState.value.currentVideoId ?: return false

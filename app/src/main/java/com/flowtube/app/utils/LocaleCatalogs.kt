@@ -3,7 +3,7 @@ package com.flowtube.app.utils
 import java.util.Locale
 
 /**
- * The languages Flow Tube offers for preferred audio and caption tracks. Names come from the platform's
+ * The languages NeuroTube offers for preferred audio and caption tracks. Names come from the platform's
  * locale data, so they read in the user's own language instead of a hardcoded English list.
  */
 object LanguageCatalog {

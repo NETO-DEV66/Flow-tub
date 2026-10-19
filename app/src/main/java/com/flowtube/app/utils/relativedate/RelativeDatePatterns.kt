@@ -1,13 +1,13 @@
 /*
- * Copyright (C) 2025-2026 Flow Tube | A-EDev
+ * Copyright (C) 2025-2026 NeuroTube | A-EDev
  *
- * This file is part of Flow Tube (https://github.com/NETO-DEV66/Flow-tub).
+ * This file is part of NeuroTube (https://github.com/NETO-DEV66/Flow-tub).
  *
  * The word lists below are ported from NewPipe Extractor's timeago patterns
  * (https://github.com/TeamNewPipe/NewPipeExtractor, package
  * org.schabi.newpipe.extractor.timeago.patterns, v0.26.5), Copyright (C) the NewPipe
- * contributors, licensed under the GNU General Public License v3, the same licence as Flow Tube.
- * Flow Tube's changes: lowercased, zero-width characters and embedded numerals dropped, regional
+ * contributors, licensed under the GNU General Public License v3, the same licence as NeuroTube.
+ * NeuroTube's changes: lowercased, zero-width characters and embedded numerals dropped, regional
  * variants identical to their base language folded into it, Arabic duals added as fixed
  * amounts, and English limited to whole words.
  */

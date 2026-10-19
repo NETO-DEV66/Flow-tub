@@ -654,7 +654,7 @@ class HomeViewModel
 
                         Log.d(
                             TAG,
-                            "Flow Tube candidates: subs=${lanes.subsPoolSize}, discovery=${lanes.discoveryPoolSize}, " +
+                            "NeuroTube candidates: subs=${lanes.subsPoolSize}, discovery=${lanes.discoveryPoolSize}, " +
                                 "memory=${lanes.memoryPoolSize}, related=${rawRelated.size}, subCount=${userSubs.size}",
                         )
 
@@ -696,7 +696,7 @@ class HomeViewModel
 
                         Log.d(
                             TAG,
-                            "Flow Tube mix: freshLane=${mix.freshAdded}, final=${finalMix.size}, " +
+                            "NeuroTube mix: freshLane=${mix.freshAdded}, final=${finalMix.size}, " +
                                 "quotas=${mix.quotas}, selected=${mix.sourceMix.sourceCounts}",
                         )
 

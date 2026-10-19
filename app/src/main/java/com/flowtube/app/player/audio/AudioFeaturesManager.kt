@@ -25,7 +25,7 @@ import kotlin.math.log10
  * **External Audio Processor Compatibility:**
  * This manager works with external audio processors like James DSP.
  * The audio session ID is exposed via [Media3MusicService.currentAudioSessionId]
- * which external apps can use to apply audio effects to Flow Tube's output.
+ * which external apps can use to apply audio effects to NeuroTube's output.
  */
 @UnstableApi
 class AudioFeaturesManager(
@@ -39,7 +39,7 @@ class AudioFeaturesManager(
          * Get the current audio session ID for external audio processors.
          * Returns 0 if no active session exists.
          *
-         * External apps like James DSP can use this to target Flow Tube's audio output.
+         * External apps like James DSP can use this to target NeuroTube's audio output.
          */
         fun getAudioSessionId(): Int = Media3MusicService.currentAudioSessionId
     }

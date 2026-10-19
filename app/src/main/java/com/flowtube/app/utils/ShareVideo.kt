@@ -98,7 +98,7 @@ private fun textShareChooser(
 }
 
 /**
- * Shares a playlist file, which another Flow Tube imports when it is opened. Flow Tube itself is left out of
+ * Shares a playlist file, which another NeuroTube imports when it is opened. NeuroTube itself is left out of
  * the chooser so the sheet never offers to import the file back into the playlist it came from.
  */
 fun sharePlaylistFile(

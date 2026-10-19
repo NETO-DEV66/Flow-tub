@@ -24,7 +24,7 @@ import com.flowtube.app.ui.components.settings.SettingsPage
 import com.flowtube.app.ui.components.settings.switch
 import com.flowtube.app.ui.screens.settings.index.NavigationBarIndex
 
-/** Which tabs the navigation bar shows, in what order, and which one Flow Tube opens on. */
+/** Which tabs the navigation bar shows, in what order, and which one NeuroTube opens on. */
 @Composable
 internal fun NavigationBarScreen(
     onBack: (() -> Unit)?,

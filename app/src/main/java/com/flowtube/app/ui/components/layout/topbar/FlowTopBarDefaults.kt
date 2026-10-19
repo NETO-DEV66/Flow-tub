@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 /**
  * Shared look of every non-player top bar.
  *
- * The values here are not Material defaults on purpose: Flow Tube paints screens on
+ * The values here are not Material defaults on purpose: NeuroTube paints screens on
  * `colorScheme.background` rather than `surface`, and [WindowInsets] owns no status-bar padding
  * because the root `Scaffold` in `FlowApp` already consumes `WindowInsets.systemBars`. Letting a
  * `TopAppBar` apply its own insets would double the status-bar gap on every screen.

@@ -120,7 +120,7 @@ class SponsorBlockRepository
         companion object {
             private const val SKIP_SEGMENTS_URL = "https://sponsor.ajay.app/api/skipSegments"
 
-            /** The lookup for [videoId], asking for every category and action type Flow Tube handles. */
+            /** The lookup for [videoId], asking for every category and action type NeuroTube handles. */
             internal fun segmentsUrl(videoId: String): HttpUrl =
                 SKIP_SEGMENTS_URL
                     .toHttpUrl()

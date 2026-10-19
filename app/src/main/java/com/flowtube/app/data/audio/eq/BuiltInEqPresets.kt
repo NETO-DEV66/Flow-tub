@@ -14,7 +14,7 @@ data class BuiltInEqPreset(
 )
 
 /**
- * The presets Flow Tube ships, with stable ids. [BuiltInEqPreset.legacyName] is the English name older
+ * The presets NeuroTube ships, with stable ids. [BuiltInEqPreset.legacyName] is the English name older
  * versions stored as the selection, read once by the migration. Shelves use the Butterworth Q the old
  * processor applied, so each preset sounds as it did.
  */

@@ -9,11 +9,11 @@ import org.junit.Test
 class ReleaseNotesTest {
     private val body =
         """
-        # Flow Tube v1.0.0
+        # NeuroTube v1.0.0
 
         **Release date:** 2026-09-28
 
-        Flow Tube is free software. Star the project on [GitHub](https://github.com/NETO-DEV66/Flow-tub) if it helps you.
+        NeuroTube is free software. Star the project on [GitHub](https://github.com/NETO-DEV66/Flow-tub) if it helps you.
 
         ## New features
 
@@ -34,7 +34,7 @@ class ReleaseNotesTest {
         assertThat(notes.intro).hasSize(1)
         assertThat(notes.intro.single().spans)
             .containsExactly(
-                Plain("Flow Tube is free software. Star the project on "),
+                Plain("NeuroTube is free software. Star the project on "),
                 Link("GitHub", "https://github.com/NETO-DEV66/Flow-tub"),
                 Plain(" if it helps you."),
             ).inOrder()

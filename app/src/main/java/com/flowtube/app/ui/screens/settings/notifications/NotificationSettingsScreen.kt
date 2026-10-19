@@ -46,7 +46,7 @@ private val IntervalOptions =
         1440 to R.string.notif_interval_24h,
     )
 
-/** The background feed check, which kinds of alert Flow Tube may post, and the system channel settings. */
+/** The background feed check, which kinds of alert NeuroTube may post, and the system channel settings. */
 @Composable
 internal fun NotificationSettingsScreen(
     onBack: (() -> Unit)?,

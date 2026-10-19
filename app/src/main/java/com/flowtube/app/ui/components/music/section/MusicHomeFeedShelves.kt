@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2025-2026 Flow Tube | A-EDev
+ * Copyright (C) 2025-2026 NeuroTube | A-EDev
  *
- * This file is part of Flow Tube (https://github.com/NETO-DEV66/Flow-tub).
+ * This file is part of NeuroTube (https://github.com/NETO-DEV66/Flow-tub).
  */
 
 package com.flowtube.app.ui.components.music.section
@@ -390,7 +390,7 @@ internal fun LazyListScope.newReleases(
 }
 
 /**
- * The titles InnerTube's dynamic home shares with shelves Flow Tube already renders itself.
+ * The titles InnerTube's dynamic home shares with shelves NeuroTube already renders itself.
  */
 internal fun String.isDuplicateOfADedicatedShelf(): Boolean =
     listOf(

@@ -57,7 +57,7 @@ fun resolveDownloadDestination(
 }
 
 /**
- * The file-system path behind a storage provider document id such as `primary:Movies/Flow Tube`, or
+ * The file-system path behind a storage provider document id such as `primary:Movies/NeuroTube`, or
  * null when the id does not name a place on a storage volume.
  */
 fun documentIdToPath(

@@ -24,7 +24,7 @@ interface MediaNavigator {
 
     fun openEqualizer()
 
-    /** Opens what [link] points at. False when Flow Tube has no page for it, so the caller can say so. */
+    /** Opens what [link] points at. False when NeuroTube has no page for it, so the caller can say so. */
     fun openLink(link: YouTubeLink): Boolean
 }
 

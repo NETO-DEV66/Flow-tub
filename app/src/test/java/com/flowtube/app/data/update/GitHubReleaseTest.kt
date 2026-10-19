@@ -13,25 +13,25 @@ class GitHubReleaseTest {
 
     private val splits =
         listOf(
-            asset("FlowTube-1.0.0-armeabi-v7a.apk"),
-            asset("FlowTube-1.0.0-foss-arm64-v8a.apk"),
-            asset("FlowTube-1.0.0-arm64-v8a.apk"),
+            asset("NeuroTube-1.0.0-armeabi-v7a.apk"),
+            asset("NeuroTube-1.0.0-foss-arm64-v8a.apk"),
+            asset("NeuroTube-1.0.0-arm64-v8a.apk"),
         )
 
     @Test
     fun `a release with a universal apk offers it`() {
-        assertThat(selectApk(splits + asset("FlowTube-1.0.0-universal.apk"))?.name).isEqualTo("FlowTube-1.0.0-universal.apk")
+        assertThat(selectApk(splits + asset("NeuroTube-1.0.0-universal.apk"))?.name).isEqualTo("NeuroTube-1.0.0-universal.apk")
     }
 
     @Test
     fun `a release with only abi splits falls back to the first github apk`() {
-        assertThat(selectApk(splits)?.name).isEqualTo("FlowTube-1.0.0-armeabi-v7a.apk")
+        assertThat(selectApk(splits)?.name).isEqualTo("NeuroTube-1.0.0-armeabi-v7a.apk")
     }
 
     @Test
     fun `a foss build is never picked`() {
-        assertThat(selectApk(listOf(asset("FlowTube-1.0.0-foss-universal.apk"), asset("FlowTube-1.0.0-universal.apk")))?.name)
-            .isEqualTo("FlowTube-1.0.0-universal.apk")
+        assertThat(selectApk(listOf(asset("NeuroTube-1.0.0-foss-universal.apk"), asset("NeuroTube-1.0.0-universal.apk")))?.name)
+            .isEqualTo("NeuroTube-1.0.0-universal.apk")
     }
 
     @Test
@@ -48,7 +48,7 @@ class GitHubReleaseTest {
             """
             {"tag_name":"v2.3.0","body":"## New features","html_url":"https://github.com/NETO-DEV66/Flow-tub/releases/tag/v2.3.0",
              "published_at":"2026-09-28T10:00:00Z","draft":false,
-             "assets":[{"name":"FlowTube-1.0.0-universal.apk","browser_download_url":"https://example.test/a","size":17613193,
+             "assets":[{"name":"NeuroTube-1.0.0-universal.apk","browser_download_url":"https://example.test/a","size":17613193,
                         "digest":"sha256:F900AB"}]}
             """.trimIndent()
 
@@ -56,7 +56,7 @@ class GitHubReleaseTest {
 
         assertThat(release?.version).isEqualTo("2.3.0")
         assertThat(release?.publishedAt).isEqualTo(Instant.parse("2026-09-28T10:00:00Z"))
-        assertThat(release?.apk).isEqualTo(ReleaseApk("FlowTube-1.0.0-universal.apk", "https://example.test/a", 17613193, "f900ab"))
+        assertThat(release?.apk).isEqualTo(ReleaseApk("NeuroTube-1.0.0-universal.apk", "https://example.test/a", 17613193, "f900ab"))
     }
 
     @Test
@@ -68,6 +68,6 @@ class GitHubReleaseTest {
 
     @Test
     fun `a nightly apk is never offered`() {
-        assertThat(selectApk(listOf(asset("FlowTube-nightly-1430.apk")))).isNull()
+        assertThat(selectApk(listOf(asset("NeuroTube-nightly-1430.apk")))).isNull()
     }
 }

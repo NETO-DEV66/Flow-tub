@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2025-2026 Flow Tube | A-EDev
+ * Copyright (C) 2025-2026 NeuroTube | A-EDev
  *
- * This file is part of Flow Tube (https://github.com/NETO-DEV66/Flow-tub).
+ * This file is part of NeuroTube (https://github.com/NETO-DEV66/Flow-tub).
  *
  * This recommendation algorithm (FlowNeuroEngine) is the intellectual property
- * of the Flow Tube project. Any use of this code in other projects must
- * explicitly credit "Flow Tube Android Client" and link back to the original repository.
+ * of the NeuroTube project. Any use of this code in other projects must
+ * explicitly credit "NeuroTube Android Client" and link back to the original repository.
  */
 
 package com.flowtube.app.data.recommendation

@@ -1,31 +1,24 @@
-# Flow Tube v1.1.0
+# NeuroTube v1.2.0
 
-**Release date:** 2026-10-18
+**Release date:** 2026-10-19
 
-Flow Tube has a new look. This release replaces the old red branding with a new mark — a flow-play
-shape filled with a violet-to-pink-to-orange aurora gradient on a deep charcoal tile — and applies it
-everywhere the app shows its face.
+NeuroTube is the new name. The app used to be called Flow Tube; this release renames it everywhere
+the name is shown, and keeps every download and setting you already have.
 
 ## Changed
 
-- **A new identity.** The old red play mark is gone. The new FlowTube mark is drawn on every launcher
-  icon variant (default, AMOLED, ghost, monochrome, dynamic and the expressive set), in the Home
-  header, the notification, the splash screen and the TV banner.
-- **Sharper icons.** Launcher icons were rebuilt at all five screen densities, so the mark stays crisp
-  on phones, tablets and TVs, including round icons.
-- **Refreshed artwork.** The project logo, the store listing icon and the README badges now use the new
-  colours.
+- **New name.** The launcher label, the Home header, the notification, the widgets, the About screen
+  and the update screen all read NeuroTube now. The name is translated in all 30 bundled languages.
+- **New download folders.** New downloads go to `Download/NeuroTube`, `Movies/NeuroTube` and
+  `Music/NeuroTube` instead of the old `Flow Tube` folders.
+- **Old folders are still read.** The app keeps scanning the previous `Flow Tube` folders, so a file
+  saved by an earlier version is still found, listed in Downloads and recovered after a reinstall.
+- **Project renamed too.** The README, the project website, the release asset names
+  (`NeuroTube-<version>-universal.apk`) and the Gradle project name all use the new name.
 
-## Fixed
+## Unchanged
 
-- The splash screen no longer shows a mark that is invisible against its own background.
-- The segmented splash icon was drawn too large and got cropped; it now uses the correct logo size.
-- The Home header logo, which was hardcoded in the app rather than drawn from the icon files, now
-  shows the new mark as well.
-
-## Notes
-
-- No changes to playback, the library, downloads or your local data.
-- Same signing key as v1.0.1, so this installs as a normal update and your data is kept.
+- The application id stays `com.flowtube.app`, so this installs as a normal update over v1.1.0 and
+  your library, downloads, playlists and the recommendation profile are kept.
+- Same signing key as v1.1.0.
 - One universal APK for every supported device, as before.
-- This build is signed with both APK Signature Scheme v2 and v3.

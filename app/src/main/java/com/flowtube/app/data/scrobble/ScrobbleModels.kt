@@ -2,7 +2,7 @@ package com.flowtube.app.data.scrobble
 
 import kotlinx.serialization.Serializable
 
-/** The services Flow Tube can scrobble to. The names are stored, so never rename them. */
+/** The services NeuroTube can scrobble to. The names are stored, so never rename them. */
 enum class ScrobbleService {
     LASTFM,
     LIBREFM,

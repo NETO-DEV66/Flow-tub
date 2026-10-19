@@ -48,7 +48,7 @@ private val PaletteDialogSpacing = 8.dp
 private enum class SystemSlot { LIGHT, DARK }
 
 /**
- * The theme picker. With Follow system on, Flow Tube switches between a light-mode and a dark-mode
+ * The theme picker. With Follow system on, NeuroTube switches between a light-mode and a dark-mode
  * theme with the device; with it off, one theme is shown in the chosen style. Custom themes sit
  * beside the built-in palettes and are managed on their own page.
  */

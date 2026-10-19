@@ -47,7 +47,7 @@ private val HeadingPattern = Regex("""^(#{1,6})\s+""")
 private val RulePattern = Regex("""^([-*_])\1{2,}$""")
 
 /**
- * Reads the Markdown Flow Tube's GitHub releases are written in: the `#` title and the release date line
+ * Reads the Markdown NeuroTube's GitHub releases are written in: the `#` title and the release date line
  * are dropped (the page shows both), `##` headings open sections, bullets and paragraphs become
  * items, and bold text, links, `#123` issues and `@user` mentions keep their meaning.
  */

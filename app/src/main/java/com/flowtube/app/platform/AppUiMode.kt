@@ -1,6 +1,6 @@
 package com.flowtube.app.platform
 
-/** User-selected interface mode for the shared Flow Tube APK. */
+/** User-selected interface mode for the shared NeuroTube APK. */
 enum class AppUiMode {
     AUTOMATIC,
     MOBILE,

@@ -5,7 +5,7 @@ import java.nio.channels.FileChannel
 /**
  * Reads text atoms from an MP4's `moov/udta/meta/ilst`. Hand-rolled only for the atoms Media3 1.11
  * skips as unknown (`MetadataUtil.parseIlstElement` has no branch for `desc` or `ldes`, which is
- * where yt-dlp and Flow Tube itself write a video's description); everything else goes through Media3.
+ * where yt-dlp and NeuroTube itself write a video's description); everything else goes through Media3.
  */
 internal object Mp4TextAtoms {
     const val DESCRIPTION = "desc"

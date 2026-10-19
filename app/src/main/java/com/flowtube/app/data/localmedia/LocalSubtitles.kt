@@ -20,7 +20,7 @@ import javax.inject.Singleton
 /**
  * Subtitle files for videos on the device: the ones beside a video, and the ones someone picked
  * for it. MediaStore indexes subtitle files like `.lrc` lyrics, so the video permission that lists
- * a video lets Flow Tube read the files next to it. Nothing here touches the network.
+ * a video lets NeuroTube read the files next to it. Nothing here touches the network.
  */
 @Singleton
 class LocalSubtitles
@@ -95,7 +95,7 @@ class LocalSubtitles
             offsetMs: Long,
         ) = store.setOffset(videoId, offsetMs)
 
-        /** Remembers [uri] for [videoId]; null when it is not a subtitle file Flow Tube can read. */
+        /** Remembers [uri] for [videoId]; null when it is not a subtitle file NeuroTube can read. */
         suspend fun pick(
             videoId: String,
             uri: Uri,

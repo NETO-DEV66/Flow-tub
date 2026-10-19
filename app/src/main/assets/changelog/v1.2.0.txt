@@ -1,0 +1,15 @@
+NEUROTUBE CHANGE LOG
+VERSION: 1.2.0
+DATE: 2026-10-19
+STATUS: RELEASE
+
+IMPROVEMENTS
+- The app is now called NeuroTube, everywhere: launcher name, Home header, notifications, widgets, the About screen and every one of the 30 translated languages
+- New downloads are saved under a NeuroTube folder in Download, Movies and Music
+- Existing downloads are still found. The app keeps reading the old Flow Tube folders, so nothing you already saved disappears
+- README, project website and store listing carry the new name
+
+NOTES
+- Same signing key as v1.1.0, so this installs as a normal update and your data is kept
+- One universal APK for every supported device, as before
+- No changes to playback, the recommendation engine or your local data

@@ -8,7 +8,7 @@ import android.os.Environment
 import androidx.core.content.ContextCompat
 
 /**
- * Which shared files Flow Tube may read. Files an earlier install or another app saved are visible only
+ * Which shared files NeuroTube may read. Files an earlier install or another app saved are visible only
  * with All files access, or with the media permissions for their kind.
  */
 data class StorageAccess(

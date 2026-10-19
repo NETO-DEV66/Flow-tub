@@ -69,7 +69,7 @@ class MediaLoader(
         internal fun subtitleTrackId(index: Int): String = "$SUBTITLE_TRACK_ID_PREFIX$index"
 
         /**
-         * The caption index a track's format id names, or null for a track Flow Tube did not add.
+         * The caption index a track's format id names, or null for a track NeuroTube did not add.
          * Merging sources prefix every format id with the source's position, so the id is matched
          * at its end.
          */

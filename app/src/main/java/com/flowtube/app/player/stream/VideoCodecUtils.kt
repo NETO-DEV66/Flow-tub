@@ -9,7 +9,7 @@ object VideoCodecUtils {
 
     /**
      * YouTube only spells the frame rate out on its high-frame-rate ladder ("1080p60"); 24/25/30 fps
-     * stay bare. Flow Tube's quality selector follows the same convention.
+     * stay bare. NeuroTube's quality selector follows the same convention.
      */
     private const val HIGH_FRAME_RATE_FPS = 50
     private val CODECS_PARAMETER_REGEX = Regex("""codecs\s*=\s*["']([^"']+)["']""", RegexOption.IGNORE_CASE)

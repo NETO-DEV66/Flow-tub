@@ -16,7 +16,7 @@ import com.flowtube.app.ui.screens.settings.index.WidgetsIndex
 import com.flowtube.app.widget.core.FlowWidgets
 import kotlinx.coroutines.launch
 
-/** Every Flow Tube widget, each one tap from the launcher's own add-widget dialog. */
+/** Every NeuroTube widget, each one tap from the launcher's own add-widget dialog. */
 @Composable
 internal fun WidgetsSettingsScreen(
     onBack: (() -> Unit)?,

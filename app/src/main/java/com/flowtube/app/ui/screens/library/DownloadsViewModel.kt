@@ -60,7 +60,7 @@ class DownloadsViewModel
         private val query = MutableStateFlow("")
         private val sort = MutableStateFlow(DownloadSort.NEWEST)
 
-        // Each pull to refresh reads the lists again, so a file deleted outside Flow Tube drops out and
+        // Each pull to refresh reads the lists again, so a file deleted outside NeuroTube drops out and
         // the free space is measured again, not only when the database changes.
         private val refreshTick = MutableStateFlow(0)
 
@@ -221,7 +221,7 @@ class DownloadsViewModel
             viewModelScope.launch { collections.remove(id, deleteFiles) }
         }
 
-        /** The system's delete prompt for files an earlier install owns, which Flow Tube can't remove itself. */
+        /** The system's delete prompt for files an earlier install owns, which NeuroTube can't remove itself. */
         val deleteConsent: Flow<IntentSender> =
             videoDownloadManager.undeletable.mapNotNull { context.deleteRequestFor(it) }.flowOn(Dispatchers.IO)
 

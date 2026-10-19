@@ -51,7 +51,7 @@ class DeviceIdentity @Inject constructor(
 
     private fun defaultDeviceName(): String {
         val model = Build.MODEL?.trim().orEmpty()
-        return if (model.isEmpty()) "Flow Tube (Android)" else "Flow Tube ($model)"
+        return if (model.isEmpty()) "NeuroTube (Android)" else "NeuroTube ($model)"
     }
 
     companion object {

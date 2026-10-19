@@ -6,13 +6,13 @@ import kotlinx.serialization.Serializable
  * Which attestation runtime mints a PO Token this client's requests will be accepted with.
  *
  * A PO Token is produced by BotGuard (Web), DroidGuard (Android) or iOSGuard (iOS), and one
- * platform's token is never valid on another's URL. Flow Tube only owns a BotGuard WebView, so [WEB]
+ * platform's token is never valid on another's URL. NeuroTube only owns a BotGuard WebView, so [WEB]
  * is the only family it can attest; the rest are usable exactly as long as YouTube keeps serving
  * them unattested. Encoding that here is what stops a WEB token being stamped onto an
  * ANDROID_VR/IOS URL, which is a claim GVS checks and rejects.
  */
 enum class AttestationPlatform {
-    /** BotGuard — Flow Tube mints these in [com.flowtube.app.utils.potoken.PoTokenWebView]. */
+    /** BotGuard — NeuroTube mints these in [com.flowtube.app.utils.potoken.PoTokenWebView]. */
     WEB,
 
     /** DroidGuard, inside Google Play Services. Not reachable from a third-party app. */
@@ -47,7 +47,7 @@ data class YouTubeClient(
     val useWebPoTokens: Boolean = false,
     /**
      * The runtime that mints tokens this client's URLs will accept. Defaults to [AttestationPlatform.WEB]
-     * because every client Flow Tube can actually attest is web-family; the non-web clients set it
+     * because every client NeuroTube can actually attest is web-family; the non-web clients set it
      * explicitly so token attachment can be gated on it.
      */
     val attestation: AttestationPlatform = AttestationPlatform.WEB,

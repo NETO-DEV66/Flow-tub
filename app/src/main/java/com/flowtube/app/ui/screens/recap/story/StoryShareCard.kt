@@ -51,7 +51,7 @@ private const val STATIC_BACKDROP = 0.35f
 
 /**
  * The card the story ends on and the image that gets shared: the period's two faces, its time in a
- * headline figure, four tiles, the trait that stood out and the Flow Tube mark. It inverts its page's
+ * headline figure, four tiles, the trait that stood out and the NeuroTube mark. It inverts its page's
  * tint (accent ground, container ink) so it reads as an object on the page and as a poster alone.
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)

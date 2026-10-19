@@ -72,7 +72,7 @@ object InnerTubeVideoStreamExtractor {
         )
 
     /**
-     * Direct clients GVS cuts off without a PO Token Flow Tube cannot mint (DroidGuard). The gate is
+     * Direct clients GVS cuts off without a PO Token NeuroTube cannot mint (DroidGuard). The gate is
      * bound to the byte offset, not wall-clock time, and measured between media position 60s and
      * 67s. Never promote these above [SABR_CLIENTS]. 1.65.10 leads as the only build still
      * answering; the others are kept because a bot wall is reputation-bound, not structural.
@@ -92,7 +92,7 @@ object InnerTubeVideoStreamExtractor {
         )
 
     // MWEB first: it carries every dubbed audio track and is web-family, so its GVS token is one
-    // Flow Tube's own BotGuard session can mint.
+    // NeuroTube's own BotGuard session can mint.
     private val SABR_CLIENTS: List<YouTubeClient> =
         listOf(
             YouTubeClient.MWEB,
@@ -202,7 +202,7 @@ object InnerTubeVideoStreamExtractor {
             }
 
             // 2) Durable path: web client + BotGuard PoToken + SABR. Ranked above every remaining
-            // direct client because it is the only other path whose token Flow Tube can actually mint —
+            // direct client because it is the only other path whose token NeuroTube can actually mint —
             // the clients below it are all served unattested and can be cut off mid-playback.
             trySabrClients(videoId, failureReasons)?.let {
                 Log.w(TAG, "Extraction OK for $videoId via ${it.usedClient.clientName} (mode=SABR)")

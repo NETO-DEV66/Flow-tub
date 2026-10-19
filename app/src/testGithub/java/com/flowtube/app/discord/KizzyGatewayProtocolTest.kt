@@ -33,7 +33,7 @@ class KizzyGatewayProtocolTest {
                 ),
                 applicationId = "123",
                 resolvedImage = "mp:external/asset",
-                activityName = "Flow Tube",
+                activityName = "NeuroTube",
             ),
         ).jsonObject
         val activity = payload.getValue("d").jsonObject
@@ -50,7 +50,7 @@ class KizzyGatewayProtocolTest {
     @Test
     fun `clear presence sends an empty activity list`() {
         val payload = Json.parseToJsonElement(
-            KizzyGatewayProtocol.presence(null, "123", null, "Flow Tube"),
+            KizzyGatewayProtocol.presence(null, "123", null, "NeuroTube"),
         ).jsonObject
 
         assertThat(payload.getValue("d").jsonObject.getValue("activities").jsonArray).isEmpty()

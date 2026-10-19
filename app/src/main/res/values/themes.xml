@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.FlowTube" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.NeuroTube" parent="android:Theme.Material.Light.NoActionBar">
         <!-- Enable edge-to-edge -->
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -13,149 +13,149 @@
     <!-- The platform splash. Before Android 13 it follows the system night mode; from 13 on,
          SplashController picks one of the styles below so each launch matches the app theme
          and launcher icon the user chose. -->
-    <style name="Theme.FlowTube.Starting" parent="Theme.SplashScreen">
+    <style name="Theme.NeuroTube.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/splash_background</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_logo</item>
-        <item name="postSplashScreenTheme">@style/Theme.FlowTube</item>
+        <item name="postSplashScreenTheme">@style/Theme.NeuroTube</item>
     </style>
 
-    <style name="Theme.FlowTube.Starting.Light">
+    <style name="Theme.NeuroTube.Starting.Light">
         <item name="windowSplashScreenBackground">@color/splash_background_light</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Light.Play">
+    <style name="Theme.NeuroTube.Starting.Light.Play">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_play</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Light.Amoled">
+    <style name="Theme.NeuroTube.Starting.Light.Amoled">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_amoled_inset</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Light.Monochrome">
+    <style name="Theme.NeuroTube.Starting.Light.Monochrome">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_monochrome_inset</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Light.Dynamic" parent="Theme.SplashScreen.IconBackground">
+    <style name="Theme.NeuroTube.Starting.Light.Dynamic" parent="Theme.SplashScreen.IconBackground">
         <item name="windowSplashScreenBackground">@color/splash_background_light</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_dynamic_foreground</item>
         <item name="windowSplashScreenIconBackgroundColor">@color/icon_bg_dynamic</item>
-        <item name="postSplashScreenTheme">@style/Theme.FlowTube</item>
+        <item name="postSplashScreenTheme">@style/Theme.NeuroTube</item>
     </style>
 
-    <style name="Theme.FlowTube.Starting.Dark">
+    <style name="Theme.NeuroTube.Starting.Dark">
         <item name="windowSplashScreenBackground">@color/splash_background_dark</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Dark.Play">
+    <style name="Theme.NeuroTube.Starting.Dark.Play">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_play</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Dark.Amoled">
+    <style name="Theme.NeuroTube.Starting.Dark.Amoled">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_amoled_inset</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Dark.Monochrome">
+    <style name="Theme.NeuroTube.Starting.Dark.Monochrome">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_monochrome_inset</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Dark.Ghost">
+    <style name="Theme.NeuroTube.Starting.Dark.Ghost">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_ghost_inset</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Dark.Dynamic" parent="Theme.SplashScreen.IconBackground">
+    <style name="Theme.NeuroTube.Starting.Dark.Dynamic" parent="Theme.SplashScreen.IconBackground">
         <item name="windowSplashScreenBackground">@color/splash_background_dark</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_dynamic_foreground</item>
         <item name="windowSplashScreenIconBackgroundColor">@color/icon_bg_dynamic</item>
-        <item name="postSplashScreenTheme">@style/Theme.FlowTube</item>
+        <item name="postSplashScreenTheme">@style/Theme.NeuroTube</item>
     </style>
 
-    <style name="Theme.FlowTube.Starting.Black">
+    <style name="Theme.NeuroTube.Starting.Black">
         <item name="windowSplashScreenBackground">@color/splash_background_black</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Black.Play">
+    <style name="Theme.NeuroTube.Starting.Black.Play">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_play</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Black.Amoled">
+    <style name="Theme.NeuroTube.Starting.Black.Amoled">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_amoled_inset</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Black.Monochrome">
+    <style name="Theme.NeuroTube.Starting.Black.Monochrome">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_monochrome_inset</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Black.Ghost">
+    <style name="Theme.NeuroTube.Starting.Black.Ghost">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_ghost_inset</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Black.Dynamic" parent="Theme.SplashScreen.IconBackground">
+    <style name="Theme.NeuroTube.Starting.Black.Dynamic" parent="Theme.SplashScreen.IconBackground">
         <item name="windowSplashScreenBackground">@color/splash_background_black</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_dynamic_foreground</item>
         <item name="windowSplashScreenIconBackgroundColor">@color/icon_bg_dynamic</item>
-        <item name="postSplashScreenTheme">@style/Theme.FlowTube</item>
+        <item name="postSplashScreenTheme">@style/Theme.NeuroTube</item>
     </style>
 
-    <!-- Expressive icons: their own art at logo size over the tone's window, like the Flow Tube badge. -->
-    <style name="Theme.FlowTube.Starting.Light.Expressive" />
-    <style name="Theme.FlowTube.Starting.Light.Expressive.Scallop">
+    <!-- Expressive icons: their own art at logo size over the tone's window, like the NeuroTube badge. -->
+    <style name="Theme.NeuroTube.Starting.Light.Expressive" />
+    <style name="Theme.NeuroTube.Starting.Light.Expressive.Scallop">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_scallop</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Light.Expressive.Segmented">
+    <style name="Theme.NeuroTube.Starting.Light.Expressive.Segmented">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_segmented</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Light.Expressive.Play">
+    <style name="Theme.NeuroTube.Starting.Light.Expressive.Play">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_play</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Light.Expressive.Sky">
+    <style name="Theme.NeuroTube.Starting.Light.Expressive.Sky">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_sky</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Light.Expressive.Mint">
+    <style name="Theme.NeuroTube.Starting.Light.Expressive.Mint">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_mint</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Light.Expressive.Cookie">
+    <style name="Theme.NeuroTube.Starting.Light.Expressive.Cookie">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_cookie</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Light.Expressive.Oval">
+    <style name="Theme.NeuroTube.Starting.Light.Expressive.Oval">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_oval</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Light.Expressive.Pill">
+    <style name="Theme.NeuroTube.Starting.Light.Expressive.Pill">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_pill</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Dark.Expressive" />
-    <style name="Theme.FlowTube.Starting.Dark.Expressive.Scallop">
+    <style name="Theme.NeuroTube.Starting.Dark.Expressive" />
+    <style name="Theme.NeuroTube.Starting.Dark.Expressive.Scallop">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_scallop</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Dark.Expressive.Segmented">
+    <style name="Theme.NeuroTube.Starting.Dark.Expressive.Segmented">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_segmented</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Dark.Expressive.Play">
+    <style name="Theme.NeuroTube.Starting.Dark.Expressive.Play">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_play</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Dark.Expressive.Sky">
+    <style name="Theme.NeuroTube.Starting.Dark.Expressive.Sky">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_sky</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Dark.Expressive.Mint">
+    <style name="Theme.NeuroTube.Starting.Dark.Expressive.Mint">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_mint</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Dark.Expressive.Cookie">
+    <style name="Theme.NeuroTube.Starting.Dark.Expressive.Cookie">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_cookie</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Dark.Expressive.Oval">
+    <style name="Theme.NeuroTube.Starting.Dark.Expressive.Oval">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_oval</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Dark.Expressive.Pill">
+    <style name="Theme.NeuroTube.Starting.Dark.Expressive.Pill">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_pill</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Black.Expressive" />
-    <style name="Theme.FlowTube.Starting.Black.Expressive.Scallop">
+    <style name="Theme.NeuroTube.Starting.Black.Expressive" />
+    <style name="Theme.NeuroTube.Starting.Black.Expressive.Scallop">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_scallop</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Black.Expressive.Segmented">
+    <style name="Theme.NeuroTube.Starting.Black.Expressive.Segmented">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_segmented</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Black.Expressive.Play">
+    <style name="Theme.NeuroTube.Starting.Black.Expressive.Play">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_play</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Black.Expressive.Sky">
+    <style name="Theme.NeuroTube.Starting.Black.Expressive.Sky">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_sky</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Black.Expressive.Mint">
+    <style name="Theme.NeuroTube.Starting.Black.Expressive.Mint">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_mint</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Black.Expressive.Cookie">
+    <style name="Theme.NeuroTube.Starting.Black.Expressive.Cookie">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_cookie</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Black.Expressive.Oval">
+    <style name="Theme.NeuroTube.Starting.Black.Expressive.Oval">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_oval</item>
     </style>
-    <style name="Theme.FlowTube.Starting.Black.Expressive.Pill">
+    <style name="Theme.NeuroTube.Starting.Black.Expressive.Pill">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_expressive_pill</item>
     </style>
 </resources>

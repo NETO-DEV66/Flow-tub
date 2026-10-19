@@ -46,11 +46,11 @@ internal fun GitHubRelease.toAppReleaseIfNewer(currentVersion: String): AppRelea
 
 /**
  * The github-flavour APK for this device: the universal APK, else any github APK. Foss builds are
- * never picked; they are signed for other stores. Nightly assets are never picked either — Flow Tube
+ * never picked; they are signed for other stores. Nightly assets are never picked either — NeuroTube
  * publishes one universal APK per release.
  *
  * Asset names are matched structurally rather than by a fixed prefix, so a release may name its
- * files `FlowTube-1.0.0-universal.apk` or `flow-universal.apk` and both resolve.
+ * files `NeuroTube-1.0.0-universal.apk` or `flow-universal.apk` and both resolve.
  */
 internal fun selectApk(assets: List<GitHubAsset>): GitHubAsset? {
     val github =

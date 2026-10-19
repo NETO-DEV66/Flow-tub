@@ -18,7 +18,7 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import com.flowtube.app.R
 
 /**
- * Whether YouTube links open in Flow Tube. Flow Tube cannot prove it owns youtube.com, so from Android 12 a
+ * Whether YouTube links open in NeuroTube. NeuroTube cannot prove it owns youtube.com, so from Android 12 a
  * link reaches it only for the addresses the user turned on under the system's "Open by default".
  */
 internal sealed interface LinkHandling {
@@ -65,7 +65,7 @@ internal fun rememberLinkHandlingLabel(): String {
     }
 }
 
-/** Opens the system screen where the user picks which links Flow Tube opens. */
+/** Opens the system screen where the user picks which links NeuroTube opens. */
 internal fun openLinkSettings(context: Context) {
     val packageUri = Uri.parse("package:${context.packageName}")
     val openByDefault =

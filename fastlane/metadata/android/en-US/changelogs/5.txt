@@ -1,0 +1,4 @@
+- NeuroTube is the new name, shown in the launcher, the app, the widgets and every translated language
+- New downloads save under Download/NeuroTube, Movies/NeuroTube and Music/NeuroTube
+- Downloads you already have are still found: the old Flow Tube folders are still read and recovered
+- Same signing key and app id, so this installs as a normal update and keeps your data

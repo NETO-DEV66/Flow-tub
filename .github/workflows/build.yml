@@ -145,15 +145,15 @@ jobs:
           # AGP appends "-unsigned" when no keystore is configured, so accept either.
           apk=$(ls app/build/outputs/apk/github/release/app-github-release*.apk | head -1)
           mkdir -p dist
-          cp "$apk" "dist/FlowTube-${version}-universal.apk"
-          (cd dist && sha256sum FlowTube-*.apk | tee checksums.txt)
+          cp "$apk" "dist/NeuroTube-${version}-universal.apk"
+          (cd dist && sha256sum NeuroTube-*.apk | tee checksums.txt)
           ls -lh dist
 
       - name: Report APK size
         shell: bash
         run: |
           set -euo pipefail
-          apk=$(ls dist/FlowTube-*-universal.apk)
+          apk=$(ls dist/NeuroTube-*-universal.apk)
           bytes=$(stat --format='%s' "$apk")
           size=$(awk -v bytes="$bytes" 'BEGIN { printf "%.2f MiB", bytes / 1048576 }')
           {
@@ -167,8 +167,8 @@ jobs:
       - name: Upload the universal APK
         uses: actions/upload-artifact@v7
         with:
-          name: flowtube-universal-apk
-          path: dist/FlowTube-*-universal.apk
+          name: neurotube-universal-apk
+          path: dist/NeuroTube-*-universal.apk
           if-no-files-found: error
           retention-days: 30
           compression-level: 0
@@ -176,7 +176,7 @@ jobs:
       - name: Upload checksums
         uses: actions/upload-artifact@v7
         with:
-          name: flowtube-checksums
+          name: neurotube-checksums
           path: dist/checksums.txt
           if-no-files-found: error
           retention-days: 30
@@ -186,7 +186,7 @@ jobs:
       - name: Upload R8 mappings
         uses: actions/upload-artifact@v7
         with:
-          name: flowtube-r8-mappings
+          name: neurotube-r8-mappings
           path: app/build/outputs/mapping/*/mapping.txt
           if-no-files-found: warn
           retention-days: 90
@@ -207,13 +207,13 @@ jobs:
       - name: Download the universal APK
         uses: actions/download-artifact@v8
         with:
-          name: flowtube-universal-apk
+          name: neurotube-universal-apk
           path: dist/
 
       - name: Download checksums
         uses: actions/download-artifact@v8
         with:
-          name: flowtube-checksums
+          name: neurotube-checksums
           path: dist/
 
       - name: Get version from tag
@@ -225,7 +225,7 @@ jobs:
           RELEASE_VERSION: ${{ steps.get_version.outputs.VERSION }}
         run: |
           test -s release-notes.md
-          grep -Fqx "# Flow Tube ${RELEASE_VERSION}" release-notes.md
+          grep -Fqx "# NeuroTube ${RELEASE_VERSION}" release-notes.md
 
       # The in-app updater reads /releases/latest and matches the universal APK.
       # This must stay a full release, never a prerelease, or "latest" skips it.
@@ -233,11 +233,11 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.get_version.outputs.VERSION }}
-          name: Flow Tube ${{ steps.get_version.outputs.VERSION }}
+          name: NeuroTube ${{ steps.get_version.outputs.VERSION }}
           body_path: release-notes.md
           generate_release_notes: false
           files: |
-            dist/FlowTube-*-universal.apk
+            dist/NeuroTube-*-universal.apk
             dist/checksums.txt
           draft: false
           prerelease: false

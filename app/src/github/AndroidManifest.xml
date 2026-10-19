@@ -8,7 +8,7 @@
         <activity
             android:name="com.flowtube.app.discord.DiscordLoginActivity"
             android:exported="false"
-            android:theme="@style/Theme.FlowTube" />
+            android:theme="@style/Theme.NeuroTube" />
 
         <receiver
             android:name="com.flowtube.app.updater.UpdateInstallReceiver"

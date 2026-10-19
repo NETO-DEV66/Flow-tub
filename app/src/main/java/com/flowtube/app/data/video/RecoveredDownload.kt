@@ -24,7 +24,7 @@ internal data class FoundFile(
 }
 
 /**
- * The rows a file found on disk is recorded with. A file Flow Tube tagged comes back as the download it
+ * The rows a file found on disk is recorded with. A file NeuroTube tagged comes back as the download it
  * was, under its real video id with its channel, album and counts; a file whose comment names its
  * video keeps that id; any other file gets an id made from its path and whatever title and artist
  * it carries. Pure, so it is unit tested.
@@ -47,8 +47,8 @@ internal object RecoveredDownload {
     ): String = knownIdFor(tags, sourceUrl) ?: "recovered_${path.hashCode().toLong() and 0xFFFFFFFFL}"
 
     /**
-     * The video the file is a copy of: Flow Tube's own tag, or else the watch URL in its comment, which
-     * yt-dlp writes by default and Flow Tube wrote before it had tags of its own.
+     * The video the file is a copy of: NeuroTube's own tag, or else the watch URL in its comment, which
+     * yt-dlp writes by default and NeuroTube wrote before it had tags of its own.
      */
     fun knownIdFor(
         tags: DownloadTags?,

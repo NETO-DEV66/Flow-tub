@@ -11,7 +11,7 @@ import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-/** How much of one kind of media Flow Tube may read. */
+/** How much of one kind of media NeuroTube may read. */
 internal enum class MediaAccess { FULL, PARTIAL, NONE }
 
 /** The permissions the local library asks for together, for videos and music. */
@@ -76,7 +76,7 @@ internal fun downloadReadPermissions(): Array<String> =
         arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
     }
 
-/** Flow Tube's page in system settings, the only place left to grant a permission after "Don't allow". */
+/** NeuroTube's page in system settings, the only place left to grant a permission after "Don't allow". */
 internal fun Context.openAppPermissionSettings() {
     runCatching { startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", packageName, null))) }
 }

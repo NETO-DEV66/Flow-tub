@@ -254,7 +254,7 @@ class MainActivity : ComponentActivity() {
                 return@setContent
             }
 
-            // Initialize Flow Tube Neuro Engine
+            // Initialize NeuroTube Neuro Engine
             LaunchedEffect(Unit) {
                 com.flowtube.app.data.recommendation.FlowNeuroEngine
                     .initialize(applicationContext)

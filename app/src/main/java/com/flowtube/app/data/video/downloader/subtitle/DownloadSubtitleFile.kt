@@ -23,7 +23,7 @@ import javax.inject.Singleton
 
 /**
  * Saves a finished video's chosen caption track as `Title.en.srt` beside it, where other players
- * and Flow Tube's Local media find it. The track comes from the copy Flow Tube already stored for offline
+ * and NeuroTube's Local media find it. The track comes from the copy NeuroTube already stored for offline
  * playback, so only a machine translation needs the network. Never fails the download.
  */
 @Singleton

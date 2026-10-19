@@ -36,7 +36,7 @@ import com.flowtube.app.widget.week.WeekWidget
 import com.flowtube.app.widget.week.WeekWidgetReceiver
 import kotlin.reflect.KClass
 
-/** Registry of every Flow Tube widget: re-renders them on theme changes, publishes previews, lists them in Settings. */
+/** Registry of every NeuroTube widget: re-renders them on theme changes, publishes previews, lists them in Settings. */
 object FlowWidgets {
     /**
      * Re-renders every placed widget whenever the app's palette actually changes.

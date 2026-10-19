@@ -3,7 +3,7 @@ package com.flowtube.app.data.localmedia
 private val OffsetTag = Regex("""^\s*\[offset:\s*([+-]?\d+)\s*]\s*$""", setOf(RegexOption.IGNORE_CASE, RegexOption.MULTILINE))
 private val HeaderTag = Regex("""^\s*\[[a-zA-Z#]+:[^\]]*]\s*$""")
 
-/** An `[offset:+500]` tag in milliseconds; positive shows the lines sooner, as Flow Tube's sync offset does. */
+/** An `[offset:+500]` tag in milliseconds; positive shows the lines sooner, as NeuroTube's sync offset does. */
 internal fun lrcOffsetMs(text: String): Long =
     OffsetTag
         .find(text)

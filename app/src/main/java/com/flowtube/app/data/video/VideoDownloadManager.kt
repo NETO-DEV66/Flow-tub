@@ -86,8 +86,14 @@ class VideoDownloadManager
     ) {
         companion object {
             private const val TAG = "VideoDownloadManager"
-            const val VIDEO_DIR = "Flow Tube"
-            const val AUDIO_DIR = "Flow Tube"
+            const val VIDEO_DIR = "NeuroTube"
+            const val AUDIO_DIR = "NeuroTube"
+
+            /**
+             * Folders an earlier install wrote to. They are still read (and recovered from) so a
+             * rename never strands a viewer's existing downloads, but new files never land there.
+             */
+            val LEGACY_DIRS = listOf("Flow Tube")
             private const val STAGING_DIR = "staging"
             private const val INTERNAL_DIR = "downloads"
 
@@ -387,7 +393,7 @@ class VideoDownloadManager
          * Based on NewPipe's deletion order:
          *  1. Collect file paths                    (before DB removal)
          *  2. Guard paths against scanner re-insert (ConcurrentHashMap set)
-         *  3. Delete DB entry                       (UI disappears instantly via Room Flow Tube)
+         *  3. Delete DB entry                       (UI disappears instantly via Room NeuroTube)
          *  4. Delete files in app-scoped ioScope    (immune to ViewModel back-press cancellation)
          *  5. Notify MediaScanner each file is gone (removes stale index on Android 10+)
          */

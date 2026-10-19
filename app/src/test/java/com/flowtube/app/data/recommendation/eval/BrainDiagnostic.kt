@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2025-2026 Flow Tube | A-EDev
+ * Copyright (C) 2025-2026 NeuroTube | A-EDev
  *
- * This file is part of Flow Tube (https://github.com/NETO-DEV66/Flow-tub).
+ * This file is part of NeuroTube (https://github.com/NETO-DEV66/Flow-tub).
  * Test-source-set only — never shipped in the APK.
  */
 
@@ -23,7 +23,7 @@ import kotlinx.serialization.json.Json
 
 /**
  * Offline diagnostic over a REAL exported brain (Settings → Export Data →
- * engine profile, or Flow Tube Personality → export). Runs the production
+ * engine profile, or NeuroTube Personality → export). Runs the production
  * clustering, scheduling, and discovery code on the user's actual data so
  * cluster shape, rotation state, and repetition defenses can be inspected
  * instead of guessed at.

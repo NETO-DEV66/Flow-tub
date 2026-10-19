@@ -19,7 +19,7 @@ data class ThemeCatalogEntry(
 object ThemeCatalog {
     /**
      * Every built-in palette in the picker, in display order: the desktop app's catalogue with Material You
-     * after Flow Tube Default, then the palettes only Android has so far. System Default and custom themes
+     * after NeuroTube Default, then the palettes only Android has so far. System Default and custom themes
      * are not palettes and are offered separately.
      */
     val palettes: List<ThemeCatalogEntry> =

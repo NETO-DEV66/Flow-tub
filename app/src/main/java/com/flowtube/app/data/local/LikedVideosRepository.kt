@@ -145,7 +145,7 @@ class LikedVideosRepository private constructor(
     }
 
     /**
-     * Adds likes brought from another app, each placed by the date it was liked. A video Flow Tube already
+     * Adds likes brought from another app, each placed by the date it was liked. A video NeuroTube already
      * holds a like or dislike for is left as it is. Returns the likes that were added.
      */
     suspend fun importLikes(likes: List<LikedVideoInfo>): List<LikedVideoInfo> {

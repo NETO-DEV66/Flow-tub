@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 /**
  * Whether this app's traffic runs through a VPN. It reads the app's own default network, so a VPN
- * that excludes Flow Tube by split tunnelling counts as off.
+ * that excludes NeuroTube by split tunnelling counts as off.
  */
 @Singleton
 class VpnStateMonitor

@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 
-/** Leanback launcher bridge that keeps [MainActivity] as Flow Tube's single runtime host. */
+/** Leanback launcher bridge that keeps [MainActivity] as NeuroTube's single runtime host. */
 class TvActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -30,7 +30,7 @@ internal fun linkTextOf(intent: Intent): String? =
     }
 
 /**
- * Null for a link Flow Tube has no page for: a search, and a mix, which YouTube builds around a video
+ * Null for a link NeuroTube has no page for: a search, and a mix, which YouTube builds around a video
  * and cannot be browsed on its own.
  */
 internal fun linkDestination(link: YouTubeLink): LinkDestination? =

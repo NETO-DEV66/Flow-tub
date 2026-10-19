@@ -1286,7 +1286,7 @@ class BackupRepository(
                     var done = 0
                     onProgress?.invoke(0, total)
 
-                    // 6. Insert into Flow Tube's database
+                    // 6. Insert into NeuroTube's database
                     database.withTransaction {
                         for ((plId, plName, plThumb) in playlists) {
                             val songList = playlistSongs[plId] ?: emptyList()

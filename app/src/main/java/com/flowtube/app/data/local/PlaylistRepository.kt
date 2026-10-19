@@ -215,7 +215,7 @@ class PlaylistRepository
 
         /**
          * Adds an imported playlist as the viewer's own, in the given order. Videos already in the
-         * library keep their stored metadata; the file only fills in ones Flow Tube has never seen.
+         * library keep their stored metadata; the file only fills in ones NeuroTube has never seen.
          */
         suspend fun importPlaylist(
             name: String,

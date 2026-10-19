@@ -14,7 +14,7 @@ import com.flowtube.app.ui.components.layout.navigation.MediaNavigator
 import com.flowtube.app.utils.parseYouTubeLink
 
 /**
- * Opens a YouTube link on the page Flow Tube has for it and hands every other link to [platform].
+ * Opens a YouTube link on the page NeuroTube has for it and hands every other link to [platform].
  *
  * Provided over the whole shell, so a link tapped in any text reaches the app instead of the
  * browser: descriptions, comments, posts, channel links, and every `LinkAnnotation.Url`, which
@@ -46,7 +46,7 @@ internal fun withWebScheme(uri: String): String {
     return "https://$uri"
 }
 
-/** Opens [url] in the app when it is a YouTube link Flow Tube has a page for; false for anything else. */
+/** Opens [url] in the app when it is a YouTube link NeuroTube has a page for; false for anything else. */
 internal fun MediaNavigator.openYouTubeUrl(url: String): Boolean = parseYouTubeLink(unwrapYouTubeRedirect(url))?.let(::openLink) == true
 
 /** YouTube wraps outbound links in `youtube.com/redirect?q=…`; the target opens directly instead. */

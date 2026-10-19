@@ -36,7 +36,7 @@ private const val SAMPLE_AGE_DAYS = 215L
 private val PreviewPadding = 16.dp
 private val PreviewSpacing = 4.dp
 
-/** How upload dates read across Flow Tube, with a live preview of each place they appear. */
+/** How upload dates read across NeuroTube, with a live preview of each place they appear. */
 @Composable
 internal fun DateTimeScreen(
     onBack: (() -> Unit)?,

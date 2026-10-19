@@ -11,7 +11,7 @@ import androidx.compose.material.icons.outlined.VideoLibrary
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.flowtube.app.R
 
-/** Stable top-level destinations for Flow Tube's TV interface. */
+/** Stable top-level destinations for NeuroTube's TV interface. */
 enum class TvDestination(
     val route: String,
     @StringRes val labelRes: Int,

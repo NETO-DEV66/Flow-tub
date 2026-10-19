@@ -3,7 +3,7 @@ package com.flowtube.app.data.model
 import com.flowtube.app.data.local.SponsorBlockAction
 
 /**
- * The SponsorBlock categories Flow Tube fetches, configures and submits, in the order settings list them.
+ * The SponsorBlock categories NeuroTube fetches, configures and submits, in the order settings list them.
  * Chapters and highlights (`chapter`, `poi_highlight`) are left out: they are not ranges to act on.
  */
 object SponsorBlockCategories {

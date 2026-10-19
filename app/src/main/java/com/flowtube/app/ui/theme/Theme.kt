@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontFamily
  * or [SYSTEM] to follow the device's light and dark setting.
  *
  * Stored by name, so a name is never reused or renamed; retired palettes are mapped in [fromStored].
- * [LIGHT] and [OLED] are older spellings of Flow Tube Default's light and AMOLED styles.
+ * [LIGHT] and [OLED] are older spellings of NeuroTube Default's light and AMOLED styles.
  */
 enum class ThemeMode {
     SYSTEM,

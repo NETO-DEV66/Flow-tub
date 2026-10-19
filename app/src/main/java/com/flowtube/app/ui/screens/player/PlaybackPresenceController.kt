@@ -54,7 +54,7 @@ internal class PlaybackPresenceController(
     fun armNotificationFor(video: Video) =
         playerManager.startBackgroundService(
             videoId = video.id,
-            title = video.title.ifEmpty { "Flow Tube Player" },
+            title = video.title.ifEmpty { "NeuroTube Player" },
             channel = video.channelName,
             thumbnail = video.thumbnailUrl,
         )

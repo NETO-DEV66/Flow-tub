@@ -4,7 +4,7 @@ import android.content.Context
 import com.flowtube.app.R
 import com.flowtube.app.data.playlist.PlaylistImport
 
-/** What to tell the viewer after an import, from the Playlists screen or a file opened in Flow Tube. */
+/** What to tell the viewer after an import, from the Playlists screen or a file opened in NeuroTube. */
 internal fun PlaylistImport.message(context: Context): String =
     when (this) {
         is PlaylistImport.Imported -> {

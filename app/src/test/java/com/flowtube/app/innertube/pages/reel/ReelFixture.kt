@@ -6,7 +6,7 @@ import kotlinx.serialization.json.jsonObject
 import org.junit.Assume.assumeTrue
 
 /**
- * Real trimmed captures of the reel endpoints, taken 2026-09-19 against the live API with Flow Tube's
+ * Real trimmed captures of the reel endpoints, taken 2026-09-19 against the live API with NeuroTube's
  * own client contexts. Not tracked (`app/src/test/resources/shorts/` is gitignored): regenerate with
  * `notes/innertube-video-responses/probe_shorts_endpoints.py`, `probe_shorts_extras.py`, then
  * `trim_shorts_fixtures.py`. Without them these tests report as skipped rather than failing.

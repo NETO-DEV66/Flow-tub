@@ -15,6 +15,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "FlowTube"
+rootProject.name = "NeuroTube"
 include(":app")
 include(":benchmark")

@@ -165,7 +165,7 @@ object EnhancedMusicPlayerManager {
     private val _repeatMode = MutableStateFlow(RepeatMode.OFF)
     val repeatMode: StateFlow<RepeatMode> = _repeatMode.asStateFlow()
 
-    private val _playingFrom = MutableStateFlow("Flow Tube Music")
+    private val _playingFrom = MutableStateFlow("NeuroTube Music")
     val playingFrom: StateFlow<String> = _playingFrom.asStateFlow()
 
     private val _isLiked = MutableStateFlow(false)
@@ -1101,7 +1101,7 @@ object EnhancedMusicPlayerManager {
         _currentQueueIndex.value = 0
         clearPendingPlayNext()
         _currentPosition.value = 0L
-        _playingFrom.value = "Flow Tube Music"
+        _playingFrom.value = "NeuroTube Music"
         _playerState.value = MusicPlayerState()
     }
 

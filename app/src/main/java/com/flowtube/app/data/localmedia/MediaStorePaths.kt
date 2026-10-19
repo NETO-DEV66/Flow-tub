@@ -8,7 +8,7 @@ import java.io.InputStream
 
 /**
  * The file path MediaStore records for [uri]. Deprecated for writing, but still the only way to
- * find the files that sit beside a media file, which scoped storage lets Flow Tube read by path.
+ * find the files that sit beside a media file, which scoped storage lets NeuroTube read by path.
  */
 @Suppress("DEPRECATION")
 internal fun Context.mediaStoreDataPath(uri: Uri): String? =

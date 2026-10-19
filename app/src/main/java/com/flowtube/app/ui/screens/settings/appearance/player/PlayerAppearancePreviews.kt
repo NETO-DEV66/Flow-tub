@@ -138,7 +138,7 @@ internal fun SeekbarWidthPreview(padding: Dp) {
 }
 
 /**
- * The music player's own background in [style], painted around Flow Tube's icon in place of album art,
+ * The music player's own background in [style], painted around NeuroTube's icon in place of album art,
  * so the preview is exactly what the player draws rather than a sketch of it.
  */
 @Composable

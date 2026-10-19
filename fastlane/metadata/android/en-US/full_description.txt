@@ -1,4 +1,4 @@
-Flow Tube is a privacy-first YouTube and YouTube Music client. It provides a personalized feed using a completely local, on-device algorithm, giving you a modern discovery experience without tracking or accounts.
+NeuroTube is a privacy-first YouTube and YouTube Music client. It provides a personalized feed using a completely local, on-device algorithm, giving you a modern discovery experience without tracking or accounts.
 
 Features:
 
@@ -22,4 +22,4 @@ Features:
 - Modern Material 3 interface
 - Export and backup your local algorithm data
 
-Flow Tube is an independent, open-source project. It is not affiliated with, endorsed by, sponsored by, or approved by Google LLC or YouTube. "YouTube" and "YouTube Music" are trademarks of Google LLC, used only to describe what the app can play. The app ships no content of its own.
+NeuroTube is an independent, open-source project. It is not affiliated with, endorsed by, sponsored by, or approved by Google LLC or YouTube. "YouTube" and "YouTube Music" are trademarks of Google LLC, used only to describe what the app can play. The app ships no content of its own.

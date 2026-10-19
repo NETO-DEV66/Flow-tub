@@ -35,7 +35,7 @@ internal data class TakeoutHtmlActivity(
 /**
  * Streams a Takeout activity HTML file, handing the videos watched on YouTube and YouTube Music to
  * [onWatches] in batches and keeping the searches. Takeout names the watch and search history files
- * in the account's language, so both are read from every file. Neither carries a date Flow Tube can read
+ * in the account's language, so both are read from every file. Neither carries a date NeuroTube can read
  * in every language, so entries are stamped newest first from [now], as Takeout lists them. With
  * [requireActivityMarkup], a file that never shows the My Activity layout gives nothing, so other
  * HTML in the archive is ignored.

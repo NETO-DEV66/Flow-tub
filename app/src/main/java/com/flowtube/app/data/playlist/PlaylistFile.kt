@@ -76,7 +76,7 @@ sealed interface PlaylistFileRead {
     /** Not JSON, or JSON of some other kind. */
     data object NotAPlaylist : PlaylistFileRead
 
-    /** Written by a newer Flow Tube in a format this one cannot read. */
+    /** Written by a newer NeuroTube in a format this one cannot read. */
     data object TooNew : PlaylistFileRead
 }
 

@@ -23,7 +23,7 @@ class BackupAndTopicsHelpersTest {
     @Test
     fun `folder names drop the storage volume`() {
         assertEquals("Documents/Backups", folderDisplayName("primary:Documents/Backups"))
-        assertEquals("Flow Tube", folderDisplayName("1A2B-3C4D:Flow Tube/"))
+        assertEquals("NeuroTube", folderDisplayName("1A2B-3C4D:NeuroTube/"))
         assertNull(folderDisplayName("primary:"))
         assertNull(folderDisplayName(null))
     }

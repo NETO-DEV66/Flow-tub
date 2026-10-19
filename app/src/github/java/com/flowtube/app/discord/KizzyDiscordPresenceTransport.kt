@@ -361,7 +361,7 @@ class KizzyDiscordPresenceTransport(
         heartbeatJob = null
         readySignal?.cancel()
         readySignal = null
-        socket?.close(1000, "Flow Tube Discord presence closed")
+        socket?.close(1000, "NeuroTube Discord presence closed")
         socket = null
         sequence = null
         heartbeatTracker.reset()

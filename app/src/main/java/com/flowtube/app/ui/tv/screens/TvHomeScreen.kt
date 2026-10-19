@@ -63,7 +63,7 @@ fun TvHomeScreen(
     }
 
     // Same viewport-driven prefetch mobile uses: report the last visible video
-    // index so HomeViewModel keeps extending the Flow Tube feed while scrolling.
+    // index so HomeViewModel keeps extending the NeuroTube feed while scrolling.
     LaunchedEffect(listState, hasContinueWatching) {
         val fixedItemsBefore = (if (hasContinueWatching) 1 else 0) + 1
         snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -1 }

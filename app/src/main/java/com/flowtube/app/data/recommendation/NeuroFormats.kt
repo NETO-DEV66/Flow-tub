@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2025-2026 Flow Tube | A-EDev
+ * Copyright (C) 2025-2026 NeuroTube | A-EDev
  *
- * This file is part of Flow Tube (https://github.com/NETO-DEV66/Flow-tub).
+ * This file is part of NeuroTube (https://github.com/NETO-DEV66/Flow-tub).
  */
 
 package com.flowtube.app.data.recommendation
@@ -11,7 +11,7 @@ package com.flowtube.app.data.recommendation
  * topic: it ends a chunk ([NeuroKeySpec] stage 5) and is learned as a preference of its own (#907).
  */
 internal object NeuroFormats {
-    /** Format id to the folded words that announce it, in the languages Flow Tube can vouch for. */
+    /** Format id to the folded words that announce it, in the languages NeuroTube can vouch for. */
     internal val SURFACES: Map<String, List<String>> =
         mapOf(
             "review" to listOf("review", "reviews", "reseña", "análisis", "análise", "обзор", "inceleme"),

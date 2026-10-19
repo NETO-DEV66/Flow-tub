@@ -28,7 +28,7 @@ enum class ExploreDestination(
 
     /**
      * The Gaming destination's landing page is a game-card carousel rather than videos, so its
-     * Trending tab is browsed directly. It is the one token not present in a response Flow Tube reads.
+     * Trending tab is browsed directly. It is the one token not present in a response NeuroTube reads.
      */
     val params: String?
         get() = if (this == GAMING) GAMING_TRENDING_PARAMS else null

@@ -30,7 +30,7 @@ private val BadgeSize = 48.dp
 private val BadgeIcon = 24.dp
 
 /**
- * The way into Flow Tube Recap. [readyLabel] names a month that just closed with a recap waiting, which
+ * The way into NeuroTube Recap. [readyLabel] names a month that just closed with a recap waiting, which
  * turns the card into an invitation with its own open and dismiss actions.
  */
 @Composable

@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 enum class DownloadKind { VIDEO, MUSIC, SHORT }
 
-/** Everything Flow Tube embeds into a downloaded file so it can be identified and re-imported later. */
+/** Everything NeuroTube embeds into a downloaded file so it can be identified and re-imported later. */
 @Serializable
 data class DownloadTags(
     val schema: Int = SCHEMA_VERSION,

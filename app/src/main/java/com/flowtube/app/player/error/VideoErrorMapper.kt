@@ -24,7 +24,7 @@ import java.net.UnknownHostException
  * human-readable, actionable error messages shown in the video player.
  *
  * Designed to mirror NewPipe's `ErrorInfo.getMessage()` logic but return plain
- * strings suitable for the Flow Tube player's snackbar / error panel.
+ * strings suitable for the NeuroTube player's snackbar / error panel.
  */
 object VideoErrorMapper {
     private const val TAG = "VideoErrorMapper"

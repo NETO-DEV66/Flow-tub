@@ -30,7 +30,7 @@ import kotlin.coroutines.resume
  * top level). So this re-renders, at the bar's visible resolution and no faster.
  *
  * It runs only while playing with a Now Playing widget placed, suspends while the screen is off, and
- * skips ticks while Flow Tube itself is in front, when the home screen cannot be seen and a live widget
+ * skips ticks while NeuroTube itself is in front, when the home screen cannot be seen and a live widget
  * session would tax the app's frames. Every player event restarts it from a fresh snapshot.
  */
 internal class NowPlayingProgressTicker(

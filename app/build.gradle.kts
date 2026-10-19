@@ -67,11 +67,11 @@ android {
         applicationId = "com.flowtube.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 4
-        versionName = "1.1.0"
+        versionCode = 5
+        versionName = "1.2.0"
 
         buildConfigField("String", "APP_LANGUAGE_TAGS", "\"${(listOf("en") + translatedLocaleTags()).joinToString(",")}\"")
-        // Discord Rich Presence stays off until a Discord application is registered for Flow Tube.
+        // Discord Rich Presence stays off until a Discord application is registered for NeuroTube.
         // The upstream Flow build shipped its own application id here; leaving it blank severs that.
         buildConfigField("String", "DISCORD_APPLICATION_ID", "\"\"")
         // Last.fm keys come from the CI secrets; builds without them ask the viewer for their own key.
@@ -97,7 +97,7 @@ android {
     }
 
     splits {
-        // Flow Tube ships one APK. ABI splits are off, so the single build carries both ARM ABIs.
+        // NeuroTube ships one APK. ABI splits are off, so the single build carries both ARM ABIs.
         abi {
             isEnable = false
             reset()

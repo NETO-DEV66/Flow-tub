@@ -26,7 +26,7 @@ import com.flowtube.app.ui.screens.settings.index.DestinationIndex
 import com.flowtube.app.ui.screens.settings.index.IntegrationsIndex
 
 /**
- * The outside services Flow Tube can talk to: SponsorBlock, DeArrow, Return YouTube Dislike and, in
+ * The outside services NeuroTube can talk to: SponsorBlock, DeArrow, Return YouTube Dislike and, in
  * builds that include it, Discord Rich Presence. Each service's first row is its own switch, and
  * the rows that depend on it wait for it.
  */

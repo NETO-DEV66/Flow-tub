@@ -12,7 +12,7 @@ private const val ANY = "*/*"
 private val CsvTypes = arrayOf("text/comma-separated-values", "text/csv", "text/plain")
 private val ZipTypes = arrayOf(ZIP, BINARY, ANY)
 
-/** Something Flow Tube can export, with the file type and name the system save dialog is offered. */
+/** Something NeuroTube can export, with the file type and name the system save dialog is offered. */
 enum class ExportKind(
     @StringRes val titleRes: Int,
     @StringRes val descriptionRes: Int,
@@ -53,7 +53,7 @@ enum class ExportKind(
 }
 
 /**
- * Something Flow Tube can import, and the file types the system picker should offer for it. With
+ * Something NeuroTube can import, and the file types the system picker should offer for it. With
  * [takesSeveralFiles], the picker lets the viewer choose several files that make up one import.
  */
 enum class ImportKind(

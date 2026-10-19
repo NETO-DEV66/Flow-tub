@@ -10,7 +10,7 @@ enum class ThemeVariant {
 }
 
 /**
- * A user's own theme: a name and all thirteen roles for each style, the same shape as Flow Tube
+ * A user's own theme: a name and all thirteen roles for each style, the same shape as NeuroTube
  * Desktop's `CustomThemeDefinition`, so it can be exported from one app and imported in the other.
  */
 @Immutable

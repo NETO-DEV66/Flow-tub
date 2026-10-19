@@ -26,7 +26,7 @@ import androidx.compose.ui.window.DialogProperties
 private val HeaderSpacing = 16.dp
 private val ButtonSpacing = 8.dp
 
-/** The spacing every Flow Tube dialog shares, including the ones that lay out their own content. */
+/** The spacing every NeuroTube dialog shares, including the ones that lay out their own content. */
 object FlowDialogDefaults {
     /** Around the dialog's content, on every side but the bottom. */
     val ContentPadding = 24.dp

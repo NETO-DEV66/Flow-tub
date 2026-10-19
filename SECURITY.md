@@ -41,7 +41,7 @@ file you downloaded:
 sha256sum -c checksums.txt
 ```
 
-Flow Tube ships one universal APK per release. Any file that is not named
-`FlowTube-<version>-universal.apk`, or that fails the checksum, is not an
+NeuroTube ships one universal APK per release. Any file that is not named
+`NeuroTube-<version>-universal.apk`, or that fails the checksum, is not an
 official build. Official distribution is the
 [GitHub Releases page](https://github.com/NETO-DEV66/Flow-tub/releases).

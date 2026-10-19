@@ -27,57 +27,57 @@ private val ExpressiveSplashes =
     mapOf(
         ".IconExpressiveScallop" to
             ExpressiveSplash(
-                R.style.Theme_FlowTube_Starting_Light_Expressive_Scallop,
-                R.style.Theme_FlowTube_Starting_Dark_Expressive_Scallop,
-                R.style.Theme_FlowTube_Starting_Black_Expressive_Scallop,
+                R.style.Theme_NeuroTube_Starting_Light_Expressive_Scallop,
+                R.style.Theme_NeuroTube_Starting_Dark_Expressive_Scallop,
+                R.style.Theme_NeuroTube_Starting_Black_Expressive_Scallop,
             ),
         ".IconExpressiveSegmented" to
             ExpressiveSplash(
-                R.style.Theme_FlowTube_Starting_Light_Expressive_Segmented,
-                R.style.Theme_FlowTube_Starting_Dark_Expressive_Segmented,
-                R.style.Theme_FlowTube_Starting_Black_Expressive_Segmented,
+                R.style.Theme_NeuroTube_Starting_Light_Expressive_Segmented,
+                R.style.Theme_NeuroTube_Starting_Dark_Expressive_Segmented,
+                R.style.Theme_NeuroTube_Starting_Black_Expressive_Segmented,
             ),
         ".IconExpressivePlay" to
             ExpressiveSplash(
-                R.style.Theme_FlowTube_Starting_Light_Expressive_Play,
-                R.style.Theme_FlowTube_Starting_Dark_Expressive_Play,
-                R.style.Theme_FlowTube_Starting_Black_Expressive_Play,
+                R.style.Theme_NeuroTube_Starting_Light_Expressive_Play,
+                R.style.Theme_NeuroTube_Starting_Dark_Expressive_Play,
+                R.style.Theme_NeuroTube_Starting_Black_Expressive_Play,
             ),
         ".IconExpressiveSky" to
             ExpressiveSplash(
-                R.style.Theme_FlowTube_Starting_Light_Expressive_Sky,
-                R.style.Theme_FlowTube_Starting_Dark_Expressive_Sky,
-                R.style.Theme_FlowTube_Starting_Black_Expressive_Sky,
+                R.style.Theme_NeuroTube_Starting_Light_Expressive_Sky,
+                R.style.Theme_NeuroTube_Starting_Dark_Expressive_Sky,
+                R.style.Theme_NeuroTube_Starting_Black_Expressive_Sky,
             ),
         ".IconExpressiveMint" to
             ExpressiveSplash(
-                R.style.Theme_FlowTube_Starting_Light_Expressive_Mint,
-                R.style.Theme_FlowTube_Starting_Dark_Expressive_Mint,
-                R.style.Theme_FlowTube_Starting_Black_Expressive_Mint,
+                R.style.Theme_NeuroTube_Starting_Light_Expressive_Mint,
+                R.style.Theme_NeuroTube_Starting_Dark_Expressive_Mint,
+                R.style.Theme_NeuroTube_Starting_Black_Expressive_Mint,
             ),
         ".IconExpressiveCookie" to
             ExpressiveSplash(
-                R.style.Theme_FlowTube_Starting_Light_Expressive_Cookie,
-                R.style.Theme_FlowTube_Starting_Dark_Expressive_Cookie,
-                R.style.Theme_FlowTube_Starting_Black_Expressive_Cookie,
+                R.style.Theme_NeuroTube_Starting_Light_Expressive_Cookie,
+                R.style.Theme_NeuroTube_Starting_Dark_Expressive_Cookie,
+                R.style.Theme_NeuroTube_Starting_Black_Expressive_Cookie,
             ),
         ".IconExpressiveOval" to
             ExpressiveSplash(
-                R.style.Theme_FlowTube_Starting_Light_Expressive_Oval,
-                R.style.Theme_FlowTube_Starting_Dark_Expressive_Oval,
-                R.style.Theme_FlowTube_Starting_Black_Expressive_Oval,
+                R.style.Theme_NeuroTube_Starting_Light_Expressive_Oval,
+                R.style.Theme_NeuroTube_Starting_Dark_Expressive_Oval,
+                R.style.Theme_NeuroTube_Starting_Black_Expressive_Oval,
             ),
         ".IconExpressivePill" to
             ExpressiveSplash(
-                R.style.Theme_FlowTube_Starting_Light_Expressive_Pill,
-                R.style.Theme_FlowTube_Starting_Dark_Expressive_Pill,
-                R.style.Theme_FlowTube_Starting_Black_Expressive_Pill,
+                R.style.Theme_NeuroTube_Starting_Light_Expressive_Pill,
+                R.style.Theme_NeuroTube_Starting_Dark_Expressive_Pill,
+                R.style.Theme_NeuroTube_Starting_Black_Expressive_Pill,
             ),
     )
 
 /**
  * The starting style for a launcher alias on a tone. The ghost icon is a white outline, so on a
- * light splash it falls back to the Flow Tube badge rather than vanish.
+ * light splash it falls back to the NeuroTube badge rather than vanish.
  */
 @StyleRes
 fun splashThemeFor(
@@ -94,33 +94,33 @@ fun splashThemeFor(
     return when (tone) {
         SplashTone.LIGHT -> {
             when (iconSuffix) {
-                ".IconFlowPlay" -> R.style.Theme_FlowTube_Starting_Light_Play
-                ".IconAmoled" -> R.style.Theme_FlowTube_Starting_Light_Amoled
-                ".IconMonochrome" -> R.style.Theme_FlowTube_Starting_Light_Monochrome
-                ".IconDynamic" -> R.style.Theme_FlowTube_Starting_Light_Dynamic
-                else -> R.style.Theme_FlowTube_Starting_Light
+                ".IconFlowPlay" -> R.style.Theme_NeuroTube_Starting_Light_Play
+                ".IconAmoled" -> R.style.Theme_NeuroTube_Starting_Light_Amoled
+                ".IconMonochrome" -> R.style.Theme_NeuroTube_Starting_Light_Monochrome
+                ".IconDynamic" -> R.style.Theme_NeuroTube_Starting_Light_Dynamic
+                else -> R.style.Theme_NeuroTube_Starting_Light
             }
         }
 
         SplashTone.DARK -> {
             when (iconSuffix) {
-                ".IconFlowPlay" -> R.style.Theme_FlowTube_Starting_Dark_Play
-                ".IconAmoled" -> R.style.Theme_FlowTube_Starting_Dark_Amoled
-                ".IconMonochrome" -> R.style.Theme_FlowTube_Starting_Dark_Monochrome
-                ".IconGhost" -> R.style.Theme_FlowTube_Starting_Dark_Ghost
-                ".IconDynamic" -> R.style.Theme_FlowTube_Starting_Dark_Dynamic
-                else -> R.style.Theme_FlowTube_Starting_Dark
+                ".IconFlowPlay" -> R.style.Theme_NeuroTube_Starting_Dark_Play
+                ".IconAmoled" -> R.style.Theme_NeuroTube_Starting_Dark_Amoled
+                ".IconMonochrome" -> R.style.Theme_NeuroTube_Starting_Dark_Monochrome
+                ".IconGhost" -> R.style.Theme_NeuroTube_Starting_Dark_Ghost
+                ".IconDynamic" -> R.style.Theme_NeuroTube_Starting_Dark_Dynamic
+                else -> R.style.Theme_NeuroTube_Starting_Dark
             }
         }
 
         SplashTone.BLACK -> {
             when (iconSuffix) {
-                ".IconFlowPlay" -> R.style.Theme_FlowTube_Starting_Black_Play
-                ".IconAmoled" -> R.style.Theme_FlowTube_Starting_Black_Amoled
-                ".IconMonochrome" -> R.style.Theme_FlowTube_Starting_Black_Monochrome
-                ".IconGhost" -> R.style.Theme_FlowTube_Starting_Black_Ghost
-                ".IconDynamic" -> R.style.Theme_FlowTube_Starting_Black_Dynamic
-                else -> R.style.Theme_FlowTube_Starting_Black
+                ".IconFlowPlay" -> R.style.Theme_NeuroTube_Starting_Black_Play
+                ".IconAmoled" -> R.style.Theme_NeuroTube_Starting_Black_Amoled
+                ".IconMonochrome" -> R.style.Theme_NeuroTube_Starting_Black_Monochrome
+                ".IconGhost" -> R.style.Theme_NeuroTube_Starting_Black_Ghost
+                ".IconDynamic" -> R.style.Theme_NeuroTube_Starting_Black_Dynamic
+                else -> R.style.Theme_NeuroTube_Starting_Black
             }
         }
     }

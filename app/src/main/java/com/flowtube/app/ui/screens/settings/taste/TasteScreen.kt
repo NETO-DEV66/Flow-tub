@@ -36,7 +36,7 @@ private val LoadingHeight = 240.dp
 
 private enum class ResetKind { VIDEO, MUSIC }
 
-/** How Flow Tube sees the viewer, with the levers that change it. */
+/** How NeuroTube sees the viewer, with the levers that change it. */
 @Composable
 internal fun TasteScreen(
     onBack: (() -> Unit)?,

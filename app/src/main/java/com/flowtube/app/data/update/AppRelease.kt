@@ -2,7 +2,7 @@ package com.flowtube.app.data.update
 
 import java.time.Instant
 
-/** A published Flow Tube release that is newer than the running build. */
+/** A published NeuroTube release that is newer than the running build. */
 data class AppRelease(
     val version: String,
     val tag: String,

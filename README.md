@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="Assets/logo.png" alt="Flow Tube" width="140">
+  <img src="Assets/logo.png" alt="NeuroTube" width="140">
 
-  <h1>Flow Tube</h1>
+  <h1>NeuroTube</h1>
 
   <h3>A privacy-first YouTube and YouTube Music client for Android, with recommendations that never leave your phone.</h3>
 
@@ -16,7 +16,7 @@
   <p>
     <a href="https://neto-dev66.github.io/Flow-tub/"><b>Website</b></a> ·
     <a href="https://github.com/NETO-DEV66/Flow-tub/releases/latest"><b>Download APK</b></a> ·
-    <a href="#set-up-flow-tube--no-account-no-login"><b>Set up</b></a> ·
+    <a href="#set-up-neurotube--no-account-no-login"><b>Set up</b></a> ·
     <a href="#build-from-source"><b>Build</b></a> ·
     <a href="privacy.md"><b>Privacy</b></a> ·
     <a href="CONTRIBUTING.md"><b>Contribute</b></a> ·
@@ -24,8 +24,8 @@
   </p>
 
   <p>
-    <b>No account and no login.</b> Flow Tube never asks you to sign in. You bring your own YouTube
-    data in from a Google Takeout export — <a href="#set-up-flow-tube--no-account-no-login">here is how</a>.
+    <b>No account and no login.</b> NeuroTube never asks you to sign in. You bring your own YouTube
+    data in from a Google Takeout export — <a href="#set-up-neurotube--no-account-no-login">here is how</a>.
   </p>
 
   <p>
@@ -36,27 +36,27 @@
 
 ---
 
-## Why Flow Tube?
+## Why NeuroTube?
 
 Most open-source YouTube clients give you playback but no way to discover new content. You either
 use the official app and get tracked, or you use an alternative and lose recommendations entirely.
 
-Flow Tube gives you both. A recommendation engine learns what you like by analysing your watch
+NeuroTube gives you both. A recommendation engine learns what you like by analysing your watch
 behaviour **locally**. Nothing leaves your device. You can inspect everything it knows about you,
 adjust it, or wipe it at any time.
 
 ---
 
-## Set up Flow Tube — no account, no login
+## Set up NeuroTube — no account, no login
 
-Flow Tube never asks you to sign in. There is no Google login, no password, and no cookie to hand
+NeuroTube never asks you to sign in. There is no Google login, no password, and no cookie to hand
 over — so nothing about your Google account is ever at risk from using this app.
 
 To bring **your own** YouTube data in — subscriptions, watch history, liked videos, searches and
 playlists — you export a copy from Google and import the file. It takes about two minutes.
 
 > **Your data never leaves your phone.** The export is read on your device and written straight into
-> the app's private database. Flow Tube has no server, no analytics, and no upload of any kind.
+> the app's private database. NeuroTube has no server, no analytics, and no upload of any kind.
 
 ### Step 1 — Ask Google for your data
 
@@ -80,9 +80,9 @@ Open the email titled **"Your Google data is ready to download"** and click **Do
 to [takeout.google.com](https://takeout.google.com/) → **Manage exports** → **Download**. A large
 export arrives as **several ZIP parts** — download all of them.
 
-### Step 3 — Import into Flow Tube
+### Step 3 — Import into NeuroTube
 
-1. Open Flow Tube.
+1. Open NeuroTube.
 2. Go to **Settings → Backup & restore → Import**.
 3. Tap **Import from Google Takeout**.
 4. Pick **every ZIP** from your export and let it run. A progress line names each part as it lands:
@@ -109,7 +109,7 @@ When it finishes you get a summary of exactly what came in, for example:
 ### Good to know
 
 - **Re-importing is safe.** Import as often as you like — nothing is duplicated.
-- **It is a snapshot.** Your Flow Tube history does not sync back to YouTube, and videos you watch
+- **It is a snapshot.** Your NeuroTube history does not sync back to YouTube, and videos you watch
   after the export appear only after your next export.
 - **Delete the ZIP afterwards.** It holds your entire watch history and search history — the most
   personal file on your phone. Once the import is done, delete it.
@@ -208,7 +208,7 @@ installs on every supported device — there is no ABI to choose.
 
 | APK | Size | Devices |
 | :--- | :--- | :--- |
-| `FlowTube-vX.Y.Z-universal.apk` | ~23 MB | Every supported phone and tablet |
+| `NeuroTube-vX.Y.Z-universal.apk` | ~23 MB | Every supported phone and tablet |
 
 Grab it from the [latest release](https://github.com/NETO-DEV66/Flow-tub/releases/latest), or let the
 app update itself: it checks for a new release and installs it after you confirm.
@@ -229,7 +229,7 @@ Every APK is signed with the same release key, so the signature stays identical 
 Android can install a new release over an older one. You can confirm it yourself:
 
 ```bash
-apksigner verify --print-certs FlowTube-vX.Y.Z-universal.apk
+apksigner verify --print-certs NeuroTube-vX.Y.Z-universal.apk
 ```
 
 The certificate's SHA-256 fingerprint is:
@@ -372,7 +372,7 @@ For security issues, follow [SECURITY.md](SECURITY.md) instead of opening a publ
 
 ## Acknowledgements
 
-Flow Tube is a rebranded fork of **[Flow](https://github.com/Flow-Tube/Flow)** (`io.github.aedev.flow`),
+NeuroTube is a rebranded fork of **[Flow](https://github.com/Flow-Tube/Flow)** (`io.github.aedev.flow`),
 a GPL-3.0 Android YouTube and YouTube Music client. The upstream project and its authors retain the
 copyright on the code this project derives from, and their notices are kept as the GPL requires.
 
@@ -392,7 +392,7 @@ It also builds on excellent open-source work:
 
 ## Disclaimer
 
-Flow Tube is an independent, open-source client. It is **not affiliated with, endorsed by, sponsored
+NeuroTube is an independent, open-source client. It is **not affiliated with, endorsed by, sponsored
 by, or approved by Google LLC or YouTube**. "YouTube" and "YouTube Music" are trademarks of Google LLC,
 used here only to describe what the app can play.
 
@@ -406,7 +406,7 @@ Screenshots in this README are for illustration only.
 
 ## License
 
-Flow Tube is free software, distributed under the **GNU General Public License v3 (GPLv3)**. You may
+NeuroTube is free software, distributed under the **GNU General Public License v3 (GPLv3)**. You may
 use, study, share, and improve it.
 
 This project is a rebranded fork of [Flow](https://github.com/Flow-Tube/Flow). The upstream code is

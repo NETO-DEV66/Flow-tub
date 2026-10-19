@@ -13,6 +13,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import com.flowtube.app.data.local.PlayerPreferences
 import com.flowtube.app.data.local.dao.DownloadDao
 import com.flowtube.app.data.local.entity.DownloadItemStatus
+import com.flowtube.app.data.video.VideoDownloadManager.Companion.LEGACY_DIRS
 import com.flowtube.app.data.video.VideoDownloadManager.Companion.VIDEO_DIR
 import com.flowtube.app.data.video.downloader.tags.DownloadTagReader
 import com.flowtube.app.data.video.storage.DownloadCovers
@@ -30,7 +31,7 @@ import javax.inject.Singleton
 /**
  * Finds video and audio files in the download folders, and the playlist and album folders inside
  * them, that the database does not know about (after a reinstall or a database wipe, for example)
- * and records them as completed downloads, so they show in Downloads and play offline. A file Flow Tube
+ * and records them as completed downloads, so they show in Downloads and play offline. A file NeuroTube
  * tagged comes back under its real video id, and a finished download whose file had gone missing
  * is pointed at it. Files already recorded are skipped, so it is safe to run repeatedly.
  */
@@ -49,7 +50,7 @@ class DownloadRecoveryScanner
         private var scannedWith: StorageAccess? = null
 
         /**
-         * Whether a scan could find something the last one couldn't: none has run yet, or Flow Tube may now
+         * Whether a scan could find something the last one couldn't: none has run yet, or NeuroTube may now
          * read more shared storage, as after the viewer grants media access.
          */
         fun needsScan(): Boolean = scannedWith != StorageAccess.read(context)
@@ -98,6 +99,10 @@ class DownloadRecoveryScanner
                 listOf(Environment.DIRECTORY_DOWNLOADS, Environment.DIRECTORY_MOVIES, Environment.DIRECTORY_MUSIC).forEach { type ->
                     runCatching { add(File(Environment.getExternalStoragePublicDirectory(type), VIDEO_DIR)) }
                     context.getExternalFilesDir(type)?.let { add(File(it, VIDEO_DIR)) }
+                    LEGACY_DIRS.forEach { legacy ->
+                        runCatching { add(File(Environment.getExternalStoragePublicDirectory(type), legacy)) }
+                        context.getExternalFilesDir(type)?.let { add(File(it, legacy)) }
+                    }
                 }
             }
 

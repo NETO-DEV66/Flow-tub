@@ -97,7 +97,7 @@ class SearchHistoryRepository
             }
         }
 
-        // Get search history as Flow Tube
+        // Get search history as NeuroTube
         fun getSearchHistoryFlow(scope: SearchHistoryScope = SearchHistoryScope.VIDEO): Flow<List<SearchHistoryItem>> =
             context.searchDataStore.data.map { preferences ->
                 if (preferences[SEARCH_HISTORY_ENABLED_KEY] != false) {

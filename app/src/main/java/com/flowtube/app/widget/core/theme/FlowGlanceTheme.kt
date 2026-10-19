@@ -11,7 +11,7 @@ import androidx.glance.color.ColorProviders
 import androidx.glance.unit.ColorProvider
 
 /**
- * Theme wrapper for all Flow Tube widgets. [colors] comes from [widgetColorsFlow], so every
+ * Theme wrapper for all NeuroTube widgets. [colors] comes from [widgetColorsFlow], so every
  * widget renders in the exact palette the user selected in the app.
  */
 @Composable
@@ -23,7 +23,7 @@ fun FlowGlanceTheme(
 }
 
 /**
- * Standard root surface for every Flow Tube widget: theme surface color + the launcher's
+ * Standard root surface for every NeuroTube widget: theme surface color + the launcher's
  * system corner radius on Android 12+ (squared below, matching platform convention).
  * Pass a container color to make the whole widget a tonal block (e.g. the recognizer tile).
  */

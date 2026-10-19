@@ -175,7 +175,7 @@ private const val TENTHS_PER_UNIT = 1000f
 private const val TENTHS_PER_PERCENT = 10
 
 /**
- * `#rrggbb`, or for a translucent colour `color-mix(in srgb, #rrggbb N%, transparent)`, which Flow Tube
+ * `#rrggbb`, or for a translucent colour `color-mix(in srgb, #rrggbb N%, transparent)`, which NeuroTube
  * Desktop accepts and CSS draws at N % opacity. N keeps one decimal so every alpha step survives
  * a round trip, and never reaches 0 so a fully transparent colour keeps its hue.
  */
@@ -199,7 +199,7 @@ internal fun Color.toThemeColor(): String {
 /**
  * The single custom palette older versions kept per style, keyed by Material role name, turned into
  * a named theme. The thirteen roles both apps share carry over; the divider colour older versions
- * called OUTLINE_VARIANT is what desktop calls outline. Anything missing falls back to Flow Tube Default.
+ * called OUTLINE_VARIANT is what desktop calls outline. Anything missing falls back to NeuroTube Default.
  */
 internal fun legacyCustomTheme(
     stored: Map<ThemeVariant, Map<String, Long>>,

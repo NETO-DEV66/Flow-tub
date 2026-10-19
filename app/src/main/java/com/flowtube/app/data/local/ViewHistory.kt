@@ -263,7 +263,7 @@ class ViewHistory private constructor(
         isLocal: Int = WatchHistoryDao.ANY,
     ): Flow<List<VideoHistoryEntry>> = observe { dao.readHistory(isMusic, isLocal).map { it.toDomain() } }
 
-    /** Re-reads on every change to the table, as a Room Flow Tube query would, dropping a read a newer change supersedes. */
+    /** Re-reads on every change to the table, as a Room NeuroTube query would, dropping a read a newer change supersedes. */
     @OptIn(ExperimentalCoroutinesApi::class)
     private fun <T> observe(read: suspend () -> T): Flow<T> =
         database.invalidationTracker

@@ -40,7 +40,7 @@ import com.flowtube.app.ui.theme.ThemeCatalog
 import com.flowtube.app.ui.theme.ThemeMode
 import kotlinx.coroutines.launch
 
-/** Everything about how Flow Tube looks: theme, icon, layout, and the sub-pages for finer control. */
+/** Everything about how NeuroTube looks: theme, icon, layout, and the sub-pages for finer control. */
 @Composable
 internal fun AppearanceScreen(
     onBack: (() -> Unit)?,

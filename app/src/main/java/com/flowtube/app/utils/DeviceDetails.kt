@@ -33,7 +33,7 @@ data class DeviceFactGroup(
 
 /**
  * What the About page tells about this device: the hardware, the system, the display, which video
- * formats decode in hardware (the reason a codec plays smoothly or not), and this build of Flow Tube.
+ * formats decode in hardware (the reason a codec plays smoothly or not), and this build of NeuroTube.
  * Enumerates the codec list and reads storage, so call it off the main thread.
  */
 object DeviceDetails {

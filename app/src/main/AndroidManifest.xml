@@ -74,7 +74,7 @@
         android:label="@string/app_launcher_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FlowTube"
+        android:theme="@style/Theme.NeuroTube"
         android:usesCleartextTraffic="true"
         android:resizeableActivity="true"
         android:requestLegacyExternalStorage="true"
@@ -109,7 +109,7 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.FlowTube.Starting">
+            android:theme="@style/Theme.NeuroTube.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
@@ -125,7 +125,7 @@
             android:launchMode="singleTask"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
-            android:theme="@style/Theme.FlowTube.Starting"
+            android:theme="@style/Theme.NeuroTube.Starting"
             android:windowSoftInputMode="adjustResize"
             android:windowLayoutInDisplayCutoutMode="shortEdges">
 
@@ -199,7 +199,7 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
 
-            <!-- A playlist file shared from Flow Tube opens here and is imported. -->
+            <!-- A playlist file shared from NeuroTube opens here and is imported. -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.SEND" />
@@ -287,7 +287,7 @@
             android:exported="true"
             android:excludeFromRecents="true"
             android:taskAffinity=""
-            android:theme="@style/Theme.FlowTube">
+            android:theme="@style/Theme.NeuroTube">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -393,7 +393,7 @@
         </receiver>
 
         <!-- App Icon Variants (via activity-alias)                          -->
-        <!-- Default: Flow Tube Red -->
+        <!-- Default: NeuroTube Red -->
         <activity-alias
             android:name=".IconFlowRed"
             android:enabled="true"
@@ -407,7 +407,7 @@
             </intent-filter>
         </activity-alias>
 
-        <!-- Flow Tube Light -->
+        <!-- NeuroTube Light -->
         <activity-alias
             android:name=".IconFlowLight"
             android:enabled="false"
@@ -421,7 +421,7 @@
             </intent-filter>
         </activity-alias>
 
-        <!-- Flow Tube Play (white background, red video frame + play mark) -->
+        <!-- NeuroTube Play (white background, red video frame + play mark) -->
         <activity-alias
             android:name=".IconFlowPlay"
             android:enabled="false"
@@ -632,7 +632,7 @@
         </activity-alias>
 
 
-        <!-- Files Flow Tube hands to other apps: recap cards and playlist files, only from their cache folders. -->
+        <!-- Files NeuroTube hands to other apps: recap cards and playlist files, only from their cache folders. -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.files"

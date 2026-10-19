@@ -18,7 +18,7 @@ class DownloadLocationTest {
     val temp = TemporaryFolder()
 
     private val staging by lazy { temp.newFolder("staging") }
-    private val defaultFolder by lazy { temp.newFolder("Download", "Flow Tube") }
+    private val defaultFolder by lazy { temp.newFolder("Download", "NeuroTube") }
     private val privateFolder by lazy { temp.newFolder("private") }
     private val blocked = mutableSetOf<File>()
     private val grantedTrees = mutableSetOf<String>()

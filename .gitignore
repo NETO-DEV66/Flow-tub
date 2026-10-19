@@ -57,7 +57,7 @@ dist/
 keystore-base64.txt
 
 # Source archive (the tree is committed; the zip is redundant)
-FlowTube-source.zip
+NeuroTube-source.zip
 
 # Local agent workspace notes (not part of the project)
 .openhands/

@@ -311,7 +311,7 @@ class EnhancedPlayerManager private constructor() {
                     pm
                         .newWakeLock(
                             PowerManager.PARTIAL_WAKE_LOCK,
-                            "Flow Tube:AutoAdvanceWakeLock",
+                            "NeuroTube:AutoAdvanceWakeLock",
                         ).apply { setReferenceCounted(false) }
             }
             if (advanceWakeLock?.isHeld != true) {

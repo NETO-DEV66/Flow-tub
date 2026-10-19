@@ -41,7 +41,7 @@ internal object UpdateSchedule {
 }
 
 /**
- * The one place Flow Tube asks GitHub about releases. The launch check, the background worker and the
+ * The one place NeuroTube asks GitHub about releases. The launch check, the background worker and the
  * Settings button all come through here, so a cold start never fetches twice and a skipped version
  * stays skipped everywhere.
  */

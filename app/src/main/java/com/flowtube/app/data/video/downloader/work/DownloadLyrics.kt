@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 /**
  * Looks up a song's lyrics once when it is downloaded, so they are written into the file and play
- * offline in Flow Tube and in other players. Stored with the request, so a retry never asks again. The
+ * offline in NeuroTube and in other players. Stored with the request, so a retry never asks again. The
  * retag sweep over older downloads never calls this, which would be one lookup per file.
  */
 @Singleton

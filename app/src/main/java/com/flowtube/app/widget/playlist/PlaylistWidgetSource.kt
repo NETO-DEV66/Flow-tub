@@ -76,7 +76,7 @@ class PlaylistWidgetSource
 
         /**
          * Re-reads a saved YouTube playlist from YouTube into its local copy, the same sync its page runs
-         * when opened. Playlists that live only in Flow Tube have nothing newer anywhere else.
+         * when opened. Playlists that live only in NeuroTube have nothing newer anywhere else.
          */
         suspend fun refresh(id: String) {
             val entity = playlists.getPlaylistEntity(id) ?: return

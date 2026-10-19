@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.sp
 /** The system font (Roboto on most devices); the app font when the user has not picked another. */
 val FlowFontFamily: FontFamily = FontFamily.Default
 
-/** Material's own scale, for the roles Flow Tube keeps at their Material size. */
+/** Material's own scale, for the roles NeuroTube keeps at their Material size. */
 private val MaterialScale = Typography()
 
 private fun baseTypography(family: FontFamily) =

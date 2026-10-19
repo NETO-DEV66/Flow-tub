@@ -1,8 +1,8 @@
-# Contributing to Flow Tube
+# Contributing to NeuroTube
 
-Thank you for your interest in contributing to Flow Tube! We welcome contributions from the community.
+Thank you for your interest in contributing to NeuroTube! We welcome contributions from the community.
 
-Flow Tube (`com.flowtube.app`) is an Android music/video app written in Kotlin with Jetpack Compose,
+NeuroTube (`com.flowtube.app`) is an Android music/video app written in Kotlin with Jetpack Compose,
 Hilt, and Media3/ExoPlayer. It plays YouTube content via a native InnerTube client with a
 NewPipe-based fallback extraction path, and supports local media playback, offline downloads,
 casting, lyrics, device-to-device sync, and an on-device recommendation engine (FlowTubeEngine).
@@ -69,7 +69,7 @@ Always pull the latest `main` before starting work, to minimize merge conflicts.
 
 ### Product Flavors
 
-Flow Tube builds one flavor: `github` (in-app updater enabled).
+NeuroTube builds one flavor: `github` (in-app updater enabled).
 **Always use flavor-prefixed Gradle tasks** — `assembleGithubDebug`, `compileGithubDebugKotlin` —
 never bare `assembleDebug` or `compileDebugKotlin`.
 
@@ -195,7 +195,7 @@ than one feature uses it, and duplicate no behaviour the library already provide
 
 ## ⚡ Performance, Battery, and Thermals — Non-Negotiable
 
-Flow Tube is a media player that runs for hours at a time. Jank, dropped frames, playback stutter, device
+NeuroTube is a media player that runs for hours at a time. Jank, dropped frames, playback stutter, device
 heat, and battery drain are **critical bugs, not cosmetic issues**. Every rule below is anchored in a
 real shipped regression that had to be found and fixed on-device.
 
@@ -407,7 +407,7 @@ empty/error states, badges, formatters, or a second copy of a `shared/` componen
 
 ### Dependency injection
 
-Flow Tube uses Hilt, but some legacy app-owned classes are still reached through static `getInstance()`
+NeuroTube uses Hilt, but some legacy app-owned classes are still reached through static `getInstance()`
 calls. Treat those as migration debt, not as a pattern to copy.
 
 1. **Use constructor injection by default** for new ViewModels, repositories, use cases, workers,
@@ -564,7 +564,7 @@ bump takes three times as long to review and is three times as likely to be reve
 
 ## 🔐 Release and Signing Invariants
 
-Flow Tube is distributed through GitHub Releases. The published artifacts are pinned by their
+NeuroTube is distributed through GitHub Releases. The published artifacts are pinned by their
 version and by the signing key, so the following are hard constraints. Breaking one of them cannot
 be fixed by a follow-up release — it forces every installed user to uninstall and reinstall, losing
 their local data.
@@ -575,13 +575,12 @@ CI signs with the `RELEASE_KEYSTORE_BASE64` / `STORE_PASSWORD` / `KEY_ALIAS` / `
 repository secrets when they are set, and otherwise generates a throwaway key. Configure the four
 secrets for real releases; never rotate them once a release is published.
 
-**Release asset file names.** Releases publish three APKs — `FlowTube-<version>-universal.apk`,
-`FlowTube-<version>-arm64-v8a.apk`, and `FlowTube-<version>-armeabi-v7a.apk`. The in-app updater
-matches assets by ABI token rather than by a fixed prefix, so keep the ABI token in the name.
+**Release asset file names.** Releases publish one APK — `NeuroTube-<version>-universal.apk`. ABI
+splits are off, so that single file carries both ARM ABIs. The in-app updater matches assets by ABI
+token rather than by a fixed prefix, so a universal name (no ABI token) is picked first.
 
 **`versionCode` must increase on every release.** Repositories and the in-app updater use it to detect
-updates. The ABI splits all share one `versionCode`, so the universal APK is the only artifact such
-a repository should consume.
+updates, so the universal APK is the only artifact to publish.
 
 **A tag build must never publish unsigned APKs.** `app/build.gradle.kts` falls back to
 `signingConfig = null` when no keystore is present, which produces uninstallable APKs. Supply a
@@ -614,7 +613,7 @@ keystore (or let CI generate one) for `v*` tag builds.
 
 ## 🙏 Thank You!
 
-Every contribution helps make Flow Tube better. Thank you for being part of the community!
+Every contribution helps make NeuroTube better. Thank you for being part of the community!
 
 ---
 

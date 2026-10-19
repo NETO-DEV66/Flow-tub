@@ -27,7 +27,7 @@ class LocalLyrics(
 /**
  * A device song's own lyrics: a `.lrc` beside it, else the lyrics embedded in the file. Nothing
  * here touches the network. MediaStore indexes `.lrc` as a subtitle file, so the same media
- * permission that lists the song lets Flow Tube read the file next to it.
+ * permission that lists the song lets NeuroTube read the file next to it.
  */
 @Singleton
 class LocalLyricsReader
@@ -43,7 +43,7 @@ class LocalLyricsReader
             return tagReader.read(uri)?.lyrics?.let { LocalLyrics(it, LocalLyricsSource.EMBEDDED) }
         }
 
-        /** The lyrics Flow Tube embedded into one of its own downloads, from a file path or a document Uri. */
+        /** The lyrics NeuroTube embedded into one of its own downloads, from a file path or a document Uri. */
         suspend fun readDownload(path: String): LocalLyrics? {
             val uri = if (DownloadFiles.isDocument(path)) Uri.parse(path) else Uri.fromFile(File(path))
             return tagReader.read(uri)?.lyrics?.let { LocalLyrics(it, LocalLyricsSource.EMBEDDED) }

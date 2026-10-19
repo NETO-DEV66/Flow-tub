@@ -22,7 +22,7 @@ internal object KizzyGatewayProtocol {
                     buildJsonObject {
                         put("os", "Android")
                         put("browser", "Discord Android")
-                        put("device", "Flow Tube")
+                        put("device", "NeuroTube")
                     },
                 )
             },

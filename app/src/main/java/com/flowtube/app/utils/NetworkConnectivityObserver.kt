@@ -117,7 +117,7 @@ class NetworkConnectivityObserver(
     }
 
     /**
-     * Get network connectivity as a Flow Tube for reactive observation.
+     * Get network connectivity as a NeuroTube for reactive observation.
      */
     fun observeConnectivity(): Flow<Boolean> =
         callbackFlow {

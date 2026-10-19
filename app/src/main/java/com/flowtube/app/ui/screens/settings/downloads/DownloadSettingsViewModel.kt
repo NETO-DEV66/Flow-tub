@@ -211,7 +211,7 @@ class DownloadSettingsViewModel
 
         companion object {
             const val DEFAULT_THREADS = 3
-            private const val APP_FOLDER = "Flow Tube"
+            private const val APP_FOLDER = "NeuroTube"
             private const val INTERNAL_FOLDER = "downloads"
         }
     }

@@ -12,7 +12,7 @@ import org.junit.Test
 class CustomThemeCodecTest {
     private val theme = CustomTheme.from("custom-test", "Ocean", FlowPalettes.forMode(ThemeMode.TIDE))
 
-    /** A theme as the desktop app's `createCustomTheme` stores it: Flow Tube Default cloned, derived steps as `color-mix`. */
+    /** A theme as the desktop app's `createCustomTheme` stores it: NeuroTube Default cloned, derived steps as `color-mix`. */
     private val desktopTheme =
         """
         {

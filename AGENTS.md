@@ -1,6 +1,6 @@
-# Working with Flow Tube as an AI agent
+# Working with NeuroTube as an AI agent
 
-Flow Tube (`com.flowtube.app`) is an Android music/video app written in Kotlin with Jetpack Compose, Hilt, and Media3/ExoPlayer. It plays YouTube content via a native InnerTube client with a NewPipe-based fallback extraction path, supports local media playback, offline downloads, casting, lyrics, a device-to-device sync feature, and an on-device recommendation engine (FlowTubeEngine). It follows Material 3 design guidelines closely.
+NeuroTube (`com.flowtube.app`) is an Android music/video app written in Kotlin with Jetpack Compose, Hilt, and Media3/ExoPlayer. It plays YouTube content via a native InnerTube client with a NewPipe-based fallback extraction path, supports local media playback, offline downloads, casting, lyrics, a device-to-device sync feature, and an on-device recommendation engine (FlowNeuroEngine). It follows Material 3 design guidelines closely.
 
 One product flavor: `github` (in-app updater enabled). Always use the flavor-prefixed Gradle tasks — e.g. `assembleGithubDebug`, `testGithubDebugUnitTest` — never the bare `assembleDebug`/`compileDebugKotlin`.
 
@@ -136,7 +136,7 @@ A legitimate hand-rolled component must therefore:
 
 ## Performance, battery, and thermals — non-negotiable
 
-Flow Tube is a media player that runs for hours at a time. Jank, dropped frames, playback stutter,
+NeuroTube is a media player that runs for hours at a time. Jank, dropped frames, playback stutter,
 device heat, and battery drain are critical bugs, not cosmetic issues. Every rule below is
 anchored in a real shipped regression that had to be found and fixed on-device — treat them as
 hard constraints, not suggestions.
@@ -236,7 +236,7 @@ hard constraints, not suggestions.
 
 ## Dependency injection and service-locator migration
 
-Flow Tube uses Hilt, but some legacy app-owned classes are still reached through static/companion
+NeuroTube uses Hilt, but some legacy app-owned classes are still reached through static/companion
 `getInstance()` calls. Treat those calls as migration debt, not as the pattern for new code. The
 goal is explicit, testable dependencies while preserving object identity, lifecycle, startup cost,
 and playback behavior.
@@ -286,7 +286,7 @@ and playback behavior.
     player/media-session owner and do not add startup latency or surface flicker.
 11. DI and SOLID are maintainability/testability tools, not automatic performance improvements.
     Do not claim a performance benefit without measurement. Watch for eager graph creation,
-    expanded singleton lifetimes, retained `Context`/Activity references, duplicate Flow Tube
+    expanded singleton lifetimes, retained `Context`/Activity references, duplicate NeuroTube
     collectors, and work that has moved onto the main thread.
 12. Add focused unit tests before or with each migration, using constructor-provided fakes/mocks to
     cover success, failure, cancellation, and delegation as applicable. When the Hilt graph or

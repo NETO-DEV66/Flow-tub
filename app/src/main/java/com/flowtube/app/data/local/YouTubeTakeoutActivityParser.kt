@@ -31,7 +31,7 @@ internal data class TakeoutSearch(
     val isMusic: Boolean,
 )
 
-/** What one Takeout activity JSON file holds that Flow Tube keeps. */
+/** What one Takeout activity JSON file holds that NeuroTube keeps. */
 internal data class TakeoutActivity(
     val likes: TakeoutLikes,
     val searches: List<TakeoutSearch>,

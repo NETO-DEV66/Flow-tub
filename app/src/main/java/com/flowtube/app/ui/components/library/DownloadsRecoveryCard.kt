@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.flowtube.app.R
 
 /**
- * Offered on an empty Downloads screen when Flow Tube can't read shared media: downloads an earlier
+ * Offered on an empty Downloads screen when NeuroTube can't read shared media: downloads an earlier
  * install saved are still on the device, but a new install sees them only with media access.
  */
 @Composable

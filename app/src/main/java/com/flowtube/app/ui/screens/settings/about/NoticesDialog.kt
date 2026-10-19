@@ -28,7 +28,7 @@ private const val NOTICES_ASSET = "licenses/notices.txt"
 private val ContentMaxHeight = 440.dp
 private val LoadingHeight = 160.dp
 
-/** The licences of the word lists and code Flow Tube ships from other projects. */
+/** The licences of the word lists and code NeuroTube ships from other projects. */
 @Composable
 internal fun NoticesDialog(onDismiss: () -> Unit) {
     val context = LocalContext.current

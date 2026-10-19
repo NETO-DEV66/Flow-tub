@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 /**
  * Copies YouTube DASH streams (fragmented MP4 or WebM) into one plain MP4 with the `moov` box at
- * the end, interleaving samples by timestamp and embedding the Flow Tube ids as `mdta` entries.
+ * the end, interleaving samples by timestamp and embedding the NeuroTube ids as `mdta` entries.
  * Accepts H.264, HEVC, VP9 and AV1 video and AAC audio only; Opus/Vorbis in MP4 is refused
  * (Media3 mis-reads Opus pre-skip in MP4, androidx/media#3431), so callers must pick AAC.
  */

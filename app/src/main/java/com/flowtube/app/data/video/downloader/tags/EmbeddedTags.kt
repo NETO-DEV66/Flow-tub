@@ -11,7 +11,7 @@ import androidx.media3.extractor.metadata.id3.TextInformationFrame
 import androidx.media3.extractor.metadata.vorbis.VorbisComment
 
 /**
- * What a media file says about itself. [flow] is set only when the file carries Flow Tube's own ids;
+ * What a media file says about itself. [flow] is set only when the file carries NeuroTube's own ids;
  * the display fields and [cover] are filled from whatever standard tags the file has.
  */
 @OptIn(UnstableApi::class)
@@ -21,7 +21,7 @@ class EmbeddedTags(
     val artist: String?,
     val album: String?,
     val cover: ByteArray?,
-    /** The description Flow Tube wrote, or a Vorbis `DESCRIPTION`; MP4 `desc` needs [Mp4TextAtoms]. */
+    /** The description NeuroTube wrote, or a Vorbis `DESCRIPTION`; MP4 `desc` needs [Mp4TextAtoms]. */
     val description: String? = null,
     /** `©cmt`, ID3 `COMM` or a Vorbis `COMMENT`; yt-dlp puts the watch URL here by default. */
     val comment: String? = null,

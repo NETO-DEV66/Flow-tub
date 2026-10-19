@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 
-/** Runtime device categories relevant to Flow Tube's interface selection. */
+/** Runtime device categories relevant to NeuroTube's interface selection. */
 enum class DeviceFormFactor {
     MOBILE,
     TV,

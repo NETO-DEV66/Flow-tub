@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2026 Flow Tube | A-EDev
+ * Copyright (C) 2026 NeuroTube | A-EDev
  *
- * This file is part of Flow Tube (https://github.com/NETO-DEV66/Flow-tub).
+ * This file is part of NeuroTube (https://github.com/NETO-DEV66/Flow-tub).
  *
- * Flow Tube is free software: you can redistribute it and/or modify
+ * NeuroTube is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * any later version.

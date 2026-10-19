@@ -28,7 +28,7 @@ class CrashSummaryTest {
         )
 
     @Test
-    fun `the summary points at the first frame in Flow Tube's own code`() {
+    fun `the summary points at the first frame in NeuroTube's own code`() {
         val summary = parseCrashSummary(report)
 
         assertThat(summary.exception).isEqualTo("IllegalArgumentException")
@@ -57,8 +57,8 @@ class CrashSummaryTest {
         val url = parseCrashSummary(report).issueUrl()
 
         assertThat(url).contains("&steps=Not%20known.")
-        assertThat(url).contains("&expected=Flow%20Tube%20keeps%20running.")
-        assertThat(url).contains("&actual=Flow%20Tube%20crashed%20with%20IllegalArgumentException%3A%20Padding%20must%20be%20non-negative&")
+        assertThat(url).contains("&expected=NeuroTube%20keeps%20running.")
+        assertThat(url).contains("&actual=NeuroTube%20crashed%20with%20IllegalArgumentException%3A%20Padding%20must%20be%20non-negative&")
     }
 
     @Test

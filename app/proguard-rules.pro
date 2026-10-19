@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2025 Flow Tube
+# SPDX-FileCopyrightText: 2025 NeuroTube
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Based on NewPipe's ProGuard configuration
 

@@ -4,11 +4,11 @@ import androidx.compose.ui.graphics.Color
 
 /**
  * Every built-in palette with its two authored variants. The first twenty are the desktop app's
- * catalogue, copied from its `themes.ts`; the last six are Flow Tube for Android's own palettes that
+ * catalogue, copied from its `themes.ts`; the last six are NeuroTube for Android's own palettes that
  * desktop does not have yet (notes/theme-desktop-additions.md carries them over).
  *
  * Several palettes keep their original enum name so a stored choice survives the update:
- * DARK is Flow Tube Default, LAVENDER_MIST is Lavender, NORDIC_HORIZON is Nord, OCEAN_BLUE is Deep Ocean
+ * DARK is NeuroTube Default, LAVENDER_MIST is Lavender, NORDIC_HORIZON is Nord, OCEAN_BLUE is Deep Ocean
  * and CREAM_LIGHT is Cream Paper.
  */
 object FlowPalettes {
@@ -744,7 +744,7 @@ object FlowPalettes {
                 ),
         )
 
-    /** The palette behind [mode], or Flow Tube Default for the modes that are not palettes themselves. */
+    /** The palette behind [mode], or NeuroTube Default for the modes that are not palettes themselves. */
     fun forMode(mode: ThemeMode): PalettePair = palettes[mode] ?: palettes.getValue(ThemeMode.DARK)
 
     val default: PalettePair get() = palettes.getValue(ThemeMode.DARK)

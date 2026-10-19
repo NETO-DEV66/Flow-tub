@@ -9,7 +9,7 @@ import android.provider.MediaStore
 
 /**
  * The system prompt that deletes [paths] on the viewer's say-so. Files an earlier install saved
- * belong to that install as far as Android is concerned, so Flow Tube may read them but not delete them
+ * belong to that install as far as Android is concerned, so NeuroTube may read them but not delete them
  * itself. Null before Android 11, or when none of the files is in the media index.
  */
 fun Context.deleteRequestFor(paths: List<String>): IntentSender? {

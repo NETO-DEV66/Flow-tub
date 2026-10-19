@@ -36,7 +36,7 @@ private const val PERCENT = 100
 
 /**
  * Downloads one release APK in the foreground, hashing it as it arrives. The file is kept only if
- * its SHA-256 matches the digest GitHub published and it is a Flow Tube package; anything else is
+ * its SHA-256 matches the digest GitHub published and it is a NeuroTube package; anything else is
  * deleted and reported as a failure.
  */
 class UpdateDownloadWorker(

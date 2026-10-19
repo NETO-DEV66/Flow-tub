@@ -42,7 +42,7 @@ private val RetentionPeriods =
         365 to R.string.period_one_year,
     )
 
-/** Whether Flow Tube keeps your watch history, what it remembers about your searches, and for how long. */
+/** Whether NeuroTube keeps your watch history, what it remembers about your searches, and for how long. */
 @Composable
 internal fun HistorySettingsScreen(
     onBack: (() -> Unit)?,

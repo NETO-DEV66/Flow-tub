@@ -27,7 +27,7 @@ sealed interface UpdateStage {
 }
 
 /**
- * The stage for a download state. A finished download still needs Flow Tube to be allowed to install
+ * The stage for a download state. A finished download still needs NeuroTube to be allowed to install
  * apps, and an install the system rejected is offered again as a retry.
  */
 internal fun updateStage(

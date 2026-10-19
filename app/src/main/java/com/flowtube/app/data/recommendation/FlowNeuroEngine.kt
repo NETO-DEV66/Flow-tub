@@ -1,15 +1,15 @@
 /*
- * Copyright (C) 2025-2026 Flow Tube | A-EDev
+ * Copyright (C) 2025-2026 NeuroTube | A-EDev
  *
- * This file is part of Flow Tube (https://github.com/NETO-DEV66/Flow-tub).
+ * This file is part of NeuroTube (https://github.com/NETO-DEV66/Flow-tub).
  *
- * Flow Tube is free software: you can redistribute it and/or modify
+ * NeuroTube is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, version 3 of the License.
  *
  * This recommendation algorithm (FlowNeuroEngine) is the intellectual property
- * of the Flow Tube project. Any use of this code in other projects must
- * explicitly credit "Flow Tube Android Client" and link back to the original repository.
+ * of the NeuroTube project. Any use of this code in other projects must
+ * explicitly credit "NeuroTube Android Client" and link back to the original repository.
  */
 
 package com.flowtube.app.data.recommendation
@@ -45,7 +45,7 @@ import kotlin.math.ln
 import kotlin.math.log10
 
 /**
- * Flow Tube Neuro Engine (V10.0 — Channel Intelligence + Shorts Vector + Anti-Rec + Momentum)
+ * NeuroTube Neuro Engine (V10.0 — Channel Intelligence + Shorts Vector + Anti-Rec + Momentum)
  *
  * Client-side hybrid recommendation: Vector Space Model + Heuristic Rules.
  *
@@ -123,7 +123,7 @@ class FlowNeuroEngine internal constructor(
 
         /**
          * An imported history ends cold start and warm-up but no more: counting every imported
-         * video as an interaction damps all later learning as if the person had used Flow Tube for
+         * video as an interaction damps all later learning as if the person had used NeuroTube for
          * months (#1030).
          */
         internal const val HISTORY_BOOTSTRAP_MAX_INTERACTIONS = NeuroScoring.ONBOARDING_WARMUP_INTERACTIONS
