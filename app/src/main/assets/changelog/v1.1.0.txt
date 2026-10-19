@@ -1,0 +1,16 @@
+FLOW TUBE CHANGE LOG
+VERSION: 1.1.0
+DATE: 2026-10-18
+STATUS: RELEASE
+
+IMPROVEMENTS
+- New FlowTube identity: a flow-play mark filled with a violet to pink to orange aurora gradient on a deep charcoal tile, in place of the old red branding
+- Every app icon variant redrawn with the new mark: default, AMOLED, ghost, monochrome, dynamic and the expressive set
+- The Home header logo, the notification icon, the splash screen and the TV banner all carry the new mark
+- New launcher icons at every screen density, so the icon stays sharp on phones, tablets and TVs
+- Refreshed project logo, store listing icon and README artwork
+
+NOTES
+- No changes to playback, the library or your local data
+- Same signing key as v1.0.1, so this installs as a normal update and your data is kept
+- One universal APK for every supported device, as before

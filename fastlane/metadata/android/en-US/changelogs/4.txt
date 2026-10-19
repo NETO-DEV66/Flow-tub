@@ -1,0 +1,5 @@
+- New FlowTube look: the app now uses a flow-play mark with a violet, pink and orange gradient instead of the old red branding
+- Fresh icons for every variant, including AMOLED, monochrome and the expressive set
+- The Home header, notification icon, splash screen and TV banner all match the new mark
+- Crisp launcher icons at every screen density
+- Updated logo, store listing icon and README artwork

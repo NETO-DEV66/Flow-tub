@@ -1,27 +1,31 @@
-# Flow Tube v1.0.1
+# Flow Tube v1.1.0
 
 **Release date:** 2026-10-18
 
-A maintenance release. It fixes the in-app updater, which never worked in v1.0.0, and adds the
-attribution and disclaimer notices the project was missing.
+Flow Tube has a new look. This release replaces the old red branding with a new mark — a flow-play
+shape filled with a violet-to-pink-to-orange aurora gradient on a deep charcoal tile — and applies it
+everywhere the app shows its face.
+
+## Changed
+
+- **A new identity.** The old red play mark is gone. The new FlowTube mark is drawn on every launcher
+  icon variant (default, AMOLED, ghost, monochrome, dynamic and the expressive set), in the Home
+  header, the notification, the splash screen and the TV banner.
+- **Sharper icons.** Launcher icons were rebuilt at all five screen densities, so the mark stays crisp
+  on phones, tablets and TVs, including round icons.
+- **Refreshed artwork.** The project logo, the store listing icon and the README badges now use the new
+  colours.
 
 ## Fixed
 
-- **The in-app updater now works.** v1.0.0 asked GitHub for releases at an old repository address
-  that no longer exists, so every update check returned HTTP 404 and the app could never see or
-  install a new version. Update checks now point at this project, and the About screen links go to
-  the right place. If you are on v1.0.0, install this build once by hand; every release after it
-  can be installed from inside the app.
-
-## Added
-
-- **Not affiliated with Google or YouTube.** The app reads from YouTube but has no relationship with
-  Google, and now says so plainly on the About screen, on the website and in the store listing.
-- **Credit to the upstream project.** Flow Tube is built on the free software project Flow, and the
-  bundled notices now carry its licence and copyright.
+- The splash screen no longer shows a mark that is invisible against its own background.
+- The segmented splash icon was drawn too large and got cropped; it now uses the correct logo size.
+- The Home header logo, which was hardcoded in the app rather than drawn from the icon files, now
+  shows the new mark as well.
 
 ## Notes
 
-- No changes to playback, the library or your local data.
-- Same signing key as v1.0.0, so this installs as a normal update and your data is kept.
+- No changes to playback, the library, downloads or your local data.
+- Same signing key as v1.0.1, so this installs as a normal update and your data is kept.
 - One universal APK for every supported device, as before.
+- This build is signed with both APK Signature Scheme v2 and v3.
