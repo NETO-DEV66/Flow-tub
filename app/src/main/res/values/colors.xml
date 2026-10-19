@@ -4,7 +4,7 @@
     <color name="flow_primary">#6200EE</color>
     <color name="flow_primary_variant">#3700B3</color>
     <color name="flow_secondary">#03DAC6</color>
-    <color name="flow_red">#FF0000</color>
+    <color name="flow_red">#A855F7</color>
 
     <!-- App icon variant backgrounds -->
     <color name="icon_bg_amoled">#000000</color>
@@ -12,16 +12,16 @@
     <color name="icon_bg_ghost">#121212</color>
     <color name="icon_bg_dynamic">#2D2D2D</color>
     <color name="icon_bg_flow_light">#FFFFFF</color>
-    <color name="icon_bg_flow_play">#FFFFFF</color>
+    <color name="icon_bg_flow_play">#7C3AED</color>
     <color name="icon_bg_material_sky">#D7E3FF</color>
     <color name="icon_bg_material_mint">#C7E8D4</color>
     <color name="icon_bg_expressive_scallop">#FFDAD4</color>
-    <color name="icon_bg_expressive_segmented">#EB0000</color>
-    <color name="icon_bg_expressive_play">#2B1613</color>
+    <color name="icon_bg_expressive_segmented">#7C3AED</color>
+    <color name="icon_bg_expressive_play">#14121C</color>
     <color name="icon_bg_expressive_sky">#D7E3FF</color>
     <color name="icon_bg_expressive_mint">#C7E8D4</color>
     <color name="icon_bg_expressive_cookie">#000000</color>
-    <color name="icon_bg_expressive_oval">#EB0000</color>
+    <color name="icon_bg_expressive_oval">#7C3AED</color>
     <color name="icon_bg_expressive_pill">#FFF8F6</color>
     <color name="splash_background">#FFFFFF</color>
     <color name="splash_background_light">#FFFFFF</color>

@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- The "F" glyph of the Flow Tube badge (same tight-crop viewport as
-     ic_flowtube_badge_shape) so the two layers can be tinted independently. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="48dp"
     android:height="36dp"
-    android:viewportWidth="20.08"
-    android:viewportHeight="15.22">
-    <group
-        android:translateX="-1.96"
-        android:translateY="-4.77">
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M10 7L18 7L17.2 9.5H12.8L12.2 11.5H16L15.2 14H11.5L10.5 17H7.5L10 7Z" />
-    </group>
+    android:viewportWidth="48"
+    android:viewportHeight="36">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 11.581 2.960 L 35.771 13.683 Q 41.000 18.000 35.771 22.317 L 11.581 33.040 C 17.465 28.855 7.000 22.839 11.581 18.000 C 17.465 13.161 7.000 7.145 11.581 2.960 Z" />
 </vector>

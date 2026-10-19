@@ -128,6 +128,11 @@ android {
     signingConfigs {
         create("release") {
             storeFile = rootDir.resolve("release.keystore")
+            // v2 covers API 24+, v3 adds key-rotation support for API 28+. v1 is
+            // skipped because minSdk is 26 and nothing older can install the app.
+            enableV1Signing = false
+            enableV2Signing = true
+            enableV3Signing = true
             storePassword = (project.findProperty("storePassword") as? String)
                 ?: keyProperties.getProperty("storePassword")
                 ?: localProperties.getProperty("storePassword")
