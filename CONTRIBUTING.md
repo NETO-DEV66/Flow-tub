@@ -5,7 +5,7 @@ Thank you for your interest in contributing to NeuroTube! We welcome contributio
 NeuroTube (`com.flowtube.app`) is an Android music/video app written in Kotlin with Jetpack Compose,
 Hilt, and Media3/ExoPlayer. It plays YouTube content via a native InnerTube client with a
 NewPipe-based fallback extraction path, and supports local media playback, offline downloads,
-casting, lyrics, device-to-device sync, and an on-device recommendation engine (FlowTubeEngine).
+casting, lyrics, device-to-device sync, and an on-device recommendation engine (`FlowNeuroEngine`).
 
 **Read this file before opening a pull request.** Most review round-trips on this project come from
 one of the rules below, not from the feature itself. `AGENTS.md` in the repository root carries the
