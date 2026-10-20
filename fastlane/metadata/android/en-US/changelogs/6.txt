@@ -1,0 +1,4 @@
+- The package name changed to com.neurotube.app. This version installs as a NEW app; export a backup from the old app first (Settings > Backup), then uninstall it and restore after installing this one
+- Your downloads are still found: the old Flow Tube folders are still scanned, and existing files keep their titles, artists and video ids
+- Same signing key as before, and one universal APK for every supported device
+- Watch history, playlists and settings cannot move across automatically; Android does not let one package read another's private storage

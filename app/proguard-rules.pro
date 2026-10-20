@@ -48,28 +48,28 @@
 }
 
 ## Keep data models and serialization structures
--keep class com.flowtube.app.data.model.** { *; }
--keep class com.flowtube.app.data.local.** { *; }
--keep class com.flowtube.app.data.lyrics.** { *; }
--keep class com.flowtube.app.innertube.models.** { *; }
+-keep class com.neurotube.app.data.model.** { *; }
+-keep class com.neurotube.app.data.local.** { *; }
+-keep class com.neurotube.app.data.lyrics.** { *; }
+-keep class com.neurotube.app.innertube.models.** { *; }
 
 ## Gson-persisted models that live OUTSIDE the packages above (issue #996): without an
 ## explicit keep, R8 may strip the generic Signature of MusicTrack.artists, and cached
 ## history/queues then deserialize artist entries as LinkedTreeMaps that crash the music
 ## feed with a ClassCastException on first access. Any new Gson-persisted model must be
 ## added here (or live in a kept package), whatever package it renders from.
--keep class com.flowtube.app.ui.screens.music.MusicTrack { *; }
--keep class com.flowtube.app.ui.screens.music.MusicArtist { *; }
--keep class com.flowtube.app.ui.screens.music.MusicItemType { *; }
--keep class com.flowtube.app.data.music.Playlist { *; }
--keep class com.flowtube.app.data.music.DownloadedTrack { *; }
--keep class com.flowtube.app.data.music.DownloadStatus { *; }
+-keep class com.neurotube.app.ui.screens.music.MusicTrack { *; }
+-keep class com.neurotube.app.ui.screens.music.MusicArtist { *; }
+-keep class com.neurotube.app.ui.screens.music.MusicItemType { *; }
+-keep class com.neurotube.app.data.music.Playlist { *; }
+-keep class com.neurotube.app.data.music.DownloadedTrack { *; }
+-keep class com.neurotube.app.data.music.DownloadStatus { *; }
 
 ## Shazam recognition models + kotlinx serializers
--keepclasseswithmembers class com.flowtube.app.data.recognition.shazam.** {
+-keepclasseswithmembers class com.neurotube.app.data.recognition.shazam.** {
     kotlinx.serialization.KSerializer serializer(...);
 }
--keepclassmembers class com.flowtube.app.data.recognition.shazam.** {
+-keepclassmembers class com.neurotube.app.data.recognition.shazam.** {
     *** Companion;
 }
 

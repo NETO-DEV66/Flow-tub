@@ -213,6 +213,17 @@ installs on every supported device — there is no ABI to choose.
 Grab it from the [latest release](https://github.com/NETO-DEV66/NeuroTube/releases/latest), or let the
 app update itself: it checks for a new release and installs it after you confirm.
 
+### Upgrading from FlowTube 1.2.x
+
+**v1.3.0 is a one-time break.** It changes the package name from `com.flowtube.app` to
+`com.neurotube.app`, and Android treats the package name as the app's identity, so v1.3.0 installs
+as a **new app** next to the old one instead of over it — and it cannot read the old app's private
+data (watch history, playlists, settings).
+
+Before you update, export a backup: open the old app, go to **Settings → Backup**, and save a
+master backup. Then uninstall the old app, install v1.3.0, and restore that backup. Downloads in
+shared storage are not affected and stay in place.
+
 ### Requirements
 
 **Minimum:** Android 8.0 (API 26) · **Tested up to:** Android 16 (API 36)
@@ -225,8 +236,8 @@ Each release publishes a `checksums.txt` next to the APK. Compare it with the fi
 sha256sum -c checksums.txt
 ```
 
-Every APK is signed with the same release key, so the signature stays identical across updates and
-Android can install a new release over an older one. You can confirm it yourself:
+Every APK is signed with the same release key, so from v1.3.0 onward the signature stays identical
+and Android can install each new release over the previous one. You can confirm it yourself:
 
 ```bash
 apksigner verify --print-certs NeuroTube-vX.Y.Z-universal.apk
@@ -247,7 +258,7 @@ The project uses Gradle with a version catalogue in `gradle/libs.versions.toml`.
 
 ```bash
 git clone https://github.com/NETO-DEV66/NeuroTube.git
-cd Flow-tub
+cd NeuroTube
 
 # Debug build
 ./gradlew :app:assembleGithubDebug
@@ -354,7 +365,7 @@ them equal is what makes the in-app updater's version comparison obvious.
 Source layout:
 
 ```
-app/src/main/java/com/flowtube/app/
+app/src/main/java/com/neurotube/app/
 ├── data/            repositories, Room, DataStore, extraction, downloads
 ├── player/          ExoPlayer wiring, PiP, popup, shorts
 ├── service/         media services and foreground playback

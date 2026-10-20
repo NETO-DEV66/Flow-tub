@@ -1,0 +1,19 @@
+NEUROTUBE CHANGE LOG
+VERSION: 1.3.0
+DATE: 2026-10-20
+STATUS: RELEASE
+
+IMPORTANT
+- The package name changed from com.flowtube.app to com.neurotube.app. Android treats the package name as the app's identity, so this version installs as a NEW app next to the old one and does not inherit its data
+- Export a backup before updating: open the old app, go to Settings > Backup, save a master backup, then uninstall the old app, install this version and restore the backup
+
+IMPROVEMENTS
+- The internal app identity now matches the name you see: com.neurotube.app
+- Downloads saved by an earlier version are still found. The old Flow Tube folders are still scanned, so existing files stay listed and are recovered after a reinstall
+- Metadata inside existing downloads is still read. Files tagged com.flowtube.app.* are still parsed, so titles, artists and video ids survive
+
+NOTES
+- Same signing key as v1.2.0. The APK is signed with the same certificate as every earlier release
+- Media files in Download/NeuroTube are untouched: they live in shared storage, not in app-private data
+- One universal APK for every supported device, as before
+- The old app's private data (watch history, playlists, settings, the recommendation engine) cannot move across automatically; Android does not let one package read another's private storage
