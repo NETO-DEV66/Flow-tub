@@ -61,3 +61,5 @@ NeuroTube-source.zip
 
 # Local agent workspace notes (not part of the project)
 .openhands/
+# stray background-run output
+nohup.out
