@@ -57,6 +57,20 @@ internal object HomeIndex {
             destination = home,
             availability = SettingAvailability.GithubOnly,
         )
+
+    /**
+     * The account row lives directly on the settings list rather than on a page, so its state
+     * (signed in, signed out, working) is rendered by the list itself.
+     */
+    val account =
+        SettingEntry(
+            key = "home.account",
+            title = R.string.youtube_account_title,
+            summary = R.string.youtube_account_subtitle,
+            keywords = R.string.youtube_account_keywords,
+            destination = home,
+        )
+
     /** The persona card is found through Your taste's own destination entry, not listed twice. */
-    val all = listOf(deepFocus, deepFocusDuration, deepFocusHistory, deepFocusScrobble, checkForUpdates)
+    val all = listOf(account, deepFocus, deepFocusDuration, deepFocusHistory, deepFocusScrobble, checkForUpdates)
 }

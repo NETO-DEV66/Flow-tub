@@ -4288,4 +4288,23 @@
     <string name="scrobbling_import_failed">Could not read your top artists</string>
     <string name="music_home_lastfm_discover">Discover with Last.fm</string>
     <string name="music_home_lastfm_discover_subtitle">Picked by Last.fm listeners from your on repeat</string>
+
+    <!-- YouTube account (sign-in) -->
+    <string name="youtube_account_title">YouTube account</string>
+    <string name="youtube_account_keywords">google, sign in, login, account, cookie, session</string>
+    <string name="youtube_account_subtitle">Sign in to use your subscriptions, likes and playlists</string>
+    <string name="youtube_account_sign_in">Sign in with Google</string>
+    <string name="youtube_account_signed_in_as">Signed in as %1$s</string>
+    <string name="youtube_account_signed_out">Not signed in</string>
+    <string name="youtube_account_sign_out">Sign out</string>
+    <string name="youtube_account_sign_out_confirm">Sign out of YouTube?</string>
+    <string name="youtube_account_sign_out_confirm_body">NeuroTube will forget the saved session. Your YouTube account itself is not affected.</string>
+    <string name="youtube_account_sign_in_failed">Could not sign in. Check your connection and try again.</string>
+    <string name="youtube_account_onboarding_title">Sign in to YouTube</string>
+    <string name="youtube_account_onboarding_subtitle">Optional. Sign in to sync your subscriptions, likes and playlists. You can skip this and add it later in Settings.</string>
+    <string name="youtube_account_risk_note">Signing in uses a session cookie. Google may limit or block third-party clients, so consider a separate account.</string>
+    <string name="youtube_login_title">Sign in to YouTube</string>
+    <string name="youtube_login_error_cancelled">Sign-in cancelled</string>
+    <string name="youtube_login_error_failed">Sign-in failed</string>
+    <string name="youtube_login_working">Signing in…</string>
 </resources>

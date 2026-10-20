@@ -4,7 +4,8 @@ import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.neurotube.app.account.YouTubeAccount
+import com.neurotube.app.account.YouTubeAccountManager
 import com.neurotube.app.data.backup.BackupCoordinator
 import com.neurotube.app.data.backup.BackupOperation
 import com.neurotube.app.data.backup.ImportKind
@@ -18,6 +19,8 @@ import com.neurotube.app.data.recommendation.OnboardingCompleter
 import com.neurotube.app.data.recommendation.music.FavouriteArtistCatalog
 import com.neurotube.app.data.recommendation.music.FavouriteArtistPicker
 import com.neurotube.app.data.recommendation.music.FavouriteArtistsStore
+import com.neurotube.app.ui.screens.settings.account.YouTubeSignInState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -54,6 +57,7 @@ class OnboardingViewModel
         private val channelSearch: ChannelSearch,
         private val completer: OnboardingCompleter,
         private val preferences: PlayerPreferences,
+        private val accountManager: YouTubeAccountManager,
         favouriteArtists: FavouriteArtistsStore,
         artistCatalog: FavouriteArtistCatalog,
     ) : ViewModel() {
@@ -61,6 +65,32 @@ class OnboardingViewModel
         val state: StateFlow<OnboardingUiState> = _state.asStateFlow()
 
         val importOperation: StateFlow<BackupOperation> = backup.operation
+
+        val account: StateFlow<YouTubeAccount?> = accountManager.account
+
+        private val _signInState = MutableStateFlow<YouTubeSignInState>(YouTubeSignInState.Idle)
+        val signInState: StateFlow<YouTubeSignInState> = _signInState.asStateFlow()
+
+        /** The account page's failure feedback reuses this state; onboarding only shows a snackbar. */
+        fun signIn(activity: android.app.Activity?) {
+            if (_signInState.value == YouTubeSignInState.Working) return
+            _signInState.value = YouTubeSignInState.Working
+            viewModelScope.launch {
+                _signInState.value =
+                    accountManager.signIn(activity).fold(
+                        onSuccess = { YouTubeSignInState.Idle },
+                        onFailure = { YouTubeSignInState.Failed },
+                    )
+            }
+        }
+
+        fun consumeSignInFailure() {
+            _signInState.value = YouTubeSignInState.Idle
+        }
+
+        fun signOut() {
+            viewModelScope.launch { accountManager.signOut() }
+        }
 
         /** Picks are saved as they are made, the same as in Settings, so nothing waits for Done. */
         val artists = FavouriteArtistPicker(viewModelScope, favouriteArtists, artistCatalog)

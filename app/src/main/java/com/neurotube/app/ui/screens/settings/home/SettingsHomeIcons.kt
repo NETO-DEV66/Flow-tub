@@ -1,6 +1,7 @@
 package com.neurotube.app.ui.screens.settings.home
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material.icons.outlined.CloudSync
 import androidx.compose.material.icons.outlined.CloudUpload
@@ -33,6 +34,7 @@ import com.neurotube.app.ui.components.settings.SettingsDestination
 internal fun destinationIcon(destination: SettingsDestination): ImageVector =
     when (destination.root) {
         SettingsDestination.HOME -> Icons.Outlined.Settings
+        SettingsDestination.ACCOUNT -> Icons.Outlined.AccountCircle
         SettingsDestination.TASTE -> Icons.Outlined.Psychology
         SettingsDestination.APPEARANCE -> Icons.Outlined.Palette
         SettingsDestination.LANGUAGE_REGION -> Icons.Outlined.Language
@@ -55,6 +57,7 @@ internal fun destinationIcon(destination: SettingsDestination): ImageVector =
     }
 
 internal object HomeRowIcons {
+    val Account: ImageVector = Icons.Outlined.AccountCircle
     val DeepFocus: ImageVector = Icons.Outlined.VisibilityOff
     val DeepFocusDuration: ImageVector = Icons.Outlined.Timer
     val DeepFocusHistory: ImageVector = Icons.Outlined.WorkHistory

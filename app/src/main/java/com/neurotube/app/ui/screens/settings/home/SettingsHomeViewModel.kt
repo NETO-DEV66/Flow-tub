@@ -3,20 +3,22 @@ package com.neurotube.app.ui.screens.settings.home
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import com.neurotube.app.BuildConfig
+import com.neurotube.app.account.YouTubeAccountManager
 import com.neurotube.app.data.local.PlayerPreferences
 import com.neurotube.app.data.recommendation.FlowNeuroEngine
 import com.neurotube.app.data.recommendation.FlowPersona
 import com.neurotube.app.data.update.AppRelease
 import com.neurotube.app.data.update.UpdateRepository
 import com.neurotube.app.player.DeepFocusManager
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -56,7 +58,13 @@ class SettingsHomeViewModel
         @ApplicationContext private val context: Context,
         private val playerPreferences: PlayerPreferences,
         private val updates: UpdateRepository,
+        account: YouTubeAccountManager,
     ) : ViewModel() {
+        val signedInAccountName: StateFlow<String?> =
+            account.account
+                .map { it?.name }
+                .stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), null)
+
         val deepFocus: StateFlow<DeepFocusState> =
             combine(
                 playerPreferences.deepFocusActive,

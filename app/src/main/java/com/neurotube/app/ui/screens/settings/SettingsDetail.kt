@@ -5,6 +5,7 @@ import com.neurotube.app.ui.components.settings.SettingsDestination
 import com.neurotube.app.ui.components.settings.SettingsTarget
 import com.neurotube.app.ui.screens.equalizer.EqualizerScreen
 import com.neurotube.app.ui.screens.settings.about.AboutScreen
+import com.neurotube.app.ui.screens.settings.account.YouTubeAccountScreen
 import com.neurotube.app.ui.screens.settings.appearance.AppearanceScreen
 import com.neurotube.app.ui.screens.settings.appearance.DateTimeScreen
 import com.neurotube.app.ui.screens.settings.appearance.FontScreen
@@ -53,6 +54,10 @@ internal fun SettingsDetail(
         SettingsDestination.APPEARANCE,
         -> {
             AppearanceScreen(onBack = onBack, highlight = target.highlight, onNavigate = onNavigate)
+        }
+
+        SettingsDestination.ACCOUNT -> {
+            YouTubeAccountScreen(onBack = onBack, highlight = target.highlight)
         }
 
         SettingsDestination.TASTE -> {

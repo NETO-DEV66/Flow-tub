@@ -35,6 +35,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.neurotube.app.R
+import com.neurotube.app.account.YouTubeAccount
 import com.neurotube.app.data.backup.BackupOperation
 import com.neurotube.app.data.backup.ImportKind
 import com.neurotube.app.data.backup.ImportSource
@@ -63,6 +64,10 @@ internal fun ImportStep(
     importOperation: BackupOperation,
     importedSources: Set<ImportSource>,
     onImport: (ImportKind) -> Unit,
+    account: YouTubeAccount?,
+    accountWorking: Boolean,
+    onSignIn: () -> Unit,
+    onSignOut: () -> Unit,
     contentPadding: PaddingValues,
 ) {
     var openSource by rememberSaveable { mutableStateOf<ImportSource?>(null) }
@@ -98,6 +103,14 @@ internal fun ImportStep(
                     }
                     repeat(columns - row.size) { Spacer(Modifier.weight(1f)) }
                 }
+            }
+            item(key = "account") {
+                OnboardingAccountCard(
+                    account = account,
+                    working = accountWorking,
+                    onSignIn = onSignIn,
+                    onSignOut = onSignOut,
+                )
             }
             item(key = "footnote") {
                 Text(

@@ -57,6 +57,7 @@ internal fun SettingsHomeScreen(
     val deepFocus by viewModel.deepFocus.collectAsStateWithLifecycle()
     val persona by viewModel.persona.collectAsStateWithLifecycle()
     val updateCheck by viewModel.updateCheck.collectAsStateWithLifecycle()
+    val accountName by viewModel.signedInAccountName.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 
     var query by rememberSaveable { mutableStateOf("") }
@@ -82,6 +83,7 @@ internal fun SettingsHomeScreen(
         val page = DestinationIndex.destinationOf(entry)
         when {
             entry.key == HomeIndex.checkForUpdates.key -> viewModel.checkForUpdates()
+            entry.key == HomeIndex.account.key -> onOpen(SettingsTarget(SettingsDestination.ACCOUNT))
             page != null -> onOpen(SettingsTarget(page))
             entry.destination == SettingsDestination.HOME -> highlight = entry.key
             else -> onOpen(entry.target)
@@ -116,6 +118,7 @@ internal fun SettingsHomeScreen(
                         selected = selected,
                         persona = persona,
                         deepFocus = deepFocus,
+                        accountName = accountName,
                         updateCheckingLabel = checkingLabel.takeIf { updateCheck == UpdateCheckState.Checking },
                     ),
                 actions =
@@ -126,6 +129,7 @@ internal fun SettingsHomeScreen(
                         onSaveHistoryChange = viewModel::setDeepFocusSaveToHistory,
                         onScrobbleChange = viewModel::setDeepFocusScrobble,
                         onCheckForUpdates = viewModel::checkForUpdates,
+                        onAccountClick = { onOpen(SettingsTarget(SettingsDestination.ACCOUNT)) },
                     ),
             )
         }

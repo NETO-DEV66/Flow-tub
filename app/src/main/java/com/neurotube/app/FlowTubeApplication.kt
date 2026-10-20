@@ -8,6 +8,7 @@ import coil3.ImageLoader
 import coil3.PlatformContext
 import coil3.SingletonImageLoader
 import dagger.hilt.android.HiltAndroidApp
+import com.neurotube.app.account.YouTubeAccountRepository
 import com.neurotube.app.data.local.CONTENT_LANGUAGE_FOLLOW_APP
 import com.neurotube.app.data.local.PlayerPreferences
 import com.neurotube.app.data.local.SubscriptionRepository
@@ -87,6 +88,9 @@ class FlowTubeApplication :
         super.onCreate()
         appContext = applicationContext
         YouTube.cacheDirectory = cacheDir.resolve("innertube_http_cache")
+
+        // Restores a saved YouTube session before the first request can need it.
+        YouTubeAccountRepository.initialize(this)
 
         DiscordPresenceRuntime.initialize(this, okHttpClient)
 
