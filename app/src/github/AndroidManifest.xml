@@ -6,12 +6,12 @@
 
     <application>
         <activity
-            android:name="com.flowtube.app.discord.DiscordLoginActivity"
+            android:name="com.neurotube.app.discord.DiscordLoginActivity"
             android:exported="false"
             android:theme="@style/Theme.NeuroTube" />
 
         <receiver
-            android:name="com.flowtube.app.updater.UpdateInstallReceiver"
+            android:name="com.neurotube.app.updater.UpdateInstallReceiver"
             android:exported="false" />
 
         <service

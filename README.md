@@ -247,7 +247,7 @@ The project uses Gradle with a version catalogue in `gradle/libs.versions.toml`.
 
 ```bash
 git clone https://github.com/NETO-DEV66/NeuroTube.git
-cd Flow-tub
+cd NeuroTube
 
 # Debug build
 ./gradlew :app:assembleGithubDebug
@@ -354,7 +354,7 @@ them equal is what makes the in-app updater's version comparison obvious.
 Source layout:
 
 ```
-app/src/main/java/com/flowtube/app/
+app/src/main/java/com/neurotube/app/
 ├── data/            repositories, Room, DataStore, extraction, downloads
 ├── player/          ExoPlayer wiring, PiP, popup, shorts
 ├── service/         media services and foreground playback

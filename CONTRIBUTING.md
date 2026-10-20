@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing to NeuroTube! We welcome contributions from the community.
 
-NeuroTube (`com.flowtube.app`) is an Android music/video app written in Kotlin with Jetpack Compose,
+NeuroTube (`com.neurotube.app`) is an Android music/video app written in Kotlin with Jetpack Compose,
 Hilt, and Media3/ExoPlayer. It plays YouTube content via a native InnerTube client with a
 NewPipe-based fallback extraction path, and supports local media playback, offline downloads,
 casting, lyrics, device-to-device sync, and an on-device recommendation engine (`FlowNeuroEngine`).
@@ -55,8 +55,8 @@ Feature suggestions are welcome! Please:
 
 ```bash
 # Clone your fork
-git clone https://github.com/YOUR_USERNAME/Flow-tub.git
-cd Flow-tub
+git clone https://github.com/YOUR_USERNAME/NeuroTube.git
+cd NeuroTube
 
 # Add upstream remote
 git remote add upstream https://github.com/NETO-DEV66/NeuroTube.git
@@ -264,7 +264,7 @@ real shipped regression that had to be found and fixed on-device.
 13. Sustained heat while the app is open = per-frame work; drain with the screen off = CPU/network
     loops. Diagnose in that order: (a) run the rule-2 audit over every composed-but-hidden tree;
     (b) count fetches per user action in logcat — any unexplained second fetch is the bug;
-    (c) check `adb shell dumpsys gfxinfo com.flowtube.app` for continuous frame production while
+    (c) check `adb shell dumpsys gfxinfo com.neurotube.app` for continuous frame production while
     the UI should be idle; (d) only then suspect the player path. Do not "fix" heat by degrading
     visible design, motion, or update smoothness — find the invisible work instead.
 

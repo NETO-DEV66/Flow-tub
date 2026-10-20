@@ -1,30 +1,30 @@
 player:
   - changed-files:
       - any-glob-to-any-file:
-          - 'app/src/main/java/com/flowtube/app/player/**'
-          - 'app/src/main/java/com/flowtube/app/service/**'
+          - 'app/src/main/java/com/neurotube/app/player/**'
+          - 'app/src/main/java/com/neurotube/app/service/**'
 
 ui:
   - changed-files:
       - any-glob-to-any-file:
-          - 'app/src/main/java/com/flowtube/app/ui/**'
+          - 'app/src/main/java/com/neurotube/app/ui/**'
           - 'app/src/main/res/values/themes.xml'
 
 algorithm:
   - changed-files:
       - any-glob-to-any-file:
-          - 'app/src/main/java/com/flowtube/app/data/recommendation/**'
+          - 'app/src/main/java/com/neurotube/app/data/recommendation/**'
 
 sync:
   - changed-files:
       - any-glob-to-any-file:
-          - 'app/src/main/java/com/flowtube/app/sync/**'
+          - 'app/src/main/java/com/neurotube/app/sync/**'
 
 extraction:
   - changed-files:
       - any-glob-to-any-file:
-          - 'app/src/main/java/com/flowtube/app/innertube/**'
-          - 'app/src/main/java/com/flowtube/app/network/**'
+          - 'app/src/main/java/com/neurotube/app/innertube/**'
+          - 'app/src/main/java/com/neurotube/app/network/**'
 
 localization:
   - changed-files:

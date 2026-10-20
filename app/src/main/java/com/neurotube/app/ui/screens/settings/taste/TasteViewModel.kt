@@ -1,0 +1,301 @@
+package com.neurotube.app.ui.screens.settings.taste
+
+import android.content.Context
+import android.net.Uri
+import androidx.compose.runtime.Immutable
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import com.neurotube.app.data.backup.BackupCoordinator
+import com.neurotube.app.data.local.PlayerPreferences
+import com.neurotube.app.data.local.dao.WatchHistoryDao
+import com.neurotube.app.data.recommendation.ChannelMemoryRepository
+import com.neurotube.app.data.recommendation.ContentVector
+import com.neurotube.app.data.recommendation.FlowNeuroEngine
+import com.neurotube.app.data.recommendation.FlowPersona
+import com.neurotube.app.data.recommendation.NeighbourChannelsRepository
+import com.neurotube.app.data.recommendation.TimeBucket
+import com.neurotube.app.data.recommendation.UserBrain
+import com.neurotube.app.data.recommendation.music.MusicBrainEngine
+import com.neurotube.app.data.recommendation.snapshot.HomeSnapshotStore
+import com.neurotube.app.data.stats.VideoStatsRecorder
+import com.neurotube.app.ui.screens.settings.SettingsViewModel
+import com.neurotube.app.ui.screens.settings.home.DeepFocusState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
+
+/** Five traits of a taste vector, each 0..1, in the order the radar draws them. */
+@Immutable
+data class TasteTraits(
+    val pacing: Float,
+    val complexity: Float,
+    val duration: Float,
+    val live: Float,
+    val breadth: Float,
+) {
+    val values: List<Float> get() = listOf(pacing, complexity, duration, live, breadth)
+}
+
+/** A group of learned interests that go together, named by its strongest words ([tasteGroups]). */
+@Immutable
+data class TasteGroup(
+    val id: String,
+    val label: String,
+    /** This group's weight relative to the strongest group, 0..1. */
+    val share: Float,
+    val evidence: Int,
+    val members: List<TasteTopic>,
+)
+
+@Immutable
+data class TasteTopic(
+    val id: String,
+    val label: String,
+    /** This topic's weight relative to the strongest learned one, 0..1; none for a pick. */
+    val share: Float?,
+    val preferred: Boolean,
+    /** Watches, likes and searches behind it ([evidenceOf]). */
+    val evidence: Int = 0,
+)
+
+@Immutable
+data class TasteChannel(
+    val id: String,
+    val name: String,
+    val score: Float,
+)
+
+@Immutable
+data class NamedItem(
+    val id: String,
+    val name: String,
+)
+
+@Immutable
+data class MusicTaste(
+    val maturity: String,
+    val appetite: Float,
+    val plays: Int,
+    val genres: List<Pair<String, Float>>,
+)
+
+@Immutable
+data class HiddenContent(
+    val topics: List<String> = emptyList(),
+    val channels: List<NamedItem> = emptyList(),
+    val artists: List<NamedItem> = emptyList(),
+) {
+    val count: Int get() = topics.size + channels.size + artists.size
+}
+
+@Immutable
+data class TasteState(
+    val loading: Boolean = true,
+    val persona: FlowPersona? = null,
+    val maturity: Float = 0f,
+    val profile: TasteTraits? = null,
+    val now: TasteTraits? = null,
+    val picks: List<TasteTopic> = emptyList(),
+    val topics: List<TasteTopic> = emptyList(),
+    /** [topics] as the groups the engine reads them in, so an interest shows with the words it goes with (#907). */
+    val groups: List<TasteGroup> = emptyList(),
+    val channels: List<TasteChannel> = emptyList(),
+    val music: MusicTaste? = null,
+    val hidden: HiddenContent = HiddenContent(),
+    /** Channels watched without subscribing whose uploads Home brings in, best first. */
+    val remembered: List<NamedItem> = emptyList(),
+    val engine: EngineDetails? = null,
+)
+
+/**
+ * How the engines see the viewer, and the levers that change it. Everything is read from local
+ * state; channel names come from the recap ledger and watch history, never from the network.
+ */
+@HiltViewModel
+class TasteViewModel
+    @Inject
+    constructor(
+        @ApplicationContext private val context: Context,
+        private val musicBrain: MusicBrainEngine,
+        private val videoStats: VideoStatsRecorder,
+        private val watchHistoryDao: WatchHistoryDao,
+        private val backup: BackupCoordinator,
+        private val channelMemory: ChannelMemoryRepository,
+        private val homeSnapshots: HomeSnapshotStore,
+        private val neighbours: NeighbourChannelsRepository,
+        private val preferences: PlayerPreferences,
+    ) : SettingsViewModel() {
+        private val _state = MutableStateFlow(TasteState())
+        val state: StateFlow<TasteState> = _state.asStateFlow()
+
+        /** Whether Deep Focus has learning paused, shown as a status; it is switched in Settings only. */
+        val deepFocus: StateFlow<DeepFocusState> =
+            combine(
+                preferences.deepFocusActive,
+                preferences.deepFocusActivatedAt,
+                preferences.deepFocusExpireHours,
+            ) { active, activatedAt, expireHours ->
+                DeepFocusState(active = active, activatedAt = activatedAt, expireHours = expireHours)
+            }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), DeepFocusState())
+        val operation = backup.operation
+
+        init {
+            reload()
+        }
+
+        fun reload() {
+            viewModelScope.launch {
+                _state.value = withContext(Dispatchers.Default) { load() }
+            }
+        }
+
+        fun setTopicPreferred(
+            topic: String,
+            preferred: Boolean,
+        ) = act {
+            if (preferred) FlowNeuroEngine.addPreferredTopic(context, topic) else FlowNeuroEngine.removePreferredTopic(context, topic)
+        }
+
+        fun blockTopic(topic: String) = act { FlowNeuroEngine.addBlockedTopic(context, topic) }
+
+        fun unblockTopic(topic: String) = act { FlowNeuroEngine.removeBlockedTopic(context, topic) }
+
+        fun blockChannel(channelId: String) = act { FlowNeuroEngine.blockChannel(context, channelId) }
+
+        fun unblockChannel(channelId: String) = act { FlowNeuroEngine.unblockChannel(context, channelId) }
+
+        fun unblockArtist(artistKey: String) = act { musicBrain.unblockArtist(artistKey) }
+
+        fun forgetChannel(channelId: String) = act { channelMemory.forget(channelId) }
+
+        fun clearChannelMemory() = act { channelMemory.clear() }
+
+        fun resetVideoProfile() =
+            act {
+                FlowNeuroEngine.resetBrain(context)
+                preferences.setOnboardingDone(false)
+                homeSnapshots.clear()
+                neighbours.clear()
+            }
+
+        fun resetMusicProfile() = act { musicBrain.resetBrain() }
+
+        fun exportVideoProfile(uri: Uri) = backup.exportEngine(uri)
+
+        fun importVideoProfile(uri: Uri) = backup.importEngine(uri)
+
+        fun exportMusicProfile(uri: Uri) = backup.exportMusicBrain(uri)
+
+        fun importMusicProfile(uri: Uri) = backup.importMusicBrain(uri)
+
+        fun dismissOperation() = backup.dismiss()
+
+        private fun act(block: suspend () -> Unit) {
+            viewModelScope.launch {
+                runCatching { block() }
+                _state.value = withContext(Dispatchers.Default) { load() }
+            }
+        }
+
+        private suspend fun load(): TasteState {
+            FlowNeuroEngine.initialize(context)
+            val brain = FlowNeuroEngine.getSavedBrainSnapshot()
+            val names = channelNames()
+            val profile = runCatching { musicBrain.tasteProfile() }.getOrNull()
+            return TasteState(
+                loading = false,
+                persona = FlowNeuroEngine.getPersona(brain),
+                maturity = (brain.totalInteractions / MATURE_INTERACTIONS).coerceIn(0f, 1f),
+                profile = brain.globalVector.traits(),
+                now = (brain.timeVectors[TimeBucket.current()] ?: ContentVector()).traits(),
+                picks = tastePicks(brain, FlowNeuroEngine.pickKeysByLabel(brain)),
+                topics = tasteTopics(brain, TOPIC_COUNT, FlowNeuroEngine.pickKeys(brain), FlowNeuroEngine::specificity),
+                groups =
+                    tasteGroups(
+                        brain,
+                        runCatching { FlowNeuroEngine.interestClusters(brain) }.getOrDefault(emptyList()),
+                        FlowNeuroEngine.pickKeys(brain),
+                        FlowNeuroEngine::specificity,
+                        GROUP_COUNT,
+                    ),
+                channels =
+                    brain.channelScores.entries
+                        .filter { it.key !in brain.blockedChannels }
+                        .sortedByDescending { it.value }
+                        .take(CHANNEL_COUNT)
+                        .map { TasteChannel(it.key, names[it.key] ?: it.key, it.value.toFloat()) },
+                music =
+                    profile?.let { taste ->
+                        val topGenre = taste.topGenres.maxOfOrNull { it.second }?.takeIf { it > 0.0 } ?: 1.0
+                        MusicTaste(
+                            maturity = taste.maturity,
+                            appetite = taste.discoveryAppetite.toFloat(),
+                            plays = taste.totalPlays,
+                            genres = taste.topGenres.take(GENRE_COUNT).map { (name, weight) -> name to (weight / topGenre).toFloat() },
+                        )
+                    },
+                hidden = hidden(brain, names),
+                remembered =
+                    runCatching { channelMemory.remembered() }
+                        .getOrDefault(emptyList())
+                        .map { NamedItem(it.channelId, it.name.ifBlank { names[it.channelId] ?: it.channelId }) },
+                engine = EngineDetails.of(brain),
+            )
+        }
+
+        private suspend fun hidden(
+            brain: UserBrain,
+            names: Map<String, String>,
+        ) = HiddenContent(
+            topics = brain.blockedTopics.sorted(),
+            channels = brain.blockedChannels.map { NamedItem(it, names[it] ?: it) }.sortedBy { it.name.lowercase() },
+            artists =
+                runCatching { musicBrain.getBlockedArtistsWithNames() }
+                    .getOrDefault(
+                        emptyList(),
+                    ).map { NamedItem(it.first, it.second) },
+        )
+
+        /** Channel names the device already knows: the recap ledger first, then watch history. */
+        private suspend fun channelNames(): Map<String, String> {
+            val names = HashMap<String, String>()
+            runCatching { watchHistoryDao.getChannelVideoCounts(NAME_LOOKUP_LIMIT) }
+                .getOrDefault(emptyList())
+                .forEach { if (it.channelName.isNotBlank()) names[it.channelId] = it.channelName }
+            runCatching { videoStats.snapshot() }
+                .getOrNull()
+                ?.months
+                ?.toSortedMap()
+                ?.values
+                ?.forEach { names.putAll(it.channelNames) }
+            return names
+        }
+
+        private fun ContentVector.traits() =
+            TasteTraits(
+                pacing = pacing.toFloat(),
+                complexity = complexity.toFloat(),
+                duration = duration.toFloat(),
+                live = isLive.toFloat(),
+                breadth = (topics.size / BREADTH_TOPICS).coerceIn(0f, 1f),
+            )
+
+        private companion object {
+            const val MATURE_INTERACTIONS = 250f
+            const val BREADTH_TOPICS = 50f
+            const val TOPIC_COUNT = 12
+            const val GROUP_COUNT = 8
+            const val CHANNEL_COUNT = 10
+            const val GENRE_COUNT = 8
+            const val NAME_LOOKUP_LIMIT = 2_000
+            const val STOP_TIMEOUT_MS = 5_000L
+        }
+    }

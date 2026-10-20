@@ -255,11 +255,11 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.flowtube.app.action.CANCEL_DOWNLOAD" />
-                <action android:name="com.flowtube.app.action.RETRY_DOWNLOAD" />
-                <action android:name="com.flowtube.app.action.PAUSE_DOWNLOAD" />
-                <action android:name="com.flowtube.app.action.RESUME_DOWNLOAD" />
-                <action android:name="com.flowtube.app.action.DISMISS_NOTIFICATION" />
+                <action android:name="com.neurotube.app.action.CANCEL_DOWNLOAD" />
+                <action android:name="com.neurotube.app.action.RETRY_DOWNLOAD" />
+                <action android:name="com.neurotube.app.action.PAUSE_DOWNLOAD" />
+                <action android:name="com.neurotube.app.action.RESUME_DOWNLOAD" />
+                <action android:name="com.neurotube.app.action.DISMISS_NOTIFICATION" />
             </intent-filter>
         </receiver>
 

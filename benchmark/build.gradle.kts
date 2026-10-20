@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.flowtube.app.benchmark"
+    namespace = "com.neurotube.app.benchmark"
     compileSdk = 37
 
     compileOptions {

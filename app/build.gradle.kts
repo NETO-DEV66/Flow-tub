@@ -60,15 +60,15 @@ fun translatedLocaleTags(): List<String> =
         .sorted()
 
 android {
-    namespace = "com.flowtube.app"
+    namespace = "com.neurotube.app"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.flowtube.app"
+        applicationId = "com.neurotube.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 5
-        versionName = "1.2.0"
+        versionCode = 6
+        versionName = "1.3.0"
 
         buildConfigField("String", "APP_LANGUAGE_TAGS", "\"${(listOf("en") + translatedLocaleTags()).joinToString(",")}\"")
         // Discord Rich Presence stays off until a Discord application is registered for NeuroTube.
@@ -78,7 +78,7 @@ android {
         buildConfigField("String", "LASTFM_API_KEY", "\"${secretValue("lastfmApiKey", "lastfm.apiKey", "LASTFM_API_KEY")}\"")
         buildConfigField("String", "LASTFM_API_SECRET", "\"${secretValue("lastfmApiSecret", "lastfm.apiSecret", "LASTFM_API_SECRET")}\"")
 
-        testInstrumentationRunner = "com.flowtube.app.HiltTestRunner"
+        testInstrumentationRunner = "com.neurotube.app.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
