@@ -1,0 +1,17 @@
+NEUROTUBE CHANGE LOG
+VERSION: 1.4.0
+DATE: 2026-10-20
+STATUS: RELEASE
+
+NEW
+- Sign in to YouTube. Open Settings > Account, or use the card in onboarding, and a Google sign-in page opens inside the app
+- Once signed in, browse and search use your account: subscriptions, liked videos and playlists come back personalised instead of anonymous
+- The account name is shown on the settings row and on the Account page, and you can sign out at any time
+- Signing in is optional. Everything works signed out, exactly as before
+
+NOTES
+- The session is a cookie, stored encrypted on the device only. It never leaves the phone except in requests to YouTube itself
+- Sign-out clears both the in-memory session and the saved copy on disk
+- The account page and the onboarding card can both be skipped without any effect on the rest of the app
+- One universal APK for every supported device, as before
+- Same signing key as every earlier release

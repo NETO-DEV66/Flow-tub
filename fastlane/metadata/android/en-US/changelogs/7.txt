@@ -1,0 +1,4 @@
+- Sign in to YouTube from Settings > Account, or from the card in onboarding. Signing in is optional
+- Browse and search use your account once signed in: subscriptions, liked videos and playlists come back personalised
+- The session is a cookie stored encrypted on the device; sign-out clears it from memory and from disk
+- One universal APK, and the same signing key as every earlier release

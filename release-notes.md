@@ -1,34 +1,37 @@
-# NeuroTube v1.3.0
+# NeuroTube v1.4.0
 
 **Release date:** 2026-10-20
 
-The package name changed from `com.flowtube.app` to `com.neurotube.app`. Android treats a package
-name as the app's identity, so this is a one-time break: v1.3.0 installs as a **new app** next to
-the old one and does not inherit its data.
+NeuroTube can now sign in to YouTube. The account is optional: without it the app behaves exactly
+as it did in v1.3.0. With it, browse and search use your account, so subscriptions, liked videos
+and playlists come back personalised instead of anonymous.
 
-**Before you update, export a backup.** Open the old app, go to Settings → Backup, and save a
-master backup. Then uninstall the old app, install v1.3.0, and restore that backup.
+## Added
 
-## Changed
+- **YouTube sign-in.** Settings -> Account opens a Google sign-in page inside the app. The same
+  control appears as a card in the onboarding import step, and both can be skipped.
+- **A personalised home.** Once a session exists, browse and search ask YouTube for login, so the
+  signed-in library is what comes back. Signing out restores anonymous requests immediately.
+- **The account name on the settings row**, so you can see who is signed in without opening the page.
 
-- **New package name.** `com.neurotube.app` replaces `com.flowtube.app`. The launcher label, the
-  Home header, the notification, the widgets and the About screen already read NeuroTube; now the
-  internal identity matches the name.
-- **Downloads in the old folders are still found.** `Download/NeuroTube` is the current location,
-  and the app keeps scanning the `Flow Tube` folders from earlier versions, so existing files stay
-  listed and are still recovered after a reinstall.
-- **Metadata in existing downloads is still read.** Files downloaded by an earlier version carry
-  `com.flowtube.app.*` tags; those are still parsed, so titles, artists and video ids survive.
+## How the session is kept
+
+- The session is a Google cookie captured from the sign-in page and validated against YouTube
+  before it is saved. A cookie that YouTube rejects is discarded, not stored.
+- It is written encrypted (AES/GCM, key in the Android keystore) to app-private storage that is
+  excluded from cloud backup.
+- It never leaves the device except in requests to YouTube itself. There is no NeuroTube server,
+  no login, and no telemetry.
+- Signing out clears the session from memory and deletes the saved copy.
 
 ## Unchanged
 
-- Signing key: v1.3.0 is signed with the same certificate as every previous release.
-- Media files already in `Download/NeuroTube` are not touched — they live in shared storage, not in
-  app-private data.
+- Signing key: v1.4.0 is signed with the same certificate as every previous release.
+- One universal APK (arm64-v8a + armeabi-v7a), no ABI splits.
+- Downloads, backups, sync and the recommendation engine are untouched.
 
-## Known limitation
+## A note on the account
 
-- The old app's private data (watch history, playlists, settings, the recommendation engine) cannot
-  be carried over automatically. Android does not let a new package read another package's private
-  storage, and the in-app updater refuses an APK whose package name differs. The backup export and
-  restore path is the way across.
+Google's terms do not permit third-party clients, and an account used this way can be rate-limited
+or blocked. If you want to sign in, a separate account is the safer choice. Signing out at any time
+removes the session from the device.
