@@ -20,8 +20,8 @@ and playlists come back personalised instead of anonymous.
   before it is saved. A cookie that YouTube rejects is discarded, not stored.
 - It is written encrypted (AES/GCM, key in the Android keystore) to app-private storage that is
   excluded from cloud backup.
-- It never leaves the device except in requests to YouTube itself. There is no NeuroTube server,
-  no login, and no telemetry.
+- It never leaves the device except in requests to YouTube itself. There is no NeuroTube server
+  and no telemetry.
 - Signing out clears the session from memory and deletes the saved copy.
 
 ## Unchanged

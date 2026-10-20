@@ -1,10 +1,15 @@
 # Privacy and Permissions
 
-NeuroTube has no account system, no analytics or telemetry SDK, no crash reporting service, and no
-advertising identifier. Nothing is uploaded to a server operated by the project. Watch history,
-subscriptions, playlists, downloads, and recommendation data are stored in a local Room database
-and in local DataStore preferences on the device. They leave the device only if the user explicitly
-starts a backup export or a device-to-device sync over their own local network.
+NeuroTube has no analytics or telemetry SDK, no crash reporting service, and no advertising
+identifier. Nothing is uploaded to a server operated by the project. Watch history, subscriptions,
+playlists, downloads, and recommendation data are stored in a local Room database and in local
+DataStore preferences on the device. They leave the device only if the user explicitly starts a
+backup export or a device-to-device sync over their own local network.
+
+The one optional exception is YouTube sign-in. If the user chooses to sign in, the app stores the
+resulting Google session cookie encrypted on the device and sends it to YouTube with each request,
+exactly as the YouTube website does. Nothing is sent to the project, and signing out deletes the
+stored cookie.
 
 This document lists every permission that appears in the built APK, why it is declared, when it is
 requested, and whether the app still works without it.
@@ -211,7 +216,9 @@ project-operated proxy or relay in between.
 
 ## What NeuroTube does not do
 
-- No account, login, or user identifier of any kind.
+- No account is required. The app works fully signed out and never asks you to sign in.
+- Optional YouTube sign-in, if the user chooses it, stores a Google session cookie encrypted on the
+  device. It is sent only to YouTube, is never sent to the project, and is deleted on sign-out.
 - No analytics, telemetry, crash reporting, or advertising SDK.
 - No background microphone, camera, or location access. NeuroTube declares no location permission.
 - No reading or uploading of contacts, call logs, SMS, or the installed app list.

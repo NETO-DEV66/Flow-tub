@@ -16,7 +16,7 @@
   <p>
     <a href="https://neto-dev66.github.io/NeuroTube/"><b>Website</b></a> ·
     <a href="https://github.com/NETO-DEV66/NeuroTube/releases/latest"><b>Download APK</b></a> ·
-    <a href="#set-up-neurotube--no-account-no-login"><b>Set up</b></a> ·
+    <a href="#set-up-neurotube--no-account-required"><b>Set up</b></a> ·
     <a href="#build-from-source"><b>Build</b></a> ·
     <a href="privacy.md"><b>Privacy</b></a> ·
     <a href="CONTRIBUTING.md"><b>Contribute</b></a> ·
@@ -24,8 +24,9 @@
   </p>
 
   <p>
-    <b>No account and no login.</b> NeuroTube never asks you to sign in. You bring your own YouTube
-    data in from a Google Takeout export — <a href="#set-up-neurotube--no-account-no-login">here is how</a>.
+    <b>No account required.</b> NeuroTube works fully signed out. Sign in only if you want your
+    own subscriptions and likes — otherwise bring your data in from a Google Takeout export
+    (<a href="#set-up-neurotube--no-account-required">here is how</a>).
   </p>
 
   <p>
@@ -47,10 +48,10 @@ adjust it, or wipe it at any time.
 
 ---
 
-## Set up NeuroTube — no account, no login
+## Set up NeuroTube — no account required
 
-NeuroTube never asks you to sign in. There is no Google login, no password, and no cookie to hand
-over — so nothing about your Google account is ever at risk from using this app.
+NeuroTube works fully signed out. There is no account to create and no password to hand over, and
+nothing about your Google account is at risk unless you choose to sign in.
 
 To bring **your own** YouTube data in — subscriptions, watch history, liked videos, searches and
 playlists — you export a copy from Google and import the file. It takes about two minutes.
@@ -162,8 +163,15 @@ When it finishes you get a summary of exactly what came in, for example:
 - Continue watching shelf
 - Subscription management with cached feeds
 
+### Account
+- Optional YouTube sign-in — Settings → Account, or the card in onboarding
+- Signed-in subscriptions, likes and playlists come back in browse and search
+- The session is a cookie kept encrypted on the device, and signing out deletes it
+- Fully usable without an account; nothing else in the app depends on it
+
 ### Privacy
-- No Google account required — no login, no password, no cookie
+- No account needed — the app is fully usable signed out
+- Optional YouTube sign-in for your own subscriptions, likes and playlists. The session is a cookie kept encrypted on the device and sent only to YouTube
 - No ads, analytics, or tracking
 - All data stored locally on your device
 - Bring your own YouTube data in from a **Google Takeout** export (subscriptions, history, likes, playlists)
@@ -366,6 +374,7 @@ Source layout:
 
 ```
 app/src/main/java/com/neurotube/app/
+├── account/         optional YouTube sign-in: encrypted session store, WebView flow
 ├── data/            repositories, Room, DataStore, extraction, downloads
 ├── player/          ExoPlayer wiring, PiP, popup, shorts
 ├── service/         media services and foreground playback
