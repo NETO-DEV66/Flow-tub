@@ -332,9 +332,13 @@ above. When set, CI fails the build if the APK is signed with a different key â€
 unrecoverable update-path mistake from ever being published. When it is empty the check is skipped.
 
 ```bash
-# Publish a release
-git tag v1.0.2 && git push origin v1.0.2
+# Publish a release â€” bump versionCode/versionName in app/build.gradle.kts first.
+# versionCode must strictly increase, or existing installs will not accept the update.
+git tag v1.3.0 && git push origin v1.3.0
 ```
+
+The tag name is the release name CI publishes. It does not have to match `versionName`, but keeping
+them equal is what makes the in-app updater's version comparison obvious.
 
 ---
 
