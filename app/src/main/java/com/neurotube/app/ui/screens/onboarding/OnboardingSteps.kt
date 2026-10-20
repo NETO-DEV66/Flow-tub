@@ -28,6 +28,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.neurotube.app.data.backup.BackupOperation
 import com.neurotube.app.data.backup.ImportKind
 import com.neurotube.app.ui.components.shared.FlowMaxContentWidth
+import com.neurotube.app.ui.screens.settings.account.YouTubeSignInState
 import com.neurotube.app.ui.utils.LocalWindowSizeClass
 import com.neurotube.app.ui.utils.isExpandedWidth
 
@@ -42,6 +43,8 @@ internal class StepActions(
     val onPick: (ImportKind) -> Unit,
     val onTopicToggle: (String) -> Unit,
     val onInterestsRevealed: () -> Unit,
+    /** Opens the Google sign-in WebView; needs the hosting activity. */
+    val onSignIn: () -> Unit,
 )
 
 /**
@@ -175,11 +178,17 @@ private fun StepBody(
         }
 
         OnboardingStep.IMPORT -> {
+            val account by actions.viewModel.account.collectAsStateWithLifecycle()
+            val signInState by actions.viewModel.signInState.collectAsStateWithLifecycle()
             ImportStep(
                 header = header,
                 importOperation = importOperation,
                 importedSources = state.importedSources,
                 onImport = actions.onPick,
+                account = account,
+                accountWorking = signInState == YouTubeSignInState.Working,
+                onSignIn = actions.onSignIn,
+                onSignOut = actions.viewModel::signOut,
                 contentPadding = contentPadding,
             )
         }

@@ -29,13 +29,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.neurotube.app.R
 import com.neurotube.app.data.backup.BackupOperation
 import com.neurotube.app.data.backup.ImportKind
 import com.neurotube.app.ui.components.shared.FlowMaxContentWidth
+import com.neurotube.app.ui.screens.settings.account.YouTubeSignInState
 import com.neurotube.app.ui.utils.LocalWindowSizeClass
 import com.neurotube.app.ui.utils.isExpandedWidth
 import kotlinx.coroutines.launch
@@ -49,9 +53,19 @@ fun OnboardingScreen(
     val importOperation by viewModel.importOperation.collectAsStateWithLifecycle()
     val newVideoAlerts by viewModel.newVideoAlerts.collectAsStateWithLifecycle()
     val haptic = LocalHapticFeedback.current
+    val activity = LocalContext.current as? android.app.Activity
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     var interestsRevealed by rememberSaveable { mutableStateOf(false) }
+
+    val signInState by viewModel.signInState.collectAsStateWithLifecycle()
+    val signInFailed = stringResource(R.string.youtube_account_sign_in_failed)
+    LaunchedEffect(signInState) {
+        if (signInState == YouTubeSignInState.Failed) {
+            viewModel.consumeSignInFailure()
+            snackbarHostState.showSnackbar(signInFailed)
+        }
+    }
 
     LaunchedEffect(state.completed) { if (state.completed) onComplete() }
     BackHandler(enabled = state.step.index > 0) { viewModel.back() }
@@ -145,6 +159,7 @@ fun OnboardingScreen(
                                 viewModel.toggleTopic(topic)
                             },
                             onInterestsRevealed = { interestsRevealed = true },
+                            onSignIn = { viewModel.signIn(activity) },
                         ),
                 )
             }

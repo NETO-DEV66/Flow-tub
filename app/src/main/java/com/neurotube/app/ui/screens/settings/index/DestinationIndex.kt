@@ -32,6 +32,7 @@ internal object DestinationIndex {
     private fun summaryOf(destination: SettingsDestination): Int? =
         when (destination) {
             SettingsDestination.HOME -> null
+            SettingsDestination.ACCOUNT -> R.string.youtube_account_subtitle
             SettingsDestination.TASTE -> R.string.taste_summary
             SettingsDestination.HIDDEN_CONTENT -> R.string.taste_hidden_summary
             SettingsDestination.FAVOURITE_ARTISTS -> R.string.favourite_artists_summary

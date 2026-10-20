@@ -15,6 +15,7 @@ enum class SettingsDestination(
 ) {
     /** The settings list itself, for options that live directly on it such as Deep Focus. */
     HOME("home", R.string.settings_title),
+    ACCOUNT("account", R.string.youtube_account_title),
     TASTE("taste", R.string.taste_title),
     HIDDEN_CONTENT("hidden_content", R.string.taste_hidden_title, TASTE),
     FAVOURITE_ARTISTS("favourite_artists", R.string.favourite_artists_title, TASTE),

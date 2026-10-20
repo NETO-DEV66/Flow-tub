@@ -21,6 +21,8 @@ internal data class SettingsHomeState(
     val selected: SettingsDestination?,
     val persona: FlowPersona?,
     val deepFocus: DeepFocusState,
+    /** Name of the signed-in YouTube account, or null when signed out. */
+    val accountName: String?,
     /** Shown on the update row while a check the user started is running; null when idle. */
     val updateCheckingLabel: String?,
 )
@@ -32,6 +34,7 @@ internal class SettingsHomeActions(
     val onSaveHistoryChange: (Boolean) -> Unit,
     val onScrobbleChange: (Boolean) -> Unit,
     val onCheckForUpdates: () -> Unit,
+    val onAccountClick: () -> Unit,
 )
 
 /** The settings list when no search is running. */
@@ -55,6 +58,15 @@ internal fun SettingsListScope.homeContent(
             selected = state.selected == destination,
             showChevron = state.selected == null,
         )
+
+    group(key = "home.account", header = R.string.youtube_account_title) {
+        nav(
+            entry = HomeIndex.account,
+            onClick = actions.onAccountClick,
+            value = state.accountName,
+            icon = HomeRowIcons.Account,
+        )
+    }
 
     group(key = "home.engine", header = R.string.settings_flow_engine_header) {
         row(HomeIndex.deepFocus.key) { shape ->

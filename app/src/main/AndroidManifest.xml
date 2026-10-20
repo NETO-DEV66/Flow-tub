@@ -116,6 +116,13 @@
             </intent-filter>
         </activity>
 
+        <!-- Sign-in WebView. Not exported: it is only ever launched by YouTubeAccountManager,
+             and it carries the live Google session cookie while it is on screen. -->
+        <activity
+            android:name="com.neurotube.app.account.YouTubeLoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.NeuroTube" />
+
         <!-- singleTask: a share or link from another app must reach this instance through
              onNewIntent, not start a second one inside the sharing app's task (#1121). -->
         <activity
