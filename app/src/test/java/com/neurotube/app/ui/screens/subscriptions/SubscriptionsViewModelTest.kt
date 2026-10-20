@@ -383,7 +383,12 @@ class SubscriptionsViewModelTest {
          * on an injected dispatcher, so the test scheduler cannot join those coroutines. Verify
          * with a timeout instead of racing them. The timeout only guards against a hang; it is
          * not a latency assertion, so keep it generous enough for a loaded CI runner.
+         *
+         * 10s proved too tight: this test intermittently tripped the budget on GitHub's shared
+         * two-core runners while the full suite ran alongside it, even though it passes reliably
+         * on a quieter machine. The wait converges as soon as the real pools deliver, so a larger
+         * budget only changes how long a genuine hang takes to report.
          */
-        const val VERIFY_TIMEOUT_MS = 10_000L
+        const val VERIFY_TIMEOUT_MS = 30_000L
     }
 }
