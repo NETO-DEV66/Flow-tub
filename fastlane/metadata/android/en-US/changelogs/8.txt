@@ -1,0 +1,3 @@
+- YouTube sign-in now finishes instead of stopping on the sign-in page
+- Fixed sign-in stalling part-way through Google's own pages
+- Signing in or out refreshes the feed straight away

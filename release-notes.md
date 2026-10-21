@@ -1,37 +1,37 @@
-# NeuroTube v1.4.0
+# NeuroTube v1.4.1
 
-**Release date:** 2026-10-20
+**Release date:** 2026-10-21
 
-NeuroTube can now sign in to YouTube. The account is optional: without it the app behaves exactly
-as it did in v1.3.0. With it, browse and search use your account, so subscriptions, liked videos
-and playlists come back personalised instead of anonymous.
+A fix release for the YouTube sign-in added in v1.4.0. Sign-in did not complete: the page opened,
+but finishing the flow was impossible. This release makes it work, and keeps the session usable
+across restarts.
 
-## Added
+## Fixed
 
-- **YouTube sign-in.** Settings -> Account opens a Google sign-in page inside the app. The same
-  control appears as a card in the onboarding import step, and both can be skipped.
-- **A personalised home.** Once a session exists, browse and search ask YouTube for login, so the
-  signed-in library is what comes back. Signing out restores anonymous requests immediately.
-- **The account name on the settings row**, so you can see who is signed in without opening the page.
-
-## How the session is kept
-
-- The session is a Google cookie captured from the sign-in page and validated against YouTube
-  before it is saved. A cookie that YouTube rejects is discarded, not stored.
-- It is written encrypted (AES/GCM, key in the Android keystore) to app-private storage that is
-  excluded from cloud backup.
-- It never leaves the device except in requests to YouTube itself. There is no NeuroTube server
-  and no telemetry.
-- Signing out clears the session from memory and deletes the saved copy.
+- **Sign-in now completes.** v1.4.0 loaded the YouTube website and waited for the user to press
+  YouTube's own "Sign in" button. That button hands the account chooser to a popup window, which
+  the sign-in screen was silently dropping, so nothing happened. The app now opens Google's sign-in
+  page directly, with YouTube as the return target.
+- **Sign-in no longer stalls part-way.** A navigation filter was refusing Google's own hand-off
+  pages, which could strand the flow with no error message. Navigation is now unrestricted.
+- **The session is captured whole.** Two values the session was minted with were never read, so
+  requests made after signing in were still treated as signed out. Both are read from the page now,
+  saved with the session, and re-applied on launch.
+- **Signing in or out refreshes the feed immediately**, instead of leaving the previous account's
+  videos on screen until the next manual refresh.
 
 ## Unchanged
 
-- Signing key: v1.4.0 is signed with the same certificate as every previous release.
+- The session is a Google cookie, validated against YouTube before it is saved, written encrypted
+  (AES/GCM, key in the Android keystore) to app-private storage excluded from cloud backup.
+- It never leaves the device except in requests to YouTube itself. There is no NeuroTube server and
+  no telemetry. Signing out clears it from memory and deletes the saved copy.
+- Signing key: v1.4.1 is signed with the same certificate as every previous release.
 - One universal APK (arm64-v8a + armeabi-v7a), no ABI splits.
 - Downloads, backups, sync and the recommendation engine are untouched.
 
 ## A note on the account
 
 Google's terms do not permit third-party clients, and an account used this way can be rate-limited
-or blocked. If you want to sign in, a separate account is the safer choice. Signing out at any time
-removes the session from the device.
+or blocked. If you want to sign in, a separate account is the safer choice. Signing in remains
+optional: everything works signed out, exactly as before.

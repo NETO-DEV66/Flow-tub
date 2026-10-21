@@ -1,0 +1,15 @@
+NEUROTUBE CHANGE LOG
+VERSION: 1.4.1
+DATE: 2026-10-21
+STATUS: RELEASE
+
+FIXES
+- YouTube sign-in now finishes. v1.4.0 opened the YouTube website and waited for its own Sign in button, which opens the account chooser in a popup the app was silently dropping. The app now opens Google's sign-in page directly
+- Sign-in no longer stalls part-way through. Google's own hand-off pages were being refused by a navigation filter, so the flow could stop with no message
+- The session is now captured whole. Two values the account was signed in with were never read, which left every request after sign-in looking signed out
+- Signing in or out refreshes the feed straight away, instead of leaving the previous account's videos on screen
+
+NOTES
+- The session is still a cookie, stored encrypted on the device only. It never leaves the phone except in requests to YouTube itself
+- One universal APK for every supported device, as before
+- Same signing key as every earlier release
