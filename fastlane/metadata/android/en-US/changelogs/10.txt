@@ -1,0 +1,4 @@
+- Importing a signed-in account now brings the subscriptions in; only liked songs arrived before
+- The home feed is ranked for the signed-in account right after an import
+- Importing only reads; re-importing is safe and nothing is duplicated
+- One universal APK, and the same signing key as every earlier release

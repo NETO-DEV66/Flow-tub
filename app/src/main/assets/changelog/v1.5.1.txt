@@ -1,0 +1,15 @@
+NEUROTUBE CHANGE LOG
+VERSION: 1.5.1
+DATE: 2026-10-21
+STATUS: RELEASE
+
+FIXES
+- Importing a signed-in account now brings the subscriptions in. The account's own pages were being asked for while signed out, so YouTube answered with an empty list and only liked songs arrived
+- The home feed is now ranked for the signed-in account right after an import, instead of ignoring the channels it just added
+
+NOTES
+- Importing only reads. Nothing is written back to the account and nothing is deleted
+- Re-importing is safe: anything already present is left as it is
+- The session is still a cookie, stored encrypted on the device only. It never leaves the phone except in requests to YouTube itself
+- One universal APK for every supported device, as before
+- Same signing key as every earlier release

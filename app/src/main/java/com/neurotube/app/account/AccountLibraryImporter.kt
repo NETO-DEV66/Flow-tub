@@ -1,21 +1,26 @@
 package com.neurotube.app.account
 
+import android.content.Context
 import android.util.Log
+import com.neurotube.app.data.engagement.FeedInvalidationBus
 import com.neurotube.app.data.local.LikedVideosRepository
 import com.neurotube.app.data.local.PlaylistRepository
 import com.neurotube.app.data.local.SubscriptionRepository
 import com.neurotube.app.data.model.Channel
 import com.neurotube.app.data.music.YouTubeMusicService
 import com.neurotube.app.data.music.model.PlaylistDetails
+import com.neurotube.app.data.recommendation.FlowNeuroEngine
 import com.neurotube.app.innertube.YouTube
 import com.neurotube.app.innertube.models.ArtistItem
 import com.neurotube.app.innertube.models.YTItem
 import com.neurotube.app.innertube.utils.completed
 import com.neurotube.app.ui.screens.music.saveMusicCollection
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
@@ -71,6 +76,7 @@ sealed interface AccountImportState {
 class AccountLibraryImport
     @Inject
     constructor(
+        @ApplicationContext private val context: Context,
         private val subscriptions: SubscriptionRepository,
         private val likedVideos: LikedVideosRepository,
         private val musicPlaylists: PlaylistRepository,
@@ -118,7 +124,31 @@ class AccountLibraryImport
                 report = report.copy(playlists = counts.first, albums = counts.second)
             }
 
+            seedFeedFromImport(report)
+
             return report
+        }
+
+        /**
+         * Teaches the recommendation engine the channels just imported and drops the feed caches, so
+         * the next load is ranked for this account rather than the previous identity. Mirrors what the
+         * backup and Takeout importers do; without it an import left the subscriptions list correct
+         * but the home feed ignorant of every new channel.
+         */
+        private suspend fun seedFeedFromImport(report: AccountImportReport) {
+            if (report.isEmpty) return
+
+            val channelNames =
+                runCatching { subscriptions.getAllSubscriptions().first() }
+                    .getOrDefault(emptyList())
+                    .map { it.channelName }
+                    .filter { it.isNotBlank() }
+            if (channelNames.isNotEmpty()) {
+                runCatching { FlowNeuroEngine.bootstrapFromSubscriptions(context, channelNames) }
+                    .onFailure { Log.w(TAG, "Seeding the engine from subscriptions failed", it) }
+            }
+
+            FeedInvalidationBus.emit(FeedInvalidationBus.Event.AccountChanged)
         }
 
         /**

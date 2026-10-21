@@ -21,6 +21,7 @@ import com.neurotube.app.innertube.models.WatchEndpoint
 import com.neurotube.app.innertube.models.WatchEndpoint.WatchEndpointMusicSupportedConfigs.WatchEndpointMusicConfig.Companion.MUSIC_VIDEO_TYPE_ATV
 import com.neurotube.app.innertube.models.YouTubeClient
 import com.neurotube.app.innertube.models.YouTubeClient.Companion.WEB
+import com.neurotube.app.innertube.models.YouTubeClient.Companion.WEB_AUTHENTICATED
 import com.neurotube.app.innertube.models.YouTubeClient.Companion.WEB_REMIX
 import com.neurotube.app.innertube.models.YouTubeLocale
 import com.neurotube.app.innertube.models.body.BrowseBody
@@ -2158,7 +2159,7 @@ object YouTube {
             val response =
                 innerTube
                     .mainSiteBrowse(
-                        client = WEB,
+                        client = WEB_AUTHENTICATED,
                         browseId = if (continuation == null) "FEchannels" else null,
                         continuation = continuation,
                         setLogin = true,
@@ -2180,7 +2181,7 @@ object YouTube {
     suspend fun guideSubscriptions() =
         runCatching {
             Json
-                .parseToJsonElement(innerTube.guide(WEB).bodyAsText())
+                .parseToJsonElement(innerTube.guide(WEB_AUTHENTICATED).bodyAsText())
                 .toSubscribedChannels()
         }
 

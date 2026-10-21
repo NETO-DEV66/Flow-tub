@@ -117,6 +117,19 @@ data class YouTubeClient(
                 utcOffsetMinutes = 0,
             )
 
+        /**
+         * The same web identity as [WEB], marked as able to carry a session.
+         *
+         * [WEB] stays login-free because the pages it serves — `/next`, `navigation/resolve_url` and
+         * the reel overlay — are public and must not leak the viewer's cookie. The signed-in
+         * main-site pages are the exception: the guide's subscriptions and `FEchannels` answer with
+         * an empty document to an anonymous caller, so they need a client whose `loginSupported`
+         * lets [com.neurotube.app.innertube.InnerTube] attach the cookie and `SAPISIDHASH`. Without
+         * this, an import found zero subscriptions while likes (which use the already
+         * login-capable [WEB_REMIX]) came through.
+         */
+        val WEB_AUTHENTICATED = WEB.copy(loginSupported = true)
+
         val MWEB =
             YouTubeClient(
                 clientName = "MWEB",

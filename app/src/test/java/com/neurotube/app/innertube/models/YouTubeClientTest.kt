@@ -53,6 +53,23 @@ class YouTubeClientTest {
         assertEquals(YouTubeClient.USER_AGENT_MWEB, contextOf(YouTubeClient.MWEB).client.userAgent)
     }
 
+    /**
+     * Regression: the signed-in main-site pages (guide, `FEchannels`) came back empty because they
+     * were fetched with [YouTubeClient.WEB], whose `loginSupported` is false, so no cookie was ever
+     * attached. The authenticated twin must be identical apart from that one flag.
+     */
+    @Test
+    fun theAuthenticatedWebTwinOnlyTurnsOnLogin() {
+        val anonymous = YouTubeClient.WEB
+        val authenticated = YouTubeClient.WEB_AUTHENTICATED
+
+        assertFalse(anonymous.loginSupported)
+        assertTrue(authenticated.loginSupported)
+        assertEquals(anonymous.copy(loginSupported = true), authenticated)
+        // The public web pages must keep working without an account, so the base client stays as is.
+        assertEquals("WEB", anonymous.clientName)
+    }
+
     @Test
     fun everyOtherClientLeavesTheContextUserAgentUnset() {
         val others =
