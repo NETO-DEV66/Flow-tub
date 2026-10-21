@@ -29,6 +29,9 @@ import javax.crypto.spec.GCMParameterSpec
  *
  * [cookieHeader] is the whole credential: it is a live Google session, so it is only ever written to
  * [YouTubeAccountStore]'s encrypted file and handed to the network layer. Never log it.
+ *
+ * [visitorData] and [dataSyncId] are the identity the session was minted with. InnerTube expects them
+ * echoed back in the request context, so they are stored beside the cookie and re-applied on launch.
  */
 data class YouTubeAccount(
     val name: String,
@@ -36,6 +39,8 @@ data class YouTubeAccount(
     val channelHandle: String?,
     val thumbnailUrl: String?,
     val cookieHeader: String,
+    val visitorData: String? = null,
+    val dataSyncId: String? = null,
 )
 
 /**
@@ -53,15 +58,7 @@ class YouTubeAccountStore(
 
     @Synchronized
     fun save(account: YouTubeAccount) {
-        val plaintext =
-            JSONObject()
-                .put("name", account.name)
-                .put("email", account.email)
-                .put("channel_handle", account.channelHandle)
-                .put("thumbnail_url", account.thumbnailUrl)
-                .put("cookie", account.cookieHeader)
-                .toString()
-                .toByteArray(Charsets.UTF_8)
+        val plaintext = YouTubeAccountCodec.encode(account)
 
         val cipher =
             Cipher.getInstance(TRANSFORMATION).apply {
@@ -107,14 +104,7 @@ class YouTubeAccountStore(
                 }
             val plaintext =
                 cipher.doFinal(Base64.decode(payload.getString("ciphertext"), Base64.NO_WRAP))
-            val json = JSONObject(String(plaintext, Charsets.UTF_8))
-            YouTubeAccount(
-                name = json.getString("name"),
-                email = json.optString("email").ifBlank { null },
-                channelHandle = json.optString("channel_handle").ifBlank { null },
-                thumbnailUrl = json.optString("thumbnail_url").ifBlank { null },
-                cookieHeader = json.getString("cookie"),
-            )
+            YouTubeAccountCodec.decode(plaintext)
         }.getOrElse {
             clear()
             null

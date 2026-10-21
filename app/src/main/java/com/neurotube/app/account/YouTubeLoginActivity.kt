@@ -12,29 +12,48 @@
 package com.neurotube.app.account
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.WindowManager
 import android.webkit.CookieManager
-import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
 import android.webkit.WebStorage
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
+import androidx.lifecycle.lifecycleScope
 import com.neurotube.app.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
- * Sign-in WebView for YouTube. Loads Google's own account page, waits until the user has an
- * authenticated YouTube session in the jar, lifts the session cookies out, and gets out of the way.
+ * Sign-in WebView for YouTube.
  *
- * The jar is wiped on every exit path — success, cancel, or failure — so the credential exists only
- * in the encrypted store the repository owns.
+ * Google's own sign-in page is loaded directly, with YouTube as the `continue` target. That is the
+ * only entry point Google completes inside a WebView: loading `youtube.com` and tapping its own
+ * "Sign in" button instead hands the account chooser to a popup window, which a WebView with
+ * multiple windows off silently drops, so the flow never finishes.
+ *
+ * Navigation is deliberately unrestricted. Google bounces the user through `accounts.google.com`,
+ * `accounts.youtube.com` and `consent.youtube.com` before returning a YouTube page; an allow-list
+ * that rejects any one of those hops strands the user mid-flow with no error.
+ *
+ * Once a YouTube page carries a session, the cookies and the page's own visitor identity are lifted
+ * out and handed to [YouTubeLoginBroker]. The jar is wiped on every exit path — success, cancel, or
+ * failure — so the credential exists only in the encrypted store the repository owns.
  */
 class YouTubeLoginActivity : ComponentActivity() {
     private var completed = false
     private var cleanupStarted = false
+    private var captureScheduled = false
     private lateinit var loginWebView: WebView
+
+    /** Read back from the page's own JS, which answers after [WebViewClient.onPageFinished] returns. */
+    @Volatile
+    private var capturedVisitorData: String? = null
+
+    @Volatile
+    private var capturedDataSyncId: String? = null
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,25 +69,11 @@ class YouTubeLoginActivity : ComponentActivity() {
                 settings.allowContentAccess = false
                 settings.javaScriptCanOpenWindowsAutomatically = false
                 settings.setSupportMultipleWindows(false)
-                settings.mixedContentMode = android.webkit.WebSettings.MIXED_CONTENT_NEVER_ALLOW
+                settings.mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW
                 // Google refuses to complete sign-in inside a WebView that announces itself as one.
                 settings.userAgentString = settings.userAgentString.replace("; wv", "")
                 webViewClient =
                     object : WebViewClient() {
-                        override fun shouldOverrideUrlLoading(
-                            view: WebView,
-                            request: WebResourceRequest,
-                        ): Boolean {
-                            if (!request.isForMainFrame) return false
-                            return handleNavigation(view, request.url.toString())
-                        }
-
-                        @Deprecated("Deprecated in Java")
-                        override fun shouldOverrideUrlLoading(
-                            view: WebView,
-                            url: String,
-                        ): Boolean = handleNavigation(view, url)
-
                         override fun onPageFinished(
                             view: WebView,
                             url: String,
@@ -77,11 +82,18 @@ class YouTubeLoginActivity : ComponentActivity() {
                             captureWhenAuthenticated(view, url)
                         }
                     }
-                CookieManager.getInstance().setAcceptCookie(true)
-                CookieManager.getInstance().setAcceptThirdPartyCookies(this, true)
-                loadUrl(YOUTUBE_HOME_URL)
             }
+
+        CookieManager.getInstance().apply {
+            setAcceptCookie(true)
+            setAcceptThirdPartyCookies(loginWebView, true)
+            // A half-finished attempt must not be resumed from a stale jar.
+            removeAllCookies(null)
+            flush()
+        }
+
         setContentView(loginWebView)
+        loginWebView.loadUrl(SIGN_IN_URL)
     }
 
     override fun onDestroy() {
@@ -92,29 +104,58 @@ class YouTubeLoginActivity : ComponentActivity() {
         super.onDestroy()
     }
 
-    private fun handleNavigation(
-        webView: WebView,
-        url: String,
-    ): Boolean {
-        if (!isAllowedNavigation(url)) return true
-        captureWhenAuthenticated(webView, url)
-        return false
-    }
-
-    /** A session only exists once Google has sent the user on to youtube.com with its cookies set. */
+    /**
+     * A session only exists once Google has sent the user on to a YouTube page with its cookies set.
+     * The page reports the visitor identity the session was minted with asynchronously, so the
+     * capture waits a moment for it before reporting.
+     */
     private fun captureWhenAuthenticated(
         webView: WebView,
         url: String,
     ) {
-        if (completed || !isAuthenticatedUrl(url)) return
-        val jar = CookieManager.getInstance().getCookie(YOUTUBE_ORIGIN).orEmpty()
-        if (!YouTubeCookieExtractor.hasSession(jar)) return
+        if (completed || !isYouTubeUrl(url)) return
+        readSessionIdentity(webView)
+        if (captureScheduled || !YouTubeCookieExtractor.hasSession(youtubeCookieJar())) return
 
-        val header = YouTubeCookieExtractor.toCookieHeader(jar) ?: return
-        completed = true
-        YouTubeLoginBroker.complete(header)
-        clearLoginSession(onComplete = ::finish)
+        captureScheduled = true
+        lifecycleScope.launch {
+            delay(IDENTITY_SETTLE_MS)
+            if (completed) return@launch
+
+            val header = YouTubeCookieExtractor.toCookieHeader(youtubeCookieJar())
+            if (header == null || !YouTubeCookieExtractor.hasSession(header)) {
+                // Not a session after all; a later page may still carry one.
+                captureScheduled = false
+                return@launch
+            }
+
+            completed = true
+            YouTubeLoginBroker.complete(
+                YouTubeLoginSession(
+                    cookieHeader = header,
+                    visitorData = capturedVisitorData,
+                    dataSyncId = capturedDataSyncId,
+                ),
+            )
+            clearLoginSession(onComplete = ::finish)
+        }
     }
+
+    /** Both values live on the page's own `window.yt.config_`; either may legitimately be absent. */
+    private fun readSessionIdentity(webView: WebView) {
+        webView.evaluateJavascript(JS_READ_VISITOR_DATA) { raw -> capturedVisitorData = parseJsValue(raw) }
+        webView.evaluateJavascript(JS_READ_DATA_SYNC_ID) { raw ->
+            capturedDataSyncId = YouTubeCookieExtractor.normalizeDataSyncId(parseJsValue(raw))
+        }
+    }
+
+    /** [WebView.evaluateJavascript] answers with a JSON literal, so a string arrives quoted. */
+    private fun parseJsValue(raw: String?): String? =
+        raw?.trim()?.removeSurrounding("\"")?.takeIf { it.isNotBlank() && it != "null" }
+
+    /** Every origin the session is set on, so a cookie one host drops is still picked up by another. */
+    private fun youtubeCookieJar(): String =
+        YOUTUBE_ORIGINS.mapNotNull { CookieManager.getInstance().getCookie(it) }.joinToString("; ")
 
     private fun clearLoginSession(onComplete: (() -> Unit)? = null) {
         if (cleanupStarted) {
@@ -123,7 +164,7 @@ class YouTubeLoginActivity : ComponentActivity() {
         }
         cleanupStarted = true
 
-        WebStorage.getInstance().deleteOrigin(YOUTUBE_ORIGIN)
+        YOUTUBE_ORIGINS.forEach { WebStorage.getInstance().deleteOrigin(it) }
         if (::loginWebView.isInitialized) {
             loginWebView.stopLoading()
             loginWebView.clearFormData()
@@ -171,21 +212,34 @@ class YouTubeLoginActivity : ComponentActivity() {
         }
     }
 
-    private fun isAllowedNavigation(url: String): Boolean = url.startsWith("https://") && GOOGLE_ORIGINS.any { url.startsWith(it) }
-
-    private fun isAuthenticatedUrl(url: String): Boolean =
-        url.startsWith("https://www.youtube.com") || url.startsWith("https://m.youtube.com")
+    private fun isYouTubeUrl(url: String): Boolean = YOUTUBE_ORIGINS.any { url.startsWith(it) }
 
     private companion object {
-        const val YOUTUBE_HOME_URL = "https://www.youtube.com/"
-        const val YOUTUBE_ORIGIN = "https://www.youtube.com"
+        const val SIGN_IN_URL = "https://accounts.google.com/ServiceLogin?continue=https%3A%2F%2Fmusic.youtube.com"
+        const val IDENTITY_SETTLE_MS = 600L
+
+        const val JS_READ_VISITOR_DATA =
+            "(function(){try{return (window.yt&&window.yt.config_&&window.yt.config_.VISITOR_DATA)||null}" +
+                "catch(e){return null}})()"
+        const val JS_READ_DATA_SYNC_ID =
+            "(function(){try{return (window.yt&&window.yt.config_&&window.yt.config_.DATASYNC_ID)||null}" +
+                "catch(e){return null}})()"
+
+        val YOUTUBE_ORIGINS =
+            listOf(
+                "https://www.youtube.com",
+                "https://m.youtube.com",
+                "https://music.youtube.com",
+            )
 
         val GOOGLE_ORIGINS =
             listOf(
                 "https://www.youtube.com",
                 "https://m.youtube.com",
+                "https://music.youtube.com",
                 "https://accounts.google.com",
                 "https://accounts.youtube.com",
+                "https://consent.youtube.com",
                 "https://myaccount.google.com",
                 "https://www.google.com",
             )

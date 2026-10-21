@@ -17,29 +17,29 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 /**
- * Hands the session cookie from the WebView activity (which owns the cookie jar) back to whoever
+ * Hands the captured session from the WebView activity (which owns the cookie jar) back to whoever
  * launched it. Same in-memory handoff pattern as `DiscordLoginBroker`, with one addition: the
  * activity also reports whether it has *finished* with the jar, so the caller knows when it is safe
  * to wipe Google's cookies without racing the WebView.
  */
 object YouTubeLoginBroker {
-    private var pending: CompletableDeferred<Result<String>>? = null
+    private var pending: CompletableDeferred<Result<YouTubeLoginSession>>? = null
 
     private val _busy = MutableStateFlow(false)
 
     /** True while the login WebView is on screen. */
     val busy: StateFlow<Boolean> = _busy.asStateFlow()
 
-    fun begin(): CompletableDeferred<Result<String>> {
-        val deferred = CompletableDeferred<Result<String>>()
+    fun begin(): CompletableDeferred<Result<YouTubeLoginSession>> {
+        val deferred = CompletableDeferred<Result<YouTubeLoginSession>>()
         pending = deferred
         _busy.value = true
         return deferred
     }
 
-    /** The activity captured a session cookie. */
-    fun complete(cookieHeader: String) {
-        pending?.complete(Result.success(cookieHeader))
+    /** The activity captured a session. */
+    fun complete(session: YouTubeLoginSession) {
+        pending?.complete(Result.success(session))
         pending = null
         _busy.value = false
     }

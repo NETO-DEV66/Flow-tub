@@ -13,6 +13,7 @@ package com.neurotube.app.account
 
 import android.content.Context
 import android.util.Log
+import com.neurotube.app.data.engagement.FeedInvalidationBus
 import com.neurotube.app.innertube.YouTube
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -54,29 +55,34 @@ object YouTubeAccountRepository {
     val isSignedIn: Boolean get() = _account.value != null
 
     /**
-     * Validates a freshly captured session cookie against the account menu, then persists it.
+     * Validates a freshly captured session against the account menu, then persists it.
      *
      * Validation is what proves the cookie is a real, working session rather than a half-finished
      * login: `accountInfo()` only returns a header when YouTube accepts the credential.
      */
-    suspend fun signIn(cookieHeader: String): Result<YouTubeAccount> =
+    suspend fun signIn(session: YouTubeLoginSession): Result<YouTubeAccount> =
         mutex.withLock {
-            val session =
-                YouTubeCookieExtractor.toCookieHeader(cookieHeader)
+            val cookieHeader =
+                YouTubeCookieExtractor.toCookieHeader(session.cookieHeader)
                     ?: return@withLock Result.failure(
                         IllegalArgumentException("Captured cookies do not contain a YouTube session"),
                     )
-            if (!YouTubeCookieExtractor.hasSession(session)) {
+            if (!YouTubeCookieExtractor.hasSession(cookieHeader)) {
                 return@withLock Result.failure(
                     IllegalArgumentException("Captured cookies do not contain a YouTube session"),
                 )
             }
 
-            val previous = YouTube.cookie
-            YouTube.cookie = session
+            val previous = SessionSnapshot(YouTube.cookie, YouTube.visitorData, YouTube.dataSyncId)
+            YouTube.cookie = cookieHeader
+            // The identity the session was minted with has to be in place before the first call,
+            // because InnerTube echoes it back as the request context.
+            session.visitorData?.let { YouTube.visitorData = it }
+            session.dataSyncId?.let { YouTube.dataSyncId = it }
+
             val info = YouTube.accountInfo()
             if (info.isFailure) {
-                YouTube.cookie = previous
+                previous.restore()
                 return@withLock Result.failure(
                     info.exceptionOrNull() ?: IllegalStateException("YouTube rejected the session"),
                 )
@@ -89,7 +95,9 @@ object YouTubeAccountRepository {
                         email = header.email,
                         channelHandle = header.channelHandle,
                         thumbnailUrl = header.thumbnailUrl,
-                        cookieHeader = session,
+                        cookieHeader = cookieHeader,
+                        visitorData = session.visitorData,
+                        dataSyncId = session.dataSyncId,
                     )
                 }
 
@@ -97,6 +105,7 @@ object YouTubeAccountRepository {
                 .onFailure { Log.w(TAG, "Could not persist the session", it) }
 
             apply(account)
+            notifyAccountChanged()
             Result.success(account)
         }
 
@@ -104,16 +113,37 @@ object YouTubeAccountRepository {
     suspend fun signOut() =
         mutex.withLock {
             YouTube.cookie = null
+            YouTube.dataSyncId = null
             YouTube.useLoginForBrowse = false
             _account.value = null
             runCatching { store.clear() }
+            notifyAccountChanged()
         }
+
+    private fun notifyAccountChanged() {
+        FeedInvalidationBus.emit(FeedInvalidationBus.Event.AccountChanged)
+    }
 
     private fun apply(account: YouTubeAccount) {
         YouTube.cookie = account.cookieHeader
+        account.visitorData?.let { YouTube.visitorData = it }
+        YouTube.dataSyncId = account.dataSyncId
         // Browse and search ask for login only when this is on, which is what makes the signed-in
         // library (subscriptions, likes, playlists) come back personalised instead of anonymous.
         YouTube.useLoginForBrowse = true
         _account.value = account
+    }
+
+    /** The three request-scoped values a session owns, so a rejected sign-in can put them back. */
+    private class SessionSnapshot(
+        private val cookie: String?,
+        private val visitorData: String?,
+        private val dataSyncId: String?,
+    ) {
+        fun restore() {
+            YouTube.cookie = cookie
+            YouTube.visitorData = visitorData
+            YouTube.dataSyncId = dataSyncId
+        }
     }
 }

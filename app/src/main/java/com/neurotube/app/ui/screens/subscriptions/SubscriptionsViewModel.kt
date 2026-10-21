@@ -215,7 +215,10 @@ class SubscriptionsViewModel
 
             viewModelScope.launch(PerformanceDispatcher.diskIO) {
                 FeedInvalidationBus.events.collect { event ->
-                    if (event is FeedInvalidationBus.Event.ChannelBlocked || event is FeedInvalidationBus.Event.NotInterested) {
+                    if (event is FeedInvalidationBus.Event.ChannelBlocked ||
+                        event is FeedInvalidationBus.Event.NotInterested ||
+                        event is FeedInvalidationBus.Event.AccountChanged
+                    ) {
                         refreshVisibleFeed()
                     }
                 }

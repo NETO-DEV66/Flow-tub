@@ -288,6 +288,17 @@ class HomeViewModel
                                 )
                             }
                         }
+
+                        is FeedInvalidationBus.Event.AccountChanged -> {
+                            // The personalised lanes were ranked for the previous identity, so they
+                            // are dropped rather than patched, and the next load asks as the new one.
+                            HomeFeedCache.clear()
+                            shortsRepository.clearCaches()
+                            viewModelScope.launch(PerformanceDispatcher.networkIO) {
+                                runCatching { persistentHomeFeedCache.clearAll() }
+                            }
+                            reloadFeed()
+                        }
                     }
                 }
             }

@@ -191,21 +191,27 @@ class FlowTubeApplication :
         WebPoTokenSession.bindIdentityStore(visitorIdentityStore)
         CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
             try {
-                val restored = visitorIdentityStore.restore()
-                if (restored != null) {
-                    YouTube.visitorData = restored
-                    Log.d(TAG, "visitorData restored")
+                // A signed-in session owns its own identity: the visitor data it was minted with is
+                // what InnerTube expects echoed back, so the anonymous one must not replace it.
+                if (YouTubeAccountRepository.isSignedIn) {
+                    Log.d(TAG, "visitorData kept: a YouTube account is signed in")
                 } else {
-                    YouTube
-                        .visitorData()
-                        .onSuccess { data ->
-                            if (!data.isNullOrEmpty()) {
-                                YouTube.visitorData = data
-                                Log.d(TAG, "visitorData fetched")
+                    val restored = visitorIdentityStore.restore()
+                    if (restored != null) {
+                        YouTube.visitorData = restored
+                        Log.d(TAG, "visitorData restored")
+                    } else {
+                        YouTube
+                            .visitorData()
+                            .onSuccess { data ->
+                                if (!data.isNullOrEmpty()) {
+                                    YouTube.visitorData = data
+                                    Log.d(TAG, "visitorData fetched")
+                                }
+                            }.onFailure { e ->
+                                Log.w(TAG, "visitorData fetch failed: ${e.message}")
                             }
-                        }.onFailure { e ->
-                            Log.w(TAG, "visitorData fetch failed: ${e.message}")
-                        }
+                    }
                 }
             } catch (e: Exception) {
                 Log.w(TAG, "visitorData init error: ${e.message}")
@@ -247,19 +253,25 @@ class FlowTubeApplication :
             var lastRegion: String? = null
             playerPreferences.trendingRegion.collectLatest { region ->
                 if (lastRegion != null && lastRegion != region) {
-                    Log.d(TAG, "Trending region changed from $lastRegion to $region. Invalidate visitor data.")
-                    YouTube.visitorData = null
+                    // The anonymous identity is region-scoped, but a signed-in session's identity
+                    // belongs to the account and is what its requests are validated against.
+                    if (YouTubeAccountRepository.isSignedIn) {
+                        Log.d(TAG, "Trending region changed to $region; keeping the account's visitor data.")
+                    } else {
+                        Log.d(TAG, "Trending region changed from $lastRegion to $region. Invalidate visitor data.")
+                        YouTube.visitorData = null
 
-                    YouTube
-                        .visitorData()
-                        .onSuccess { data ->
-                            if (!data.isNullOrEmpty()) {
-                                YouTube.visitorData = data
-                                Log.d(TAG, "Fresh visitorData fetched for region: $region")
+                        YouTube
+                            .visitorData()
+                            .onSuccess { data ->
+                                if (!data.isNullOrEmpty()) {
+                                    YouTube.visitorData = data
+                                    Log.d(TAG, "Fresh visitorData fetched for region: $region")
+                                }
+                            }.onFailure { e ->
+                                Log.w(TAG, "Failed to fetch fresh visitorData: ${e.message}")
                             }
-                        }.onFailure { e ->
-                            Log.w(TAG, "Failed to fetch fresh visitorData: ${e.message}")
-                        }
+                    }
                 }
                 lastRegion = region
             }

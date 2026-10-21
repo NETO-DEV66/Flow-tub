@@ -73,4 +73,11 @@ object YouTubeCookieExtractor {
             .takeIf { it.isNotEmpty() }
             ?.entries
             ?.joinToString(separator = "; ") { (name, value) -> "$name=$value" }
+
+    /**
+     * The page reports `DATASYNC_ID` as `<id>||<something>`, and only the part before the separator
+     * is the value InnerTube echoes back as `onBehalfOfUser`.
+     */
+    fun normalizeDataSyncId(raw: String?): String? =
+        raw?.substringBefore("||")?.trim()?.takeIf { it.isNotEmpty() }
 }

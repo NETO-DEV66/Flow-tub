@@ -28,6 +28,12 @@ object FeedInvalidationBus {
         data class ChannelUnsubscribed(
             val channelId: String,
         ) : Event()
+
+        /**
+         * A YouTube account was linked or unlinked. Every personalised lane was built for the
+         * previous identity, so the caches behind them are stale rather than merely incomplete.
+         */
+        data object AccountChanged : Event()
     }
 
     private val _events = MutableSharedFlow<Event>(extraBufferCapacity = 8)

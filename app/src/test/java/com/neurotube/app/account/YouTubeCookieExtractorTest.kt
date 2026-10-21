@@ -78,4 +78,20 @@ class YouTubeCookieExtractorTest {
 
         assertThat(twice).isEqualTo(once)
     }
+
+    @Test
+    fun `dataSyncId keeps only the part before the separator`() {
+        assertThat(YouTubeCookieExtractor.normalizeDataSyncId("ABC123||XYZ"))
+            .isEqualTo("ABC123")
+        assertThat(YouTubeCookieExtractor.normalizeDataSyncId("ABC123")).isEqualTo("ABC123")
+        assertThat(YouTubeCookieExtractor.normalizeDataSyncId("  ABC123 ||")).isEqualTo("ABC123")
+    }
+
+    @Test
+    fun `dataSyncId is null when the page had nothing usable`() {
+        assertThat(YouTubeCookieExtractor.normalizeDataSyncId(null)).isNull()
+        assertThat(YouTubeCookieExtractor.normalizeDataSyncId("")).isNull()
+        assertThat(YouTubeCookieExtractor.normalizeDataSyncId("||")).isNull()
+        assertThat(YouTubeCookieExtractor.normalizeDataSyncId("   ")).isNull()
+    }
 }

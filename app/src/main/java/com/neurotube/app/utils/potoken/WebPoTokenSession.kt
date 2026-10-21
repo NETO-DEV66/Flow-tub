@@ -1,6 +1,7 @@
 package com.neurotube.app.utils.potoken
 
 import android.util.Log
+import com.neurotube.app.account.YouTubeAccountRepository
 import com.neurotube.app.innertube.YouTube
 import com.neurotube.app.player.error.PlayerDiagnostics
 import com.neurotube.app.player.stream.InFlightRequestCoalescer
@@ -191,6 +192,7 @@ object WebPoTokenSession {
      */
     suspend fun rotateVisitorIdentity() {
         rotationMutex.withLock {
+            if (accountOwnsVisitorData()) return@withLock
             // Another caller may have rotated while this one waited for the lock.
             if (!attestationStuck) return@withLock
             val sinceLast = System.currentTimeMillis() - lastRotationMs
@@ -222,6 +224,10 @@ object WebPoTokenSession {
     fun rerollAfterWall(client: String) {
         rerollScope.launch {
             rotationMutex.withLock {
+                if (accountOwnsVisitorData()) {
+                    logWall("$client walled this visitor, but a YouTube account owns the identity")
+                    return@withLock
+                }
                 val now = System.currentTimeMillis()
                 if (now - lastWallRerollMs < WALL_REROLL_SETTLE_MS) return@withLock
                 val store = identityStore ?: return@withLock
@@ -258,10 +264,22 @@ object WebPoTokenSession {
             consecutiveLowTrustMints = 0
             tokenRejections = 0
             generator.resetSession()
-            YouTube.visitorData = null
+            if (accountOwnsVisitorData()) {
+                // The account's identity is not the app's to discard; only the attestation is reset.
+                Log.d(TAG, "Reset the BotGuard session; the signed-in account keeps its visitor data")
+            } else {
+                YouTube.visitorData = null
+            }
             identityGeneration++
         }
     }
+
+    /**
+     * A signed-in session's visitor data is part of its credential: InnerTube validates the request
+     * context against it, so re-rolling it would break every authenticated call. The account
+     * repository is the only thing that may replace it.
+     */
+    private fun accountOwnsVisitorData(): Boolean = YouTubeAccountRepository.isSignedIn
 
     // Pre-warm the BotGuard session at app start so the first real extraction is fast.
     suspend fun prewarm() {

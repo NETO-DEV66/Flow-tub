@@ -61,7 +61,7 @@ class YouTubeAccountManager
                     }
 
             return captured.fold(
-                onSuccess = { cookie -> YouTubeAccountRepository.signIn(cookie) },
+                onSuccess = { session -> YouTubeAccountRepository.signIn(session) },
                 onFailure = { Result.failure(it) },
             )
         }
