@@ -63,6 +63,7 @@ import com.neurotube.app.innertube.pages.SearchPage
 import com.neurotube.app.innertube.pages.SearchResult
 import com.neurotube.app.innertube.pages.SearchSuggestionPage
 import com.neurotube.app.innertube.pages.SearchSummaryPage
+import com.neurotube.app.innertube.pages.SubscriptionsPage
 import com.neurotube.app.innertube.pages.VideoCommentsPage
 import com.neurotube.app.innertube.pages.VideoDescriptionPage
 import com.neurotube.app.innertube.pages.VideoPlaylistPage
@@ -86,6 +87,7 @@ import com.neurotube.app.innertube.pages.explore.exploreShelves
 import com.neurotube.app.innertube.pages.explore.ranked
 import com.neurotube.app.innertube.pages.explore.toExploreDestinationShell
 import com.neurotube.app.innertube.pages.explore.trendingVideoChart
+import com.neurotube.app.innertube.pages.nextChannelContinuation
 import com.neurotube.app.innertube.pages.parseYouTubeViewCount
 import com.neurotube.app.innertube.pages.reel.ReelLockup
 import com.neurotube.app.innertube.pages.reel.ReelOverlay
@@ -107,6 +109,7 @@ import com.neurotube.app.innertube.pages.search.SearchSuggestion
 import com.neurotube.app.innertube.pages.search.parseSearchSuggestions
 import com.neurotube.app.innertube.pages.search.toSearchResultsPage
 import com.neurotube.app.innertube.pages.toCommentRepliesPage
+import com.neurotube.app.innertube.pages.toSubscribedChannels
 import com.neurotube.app.innertube.pages.toVideoCommentsPage
 import com.neurotube.app.innertube.pages.toVideoDescriptionPage
 import com.neurotube.app.innertube.pages.toVideoPlaylistPage
@@ -2142,6 +2145,43 @@ object YouTube {
                     )
                 }
             }
+        }
+
+    /**
+     * The channels the viewer follows, one page at a time.
+     *
+     * `FEchannels` is the list YouTube's own "All subscriptions" page shows, and it needs the
+     * viewer's cookie — signed out it answers with an empty document rather than an error.
+     */
+    suspend fun subscribedChannels(continuation: String? = null) =
+        runCatching {
+            val response =
+                innerTube
+                    .mainSiteBrowse(
+                        client = WEB,
+                        browseId = if (continuation == null) "FEchannels" else null,
+                        continuation = continuation,
+                        setLogin = true,
+                    ).bodyAsText()
+
+            val json = Json.parseToJsonElement(response)
+            SubscriptionsPage(
+                channels = json.toSubscribedChannels(),
+                continuation = json.nextChannelContinuation(),
+            )
+        }
+
+    /**
+     * The guide sidebar's subscriptions, which YouTube caps at the first handful of channels.
+     *
+     * Read as a second source because it is the one list that is always populated, so a viewer whose
+     * `FEchannels` page fails still gets their most-used channels in.
+     */
+    suspend fun guideSubscriptions() =
+        runCatching {
+            Json
+                .parseToJsonElement(innerTube.guide(WEB).bodyAsText())
+                .toSubscribedChannels()
         }
 
     suspend fun libraryRecentActivity(): Result<LibraryPage> =

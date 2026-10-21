@@ -166,6 +166,9 @@ When it finishes you get a summary of exactly what came in, for example:
 ### Account
 - Optional YouTube sign-in — Settings → Account, or the card in onboarding
 - Signed-in subscriptions, likes and playlists come back in browse and search
+- **Import your account's library** — one tap on Settings → Account brings in the channels you
+  follow, the artists you keep on YouTube Music, your liked songs, and your saved playlists and
+  albums, all written into the app's own stores
 - The session is a cookie kept encrypted on the device, and signing out deletes it
 - Fully usable without an account; nothing else in the app depends on it
 

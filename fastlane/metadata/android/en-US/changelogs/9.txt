@@ -1,0 +1,5 @@
+- Import your account's library from Settings > Account, with no file or export
+- Subscriptions, artists, liked songs, playlists and albums all come in
+- The row names the part it is on, and reports what was added when it finishes
+- Importing only reads; re-importing is safe and nothing is duplicated
+- One universal APK, and the same signing key as every earlier release

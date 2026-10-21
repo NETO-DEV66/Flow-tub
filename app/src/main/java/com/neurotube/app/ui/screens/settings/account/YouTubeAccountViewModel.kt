@@ -2,6 +2,9 @@ package com.neurotube.app.ui.screens.settings.account
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.neurotube.app.account.AccountImportState
+import com.neurotube.app.account.AccountImportStep
+import com.neurotube.app.account.AccountLibraryImport
 import com.neurotube.app.account.YouTubeAccount
 import com.neurotube.app.account.YouTubeAccountManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,11 +28,15 @@ class YouTubeAccountViewModel
     @Inject
     constructor(
         private val manager: YouTubeAccountManager,
+        private val libraryImport: AccountLibraryImport,
     ) : ViewModel() {
         val account: StateFlow<YouTubeAccount?> = manager.account
 
         private val _signInState = MutableStateFlow<YouTubeSignInState>(YouTubeSignInState.Idle)
         val signInState: StateFlow<YouTubeSignInState> = _signInState.asStateFlow()
+
+        private val _importState = MutableStateFlow<AccountImportState>(AccountImportState.Idle)
+        val importState: StateFlow<AccountImportState> = _importState.asStateFlow()
 
         fun signIn(activity: android.app.Activity?) {
             if (_signInState.value == YouTubeSignInState.Working) return
@@ -49,5 +56,26 @@ class YouTubeAccountViewModel
 
         fun signOut() {
             viewModelScope.launch { manager.signOut() }
+        }
+
+        /** Brings the signed-in account's library in, one part at a time. */
+        fun importLibrary() {
+            if (_importState.value is AccountImportState.Running) return
+            _importState.value = AccountImportState.Running(AccountImportStep.SUBSCRIPTIONS)
+            viewModelScope.launch {
+                val report =
+                    runCatching {
+                        libraryImport.run { step -> _importState.value = AccountImportState.Running(step) }
+                    }.getOrNull()
+                _importState.value = report?.let(AccountImportState::Done) ?: AccountImportState.Failed
+            }
+        }
+
+        /** Clears the last import's result once it has been shown. */
+        fun consumeImportResult() {
+            val state = _importState.value
+            if (state is AccountImportState.Done || state is AccountImportState.Failed) {
+                _importState.value = AccountImportState.Idle
+            }
         }
     }

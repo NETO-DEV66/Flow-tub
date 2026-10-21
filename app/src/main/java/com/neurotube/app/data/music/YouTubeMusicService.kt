@@ -156,6 +156,19 @@ object YouTubeMusicService {
         }
 
     /**
+     * Fetch full album details (info + tracks)
+     */
+    suspend fun fetchAlbumDetails(albumId: String): PlaylistDetails? =
+        withContext(Dispatchers.IO) {
+            try {
+                InnertubeMusicService.fetchAlbum(albumId)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error fetching album $albumId", e)
+                null
+            }
+        }
+
+    /**
      * Fetch more tracks for a playlist using a continuation token
      */
     suspend fun fetchPlaylistContinuation(

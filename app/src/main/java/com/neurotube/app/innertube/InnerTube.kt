@@ -358,6 +358,42 @@ class InnerTube {
         body: (String?) -> BrowseBody,
     ) = mainSitePost(client, "browse", body)
 
+    /**
+     * A youtube.com browse that can be sent as the signed-in viewer.
+     *
+     * [webBrowse] deliberately stays anonymous, which is all a public channel needs. The signed-in
+     * pages — the guide's subscriptions and `FEchannels` — answer with an empty document to a
+     * signed-out caller, so they need the cookie and the SAPISIDHASH the music client already sends.
+     */
+    suspend fun mainSiteBrowse(
+        client: YouTubeClient,
+        browseId: String? = null,
+        params: String? = null,
+        continuation: String? = null,
+        setLogin: Boolean = false,
+    ) = withRetry {
+        httpClient.post("${YouTubeClient.API_URL_YOUTUBE}browse") {
+            ytClient(client, setLogin = setLogin, apiUrl = YouTubeClient.API_URL_YOUTUBE)
+            setBody(
+                BrowseBody(
+                    context = client.toContext(locale, visitorData, if (setLogin) dataSyncId else null),
+                    browseId = browseId,
+                    params = params,
+                    continuation = continuation,
+                ),
+            )
+        }
+    }
+
+    /** The guide sidebar, whose subscriptions section lists the channels the viewer follows. */
+    suspend fun guide(client: YouTubeClient) =
+        withRetry {
+            httpClient.post("${YouTubeClient.API_URL_YOUTUBE}guide") {
+                ytClient(client, setLogin = true, apiUrl = YouTubeClient.API_URL_YOUTUBE)
+                setBody(GuideBody(client.toContext(locale, visitorData, dataSyncId)))
+            }
+        }
+
     private suspend inline fun <reified T> mainSitePost(
         client: YouTubeClient,
         path: String,

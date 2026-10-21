@@ -1,0 +1,20 @@
+NEUROTUBE CHANGE LOG
+VERSION: 1.5.0
+DATE: 2026-10-21
+STATUS: RELEASE
+
+NEW
+- Import your account's library. On Settings > Account, with a session signed in, tap Import library and the app reads what the account holds
+- Subscriptions: the channels your account follows are brought in, a page at a time, and appear in the Subscriptions feed like any you added by hand
+- Artists: the artists your account follows on YouTube Music are added as music subscriptions
+- Liked songs: the songs your account liked land in Liked music, newest first
+- Playlists and albums: the playlists and albums your account saved are stored with their songs, so they open and play from the library
+- The row names the part it is on while it runs, and lists how many of each kind were added when it finishes
+
+NOTES
+- Importing only reads. Nothing is written back to the account and nothing is deleted
+- Re-importing is safe: anything already present is left as it is
+- Each part is tried on its own, so one failing does not lose the others
+- The session is still a cookie, stored encrypted on the device only. It never leaves the phone except in requests to YouTube itself
+- One universal APK for every supported device, as before
+- Same signing key as every earlier release

@@ -1,33 +1,35 @@
-# NeuroTube v1.4.1
+# NeuroTube v1.5.0
 
 **Release date:** 2026-10-21
 
-A fix release for the YouTube sign-in added in v1.4.0. Sign-in did not complete: the page opened,
-but finishing the flow was impossible. This release makes it work, and keeps the session usable
-across restarts.
+A feature release. Signing in now brings the account's own library in: the channels it follows, the
+artists it keeps, the songs it liked and the playlists and albums it saved, all written into the
+stores the app already reads from.
 
-## Fixed
+## New
 
-- **Sign-in now completes.** v1.4.0 loaded the YouTube website and waited for the user to press
-  YouTube's own "Sign in" button. That button hands the account chooser to a popup window, which
-  the sign-in screen was silently dropping, so nothing happened. The app now opens Google's sign-in
-  page directly, with YouTube as the return target.
-- **Sign-in no longer stalls part-way.** A navigation filter was refusing Google's own hand-off
-  pages, which could strand the flow with no error message. Navigation is now unrestricted.
-- **The session is captured whole.** Two values the session was minted with were never read, so
-  requests made after signing in were still treated as signed out. Both are read from the page now,
-  saved with the session, and re-applied on launch.
-- **Signing in or out refreshes the feed immediately**, instead of leaving the previous account's
-  videos on screen until the next manual refresh.
+- **Import your library from your account.** On **Settings → Account**, with a session signed in,
+  the **Import library** row reads your account and stores what it finds. No file, no export, no
+  copy-paste — it is one tap.
+- **Subscriptions.** The channels your account follows are read from YouTube's own list, a page at
+  a time, and merged with the guide's short list so the most-used channels arrive even if the full
+  page is unavailable. They show up in the Subscriptions feed like any you added by hand.
+- **Artists.** The artists your account follows on YouTube Music are added as music subscriptions.
+- **Liked songs.** The songs your account liked land in Liked music, newest first.
+- **Playlists and albums.** The playlists and albums your account saved are stored with their
+  songs, so they open and play offline from the library.
+- **The page reports what happened.** While it runs it names the part it is on, and when it
+  finishes it lists how many of each kind were added.
 
-## Unchanged
+## Notes
 
-- The session is a Google cookie, validated against YouTube before it is saved, written encrypted
-  (AES/GCM, key in the Android keystore) to app-private storage excluded from cloud backup.
-- It never leaves the device except in requests to YouTube itself. There is no NeuroTube server and
-  no telemetry. Signing out clears it from memory and deletes the saved copy.
-- Signing key: v1.4.1 is signed with the same certificate as every previous release.
+- Importing is a one-way read: nothing is written back to the account, and nothing is deleted.
+  Re-importing is safe — a channel or song already present is left as it is.
+- Each part is attempted on its own, so one failing does not lose the others.
+- The session is still a cookie, stored encrypted on the device only. It never leaves the phone
+  except in requests to YouTube itself.
 - One universal APK (arm64-v8a + armeabi-v7a), no ABI splits.
+- Same signing key as every earlier release.
 - Downloads, backups, sync and the recommendation engine are untouched.
 
 ## A note on the account

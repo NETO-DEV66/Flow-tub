@@ -1,6 +1,7 @@
 package com.neurotube.app.ui.screens.settings.account
 
 import android.app.Activity
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,6 +32,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.neurotube.app.R
+import com.neurotube.app.account.AccountImportReport
+import com.neurotube.app.account.AccountImportState
+import com.neurotube.app.account.AccountImportStep
 import com.neurotube.app.account.YouTubeAccount
 import com.neurotube.app.ui.components.settings.SettingsGroupScope
 import com.neurotube.app.ui.components.settings.SettingsPage
@@ -60,14 +64,22 @@ internal fun YouTubeAccountScreen(
     val activity = context as? Activity
     val account by viewModel.account.collectAsStateWithLifecycle()
     val signInState by viewModel.signInState.collectAsStateWithLifecycle()
+    val importState by viewModel.importState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     var confirmSignOut by rememberSaveable { mutableStateOf(false) }
 
     val failedMessage = stringResource(R.string.youtube_account_sign_in_failed)
+    val importFailedMessage = stringResource(R.string.youtube_account_import_failed)
     LaunchedEffect(signInState) {
         if (signInState == YouTubeSignInState.Failed) {
             viewModel.consumeFailure()
             snackbarHostState.showSnackbar(failedMessage)
+        }
+    }
+    LaunchedEffect(importState) {
+        if (importState is AccountImportState.Failed) {
+            viewModel.consumeImportResult()
+            snackbarHostState.showSnackbar(importFailedMessage)
         }
     }
 
@@ -87,8 +99,19 @@ internal fun YouTubeAccountScreen(
                     onClick = { viewModel.signIn(activity) },
                 )
             } else {
+                importRow(
+                    state = importState,
+                    onClick = { viewModel.importLibrary() },
+                )
                 signOutRow(onClick = { confirmSignOut = true })
             }
+        }
+        (importState as? AccountImportState.Done)?.let { done ->
+            notice(
+                key = "account.import.result",
+                text = { importSummary(done.report) },
+                title = { stringResource(R.string.youtube_account_import_done_title) },
+            )
         }
         notice(
             key = "account.risk",
@@ -191,3 +214,45 @@ private fun SettingsGroupScope.signOutRow(onClick: () -> Unit) =
             shape = shape,
         )
     }
+
+/**
+ * Brings the account's library in. The row says which part is running, and stays disabled until it
+ * finishes so a second tap cannot start another pass over the same data.
+ */
+private fun SettingsGroupScope.importRow(
+    state: AccountImportState,
+    onClick: () -> Unit,
+) = row("account.import") { shape ->
+    val running = state as? AccountImportState.Running
+    FlowNavRow(
+        title = stringResource(R.string.youtube_account_import_title),
+        supportingText =
+            running
+                ?.let { stringResource(importStepText(it.step)) }
+                ?: stringResource(R.string.youtube_account_import_subtitle),
+        onClick = onClick,
+        enabled = running == null,
+        showChevron = false,
+        shape = shape,
+    )
+}
+
+@StringRes
+private fun importStepText(step: AccountImportStep): Int =
+    when (step) {
+        AccountImportStep.SUBSCRIPTIONS -> R.string.youtube_account_import_step_subscriptions
+        AccountImportStep.ARTISTS -> R.string.youtube_account_import_step_artists
+        AccountImportStep.LIKED_SONGS -> R.string.youtube_account_import_step_liked_songs
+        AccountImportStep.PLAYLISTS -> R.string.youtube_account_import_step_playlists
+    }
+
+@Composable
+private fun importSummary(report: AccountImportReport): String =
+    stringResource(
+        R.string.youtube_account_import_done_body,
+        report.channels,
+        report.artists,
+        report.likedSongs,
+        report.playlists,
+        report.albums,
+    )
