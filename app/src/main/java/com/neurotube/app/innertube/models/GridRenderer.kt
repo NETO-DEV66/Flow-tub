@@ -20,7 +20,11 @@ data class GridRenderer(
 
     @Serializable
     data class Item(
-        val musicNavigationButtonRenderer: MusicNavigationButtonRenderer?,
-        val musicTwoRowItemRenderer: MusicTwoRowItemRenderer?,
+        // Both are optional: a grid appends a bare `continuationItemRenderer` item to carry its
+        // next-page token, and a required field would make the whole response fail to parse — and
+        // with it the entire library import — the moment that item appears.
+        val musicNavigationButtonRenderer: MusicNavigationButtonRenderer? = null,
+        val musicTwoRowItemRenderer: MusicTwoRowItemRenderer? = null,
+        val continuationItemRenderer: ContinuationItemRenderer? = null,
     )
 }

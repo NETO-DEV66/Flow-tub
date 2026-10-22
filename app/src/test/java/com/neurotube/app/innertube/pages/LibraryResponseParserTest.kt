@@ -34,6 +34,73 @@ class LibraryResponseParserTest {
         return json.decodeFromString(BrowseResponse.serializer(), patched)
     }
 
+    private fun decode(json: String): BrowseResponse = this.json.decodeFromString(BrowseResponse.serializer(), json)
+
+    @Test
+    fun `a one-section page reads the next token that hangs off the section list`() {
+        val page =
+            LibraryResponseParser.pageOf(
+                decode(
+                    """
+                    {"responseContext":{},
+                     "contents":{"singleColumnBrowseResultsRenderer":{"tabs":[
+                       {"tabRenderer":{"content":{"sectionListRenderer":{
+                         "contents":[{"gridRenderer":{"items":[]}}],
+                         "continuations":[{"reloadContinuationData":{"continuation":"SECTION_TOKEN"}}]
+                       }}}}
+                     ]}}}
+                    """.trimIndent(),
+                ),
+            )
+
+        assertEquals("SECTION_TOKEN", page.continuation)
+    }
+
+    @Test
+    fun `a page whose grid appends its token as the last item still continues`() {
+        val page =
+            LibraryResponseParser.pageOf(
+                decode(
+                    """
+                    {"responseContext":{},
+                     "contents":{"singleColumnBrowseResultsRenderer":{"tabs":[
+                       {"tabRenderer":{"content":{"sectionListRenderer":{"contents":[
+                         {"gridRenderer":{"items":[
+                           {"continuationItemRenderer":{"continuationEndpoint":
+                             {"continuationCommand":{"token":"TRAILING_TOKEN"}}}}
+                         ]}}
+                       ]}}}}
+                     ]}}}
+                    """.trimIndent(),
+                ),
+            )
+
+        assertEquals("TRAILING_TOKEN", page.continuation)
+    }
+
+    @Test
+    fun `a multi-section page does not hand the list token to its first section`() {
+        val page =
+            LibraryResponseParser.pageOf(
+                decode(
+                    """
+                    {"responseContext":{},
+                     "contents":{"singleColumnBrowseResultsRenderer":{"tabs":[
+                       {"tabRenderer":{"content":{"sectionListRenderer":{
+                         "contents":[
+                           {"gridRenderer":{"items":[]}},
+                           {"gridRenderer":{"items":[]}}
+                         ],
+                         "continuations":[{"reloadContinuationData":{"continuation":"LIST_TOKEN"}}]
+                       }}}}
+                     ]}}}
+                    """.trimIndent(),
+                ),
+            )
+
+        assertEquals(null, page.continuation)
+    }
+
     @Test
     fun `saved playlists keep the playable ones and skip the create tile`() {
         val page = LibraryResponseParser.pageOf(response("library_playlists_large.json"))

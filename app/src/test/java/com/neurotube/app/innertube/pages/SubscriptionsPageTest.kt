@@ -117,6 +117,62 @@ class SubscriptionsPageTest {
     }
 
     @Test
+    fun `a channel carried by a modern lockup is read`() {
+        val channels =
+            parse(
+                """
+                {"items":[{"lockupViewModel":{
+                  "contentType":"LOCKUP_CONTENT_TYPE_CHANNEL",
+                  "contentId":"UCabc",
+                  "metadata":{"lockupMetadataViewModel":{
+                    "title":{"content":"Lofi Girl"},
+                    "image":{"decoratedAvatarViewModel":{"avatar":{"avatarViewModel":{
+                      "image":{"sources":[
+                        {"url":"//yt3.ggpht.com/abc-small","width":88},
+                        {"url":"//yt3.ggpht.com/abc-large","width":176}
+                      ]}}}}}
+                  }}
+                }}]}
+                """.trimIndent(),
+            ).toSubscribedChannels()
+
+        assertThat(channels.map { it.id }).containsExactly("UCabc")
+        assertThat(channels.single().name).isEqualTo("Lofi Girl")
+        assertThat(channels.single().thumbnailUrl).isEqualTo("https://yt3.ggpht.com/abc-large")
+    }
+
+    @Test
+    fun `a playlist lockup is not mistaken for a channel`() {
+        val channels =
+            parse(
+                """
+                {"items":[{"lockupViewModel":{
+                  "contentType":"LOCKUP_CONTENT_TYPE_PLAYLIST",
+                  "contentId":"PLabc",
+                  "metadata":{"lockupMetadataViewModel":{"title":{"content":"My Mix"}}}
+                }}]}
+                """.trimIndent(),
+            ).toSubscribedChannels()
+
+        assertThat(channels).isEmpty()
+    }
+
+    @Test
+    fun `a page that ends in a modern continuation item still continues`() {
+        val token =
+            parse(
+                """
+                {"contents":{"gridRenderer":{"items":[
+                  {"gridChannelRenderer":{"channelId":"UCabc","title":{"simpleText":"A"}}},
+                  {"continuationItemViewModel":{"continuationCommand":{"token":"MODERN"}}}
+                ]}}}
+                """.trimIndent(),
+            ).nextChannelContinuation()
+
+        assertThat(token).isEqualTo("MODERN")
+    }
+
+    @Test
     fun `the next page token is the one at the end of the list`() {
         val token =
             parse(

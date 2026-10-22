@@ -1,0 +1,5 @@
+- Importing a signed-in account now brings in the channels you are subscribed to
+- Subscriptions longer than one page now import in full
+- The music library no longer stops after the first page
+- A library page that ends in a continuation row no longer fails to parse
+- One universal APK, and the same signing key as every earlier release

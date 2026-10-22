@@ -1,0 +1,17 @@
+NEUROTUBE CHANGE LOG
+VERSION: 1.5.3
+DATE: 2026-10-22
+STATUS: RELEASE
+
+FIXES
+- Importing a signed-in account now brings in the channels you are subscribed to. YouTube moved them to a newer row format that the importer did not read, so the import finished with the subscriptions list still empty
+- Subscriptions longer than one page now import in full. The token that continues a long list is read from the shape YouTube actually sends, so accounts with many channels no longer stop after the first page
+- The music library no longer stops after the first page. Its next-page token sits on the section list rather than on the grid, and a grid that carries the token as its final row is now read too
+- A library page whose last row is only a continuation token no longer fails to parse. That one unexpected row used to abort the whole import, leaving nothing behind
+
+NOTES
+- Importing only reads. Nothing is written back to the account and nothing is deleted
+- Re-importing is safe: anything already present is left as it is, and each part is tried on its own
+- The session is still a cookie, stored encrypted on the device only. It never leaves the phone except in requests to YouTube itself
+- One universal APK for every supported device, as before
+- Same signing key as every earlier release

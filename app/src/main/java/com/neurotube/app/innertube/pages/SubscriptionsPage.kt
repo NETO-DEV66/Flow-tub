@@ -8,6 +8,9 @@ import kotlinx.serialization.json.JsonObject
 
 private const val CHANNEL_ID_PREFIX = "UC"
 
+/** The `contentType` a channel's modern `lockupViewModel` carries. */
+private const val LOCKUP_CONTENT_TYPE_CHANNEL = "LOCKUP_CONTENT_TYPE_CHANNEL"
+
 /** One page of the viewer's subscriptions, with the token for the next one. */
 data class SubscriptionsPage(
     val channels: List<Channel>,
@@ -32,8 +35,18 @@ internal fun JsonElement.toSubscribedChannels(): List<Channel> {
     return channels.values.toList()
 }
 
-/** One channel, whatever renderer it arrived in: a guide entry, or a grid's channel card. */
+/**
+ * One channel, whatever renderer it arrived in: a guide entry, a grid's channel card, or — on the
+ * newer pages — a channel `lockupViewModel`, which YouTube hands out in place of the older
+ * `channelRenderer` family and which the reader would otherwise walk straight past, importing an
+ * empty subscription list.
+ */
 private fun channelEntry(node: JsonObject): Channel? {
+    node["lockupViewModel"]?.objectOrNull()?.let { lockup ->
+        if (lockup["contentType"].stringOrNull() == LOCKUP_CONTENT_TYPE_CHANNEL) {
+            return lockupChannel(lockup)
+        }
+    }
     val renderer =
         node["guideEntryRenderer"] as? JsonObject
             ?: node["gridChannelRenderer"] as? JsonObject
@@ -45,6 +58,47 @@ private fun channelEntry(node: JsonObject): Channel? {
         id = id,
         name = name,
         thumbnailUrl = renderer["thumbnail"].largestImageUrl().orEmpty(),
+        subscriberCount = 0,
+        url = "https://www.youtube.com/channel/$id",
+    )
+}
+
+/**
+ * A channel carried by a `lockupViewModel`: `contentId` holds the channel id and the avatar hangs
+ * under `metadata.lockupMetadataViewModel.image.decoratedAvatarViewModel`.
+ */
+private fun lockupChannel(lockup: JsonObject): Channel? {
+    val id = lockup["contentId"].stringOrNull()?.takeIf { it.startsWith(CHANNEL_ID_PREFIX) } ?: return null
+    val metadata = lockup["metadata"].objectOrNull()?.get("lockupMetadataViewModel").objectOrNull()
+    val name = metadata?.get("title").youtubeText()?.takeIf(String::isNotBlank) ?: return null
+    val avatar =
+        metadata
+            ?.get("image")
+            .objectOrNull()
+            ?.get("decoratedAvatarViewModel")
+            .objectOrNull()
+            ?.get("avatar")
+            .objectOrNull()
+            ?.get("avatarViewModel")
+            .objectOrNull()
+            ?.get("image")
+            .objectOrNull()
+            ?.get("sources")
+            .arrayOrNull()
+            ?.maxByOrNull {
+                it
+                    .objectOrNull()
+                    ?.get("width")
+                    .stringOrNull()
+                    ?.toIntOrNull() ?: 0
+            }?.objectOrNull()
+            ?.get("url")
+            .stringOrNull()
+            ?.takeIf(String::isNotBlank)
+    return Channel(
+        id = id,
+        name = name,
+        thumbnailUrl = normalizeImageUrl(avatar.orEmpty()),
         subscriberCount = 0,
         url = "https://www.youtube.com/channel/$id",
     )
@@ -75,21 +129,30 @@ private fun JsonObject.channelName(): String? =
  * The token for the next page of channels, or null on the last one.
  *
  * Taken as the last token in the response: a channels page carries one at the end of its grid, and
- * anything earlier belongs to a shelf or the header rather than to the list being paged.
+ * anything earlier belongs to a shelf or the header rather than to the list being paged. Both the
+ * `continuationItemRenderer` a grid appends and the newer `continuationItemViewModel` carry it.
  */
 internal fun JsonElement.nextChannelContinuation(): String? {
     var token: String? = null
     forEachObject { node ->
-        node["continuationItemRenderer"]
-            .objectOrNull()
-            ?.get("continuationEndpoint")
-            .objectOrNull()
-            ?.get("continuationCommand")
-            .objectOrNull()
-            ?.get("token")
-            .stringOrNull()
-            ?.takeIf(String::isNotBlank)
-            ?.let { token = it }
+        val endpoint =
+            node["continuationItemRenderer"]
+                .objectOrNull()
+                ?.get("continuationEndpoint")
+                .objectOrNull()
+        val tokenValue =
+            endpoint
+                ?.get("continuationCommand")
+                .objectOrNull()
+                ?.get("token")
+                .stringOrNull()
+                ?: node["continuationItemViewModel"]
+                    .objectOrNull()
+                    ?.get("continuationCommand")
+                    .objectOrNull()
+                    ?.get("token")
+                    .stringOrNull()
+        tokenValue?.takeIf(String::isNotBlank)?.let { token = it }
     }
     return token
 }

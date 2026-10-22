@@ -20,12 +20,45 @@ object LibraryResponseParser {
         tabIndex: Int = 0,
     ): LibraryPage {
         val section = firstSection(response, tabIndex)
+        val fallback = sectionToken(response, tabIndex)
         val grid = section?.gridRenderer
         if (grid != null) {
-            return LibraryPage(grid.items.toLibraryItems(), grid.continuations?.getContinuation())
+            return LibraryPage(
+                items = grid.items.toLibraryItems(),
+                continuation =
+                    grid.continuations?.getContinuation()
+                        ?: grid.items.trailingContinuation()
+                        ?: fallback,
+            )
         }
         val shelf = section?.musicShelfRenderer
-        return LibraryPage(shelf.toItems(), shelf?.continuations?.getContinuation())
+        return LibraryPage(
+            items = shelf.toItems(),
+            continuation =
+                shelf?.continuations?.getContinuation()
+                    ?: shelf?.contents?.getContinuation()
+                    ?: fallback,
+        )
+    }
+
+    /**
+     * The token on the section list itself, when the page carries exactly one section.
+     *
+     * A single-section library page — every `FEmusic_liked_*` page is one — hangs the next-page
+     * token off the section list rather than the grid or shelf inside it. That token is then
+     * unambiguously this section's, so it is taken as a fallback; without it the library renders
+     * only its first page. With more than one section the token belongs to the list as a whole and
+     * must not be attributed to the first one.
+     */
+    private fun sectionToken(
+        response: BrowseResponse,
+        tabIndex: Int,
+    ): String? {
+        val tabs = response.contents?.singleColumnBrowseResultsRenderer?.tabs ?: return null
+        if (tabIndex !in tabs.indices) return null
+        val sectionList = tabs[tabIndex].tabRenderer.content?.sectionListRenderer ?: return null
+        if (sectionList.contents?.size != 1) return null
+        return sectionList.continuations?.getContinuation()
     }
 
     /** The items and next token of a library continuation response. */
@@ -33,7 +66,10 @@ object LibraryResponseParser {
         val contents = response.continuationContents
 
         contents?.gridContinuation?.let { grid ->
-            return LibraryContinuationPage(grid.items.toLibraryItems(), grid.continuations?.getContinuation())
+            return LibraryContinuationPage(
+                items = grid.items.toLibraryItems(),
+                continuation = grid.continuations?.getContinuation() ?: grid.items.trailingContinuation(),
+            )
         }
 
         contents?.sectionListContinuation?.let { sectionList ->
@@ -46,7 +82,10 @@ object LibraryResponseParser {
         }
 
         val shelf = contents?.musicShelfContinuation
-        return LibraryContinuationPage(shelf.toItems(), shelf?.continuations?.getContinuation())
+        return LibraryContinuationPage(
+            items = shelf.toItems(),
+            continuation = shelf?.continuations?.getContinuation() ?: shelf?.contents?.getContinuation(),
+        )
     }
 
     /**
@@ -84,6 +123,19 @@ object LibraryResponseParser {
         )
     }
 
+    /**
+     * The token a modern library grid appends as its last item, or null when it carries none.
+     *
+     * A grid can hand out its next page either through `continuations` or by appending a bare
+     * `continuationItemRenderer` to `items`; this reads the latter.
+     */
+    private fun List<GridRenderer.Item>.trailingContinuation(): String? =
+        lastOrNull()
+            ?.continuationItemRenderer
+            ?.continuationEndpoint
+            ?.continuationCommand
+            ?.token
+
     /** One slice of a library: its items, and the token to continue from when it has no own token. */
     private fun fromSlice(
         section: SectionListRenderer.Content?,
@@ -93,13 +145,19 @@ object LibraryResponseParser {
         if (grid != null) {
             return LibraryContinuationPage(
                 items = grid.items.toLibraryItems(),
-                continuation = grid.continuations?.getContinuation() ?: fallbackContinuation,
+                continuation =
+                    grid.continuations?.getContinuation()
+                        ?: grid.items.trailingContinuation()
+                        ?: fallbackContinuation,
             )
         }
         val shelf = section?.musicShelfRenderer
         return LibraryContinuationPage(
             items = shelf.toItems(),
-            continuation = shelf?.continuations?.getContinuation() ?: fallbackContinuation,
+            continuation =
+                shelf?.continuations?.getContinuation()
+                    ?: shelf?.contents?.getContinuation()
+                    ?: fallbackContinuation,
         )
     }
 
