@@ -23,13 +23,15 @@ data class LibraryPage(
                 renderer.isAlbum -> {
                     AlbumItem(
                         browseId = renderer.navigationEndpoint.browseEndpoint?.browseId ?: return null,
+                        // Saved albums carry their playlist id on a plain watchEndpoint, unlike the
+                        // playlists next to them which use watchPlaylistEndpoint, so both are read.
                         playlistId =
                             renderer.thumbnailOverlay
                                 ?.musicItemThumbnailOverlayRenderer
                                 ?.content
                                 ?.musicPlayButtonRenderer
                                 ?.playNavigationEndpoint
-                                ?.watchPlaylistEndpoint
+                                ?.anyWatchEndpoint
                                 ?.playlistId ?: return null,
                         title =
                             renderer.title.runs
@@ -75,7 +77,7 @@ data class LibraryPage(
                                 ?.content
                                 ?.musicPlayButtonRenderer
                                 ?.playNavigationEndpoint
-                                ?.watchPlaylistEndpoint,
+                                ?.anyWatchEndpoint,
                         shuffleEndpoint =
                             renderer.menu
                                 ?.menuRenderer
@@ -84,7 +86,7 @@ data class LibraryPage(
                                     it.menuNavigationItemRenderer?.icon?.iconType == "MUSIC_SHUFFLE"
                                 }?.menuNavigationItemRenderer
                                 ?.navigationEndpoint
-                                ?.watchPlaylistEndpoint,
+                                ?.anyWatchEndpoint,
                         radioEndpoint =
                             renderer.menu
                                 ?.menuRenderer
@@ -93,7 +95,7 @@ data class LibraryPage(
                                     it.menuNavigationItemRenderer?.icon?.iconType == "MIX"
                                 }?.menuNavigationItemRenderer
                                 ?.navigationEndpoint
-                                ?.watchPlaylistEndpoint,
+                                ?.anyWatchEndpoint,
                         isEditable =
                             renderer.menu?.menuRenderer?.items?.find {
                                 it.menuNavigationItemRenderer?.icon?.iconType == "EDIT"
@@ -109,6 +111,8 @@ data class LibraryPage(
                                 ?.lastOrNull()
                                 ?.text ?: return null,
                         thumbnail = renderer.thumbnailRenderer.musicThumbnailRenderer?.getThumbnailUrl() ?: return null,
+                        // The shuffle and radio actions are a convenience, not part of the artist's
+                        // identity, so an artist without them is still kept.
                         shuffleEndpoint =
                             renderer.menu
                                 ?.menuRenderer
@@ -117,14 +121,16 @@ data class LibraryPage(
                                     it.menuNavigationItemRenderer?.icon?.iconType == "MUSIC_SHUFFLE"
                                 }?.menuNavigationItemRenderer
                                 ?.navigationEndpoint
-                                ?.watchPlaylistEndpoint ?: return null,
+                                ?.anyWatchEndpoint,
                         radioEndpoint =
-                            renderer.menu.menuRenderer.items
-                                .find {
+                            renderer.menu
+                                ?.menuRenderer
+                                ?.items
+                                ?.find {
                                     it.menuNavigationItemRenderer?.icon?.iconType == "MIX"
                                 }?.menuNavigationItemRenderer
                                 ?.navigationEndpoint
-                                ?.watchPlaylistEndpoint ?: return null,
+                                ?.anyWatchEndpoint,
                     )
                 }
 
@@ -224,7 +230,7 @@ data class LibraryPage(
                                 ?.find { it.menuNavigationItemRenderer?.icon?.iconType == "MUSIC_SHUFFLE" }
                                 ?.menuNavigationItemRenderer
                                 ?.navigationEndpoint
-                                ?.watchPlaylistEndpoint,
+                                ?.anyWatchEndpoint,
                         radioEndpoint =
                             renderer.menu
                                 ?.menuRenderer
@@ -232,7 +238,7 @@ data class LibraryPage(
                                 ?.find { it.menuNavigationItemRenderer?.icon?.iconType == "MIX" }
                                 ?.menuNavigationItemRenderer
                                 ?.navigationEndpoint
-                                ?.watchPlaylistEndpoint,
+                                ?.anyWatchEndpoint,
                     )
                 }
 

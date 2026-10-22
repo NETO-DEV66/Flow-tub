@@ -8,7 +8,10 @@ import kotlinx.serialization.json.JsonNames
 @Serializable
 data class Continuation(
     @JsonNames("nextContinuationData", "nextRadioContinuationData")
-    val nextContinuationData: NextContinuationData?,
+    val nextContinuationData: NextContinuationData? = null,
+    // A library section hands out its next slice as a reload of the same section rather than an
+    // append, so both forms carry a usable token.
+    val reloadContinuationData: NextContinuationData? = null,
 ) {
     @Serializable
     data class NextContinuationData(
@@ -16,5 +19,4 @@ data class Continuation(
     )
 }
 
-fun List<Continuation>.getContinuation() =
-    firstOrNull()?.nextContinuationData?.continuation
+fun List<Continuation>.getContinuation() = firstOrNull()?.let { it.nextContinuationData ?: it.reloadContinuationData }?.continuation

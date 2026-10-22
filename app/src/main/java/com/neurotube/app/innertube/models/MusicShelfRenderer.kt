@@ -13,8 +13,11 @@ data class MusicShelfRenderer(
 ) {
     @Serializable
     data class Content(
-        val musicResponsiveListItemRenderer: MusicResponsiveListItemRenderer?,
-        val continuationItemRenderer: ContinuationItemRenderer?,
+        val musicResponsiveListItemRenderer: MusicResponsiveListItemRenderer? = null,
+        val continuationItemRenderer: ContinuationItemRenderer? = null,
+        // A section item can itself be a grid, which is how some libraries return their saved
+        // playlists and albums.
+        val gridRenderer: GridRenderer? = null,
     )
 
     @Serializable

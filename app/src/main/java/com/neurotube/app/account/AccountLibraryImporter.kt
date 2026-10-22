@@ -33,6 +33,7 @@ private const val TAG = "AccountLibraryImport"
 private const val LIBRARY_LIKED_SONGS = "FEmusic_liked_videos"
 private const val LIBRARY_ARTISTS = "FEmusic_library_corpus_artists"
 private const val LIBRARY_PLAYLISTS = "FEmusic_liked_playlists"
+private const val LIBRARY_ALBUMS = "FEmusic_liked_albums"
 
 /** How many channel pages to read before giving up, so a loop can never run forever. */
 private const val MAX_CHANNEL_PAGES = 40
@@ -46,6 +47,7 @@ enum class AccountImportStep {
     ARTISTS,
     LIKED_SONGS,
     PLAYLISTS,
+    ALBUMS,
 }
 
 /** Progress through an import, so the screen can say what it is doing. */
@@ -118,10 +120,19 @@ class AccountLibraryImport
             onStep(AccountImportStep.PLAYLISTS)
             val collections = runCatching { fetchLibrary(LIBRARY_PLAYLISTS) }.getOrElse { emptyList() }
             if (collections.isNotEmpty()) {
-                val counts =
+                val saved =
                     runCatching { saveCollections(collections.toSavedMusicCollections()) }
-                        .getOrElse { 0 to 0 }
-                report = report.copy(playlists = counts.first, albums = counts.second)
+                        .getOrElse { 0 }
+                report = report.copy(playlists = saved)
+            }
+
+            onStep(AccountImportStep.ALBUMS)
+            val albums = runCatching { fetchLibrary(LIBRARY_ALBUMS) }.getOrElse { emptyList() }
+            if (albums.isNotEmpty()) {
+                val saved =
+                    runCatching { saveCollections(albums.toSavedMusicCollections()) }
+                        .getOrElse { 0 }
+                report = report.copy(albums = saved)
             }
 
             seedFeedFromImport(report)
@@ -182,9 +193,9 @@ class AccountLibraryImport
 
         /**
          * Saves each collection with its songs, so the library can play it offline. Collections are
-         * fetched a few at a time, and one failing does not stop the rest.
+         * fetched a few at a time, and one failing does not stop the rest. Returns how many were saved.
          */
-        private suspend fun saveCollections(collections: List<AccountMusicCollection>): Pair<Int, Int> {
+        private suspend fun saveCollections(collections: List<AccountMusicCollection>): Int {
             val gate = Semaphore(PARALLELISM)
             val saved =
                 coroutineScope {
@@ -200,13 +211,7 @@ class AccountLibraryImport
                             }
                         }.awaitAll()
                 }
-            var playlists = 0
-            var albums = 0
-            collections.forEachIndexed { index, collection ->
-                if (!saved[index]) return@forEachIndexed
-                if (collection.isAlbum) albums++ else playlists++
-            }
-            return playlists to albums
+            return saved.count { it }
         }
 
         /**

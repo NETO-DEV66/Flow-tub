@@ -244,6 +244,7 @@ private fun importStepText(step: AccountImportStep): Int =
         AccountImportStep.ARTISTS -> R.string.youtube_account_import_step_artists
         AccountImportStep.LIKED_SONGS -> R.string.youtube_account_import_step_liked_songs
         AccountImportStep.PLAYLISTS -> R.string.youtube_account_import_step_playlists
+        AccountImportStep.ALBUMS -> R.string.youtube_account_import_step_albums
     }
 
 @Composable

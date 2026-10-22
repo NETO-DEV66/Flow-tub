@@ -14,12 +14,12 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MusicTwoRowItemRenderer(
     val title: Runs,
-    val subtitle: Runs?,
-    val subtitleBadges: List<Badges>?,
-    val menu: Menu?,
+    val subtitle: Runs? = null,
+    val subtitleBadges: List<Badges>? = null,
+    val menu: Menu? = null,
     val thumbnailRenderer: ThumbnailRenderer,
     val navigationEndpoint: NavigationEndpoint,
-    val thumbnailOverlay: MusicResponsiveListItemRenderer.Overlay?,
+    val thumbnailOverlay: MusicResponsiveListItemRenderer.Overlay? = null,
 ) {
     val isSong: Boolean
         get() = navigationEndpoint.endpoint is WatchEndpoint

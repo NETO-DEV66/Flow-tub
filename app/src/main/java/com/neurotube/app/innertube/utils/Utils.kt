@@ -53,7 +53,9 @@ suspend fun Result<LibraryPage>.completed(): Result<LibraryPage> =
             seenContinuations.add(continuation)
             requestCount++
 
-            val continuationPage = YouTube.libraryContinuation(continuation).getOrThrow()
+            // A page that fails to load stops the walk but keeps everything gathered so far, so one
+            // bad response cannot discard a whole library.
+            val continuationPage = YouTube.libraryContinuation(continuation).getOrNull() ?: break
             items += continuationPage.items
             continuation = continuationPage.continuation
         }

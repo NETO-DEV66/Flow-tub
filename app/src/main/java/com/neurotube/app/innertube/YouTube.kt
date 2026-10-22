@@ -53,6 +53,7 @@ import com.neurotube.app.innertube.pages.HistoryPage
 import com.neurotube.app.innertube.pages.HomePage
 import com.neurotube.app.innertube.pages.LibraryContinuationPage
 import com.neurotube.app.innertube.pages.LibraryPage
+import com.neurotube.app.innertube.pages.LibraryResponseParser
 import com.neurotube.app.innertube.pages.MoodAndGenres
 import com.neurotube.app.innertube.pages.NewReleaseAlbumPage
 import com.neurotube.app.innertube.pages.NextPage
@@ -2073,42 +2074,7 @@ object YouTube {
                     setLogin = true,
                 ).body<BrowseResponse>()
 
-        val tabs = response.contents?.singleColumnBrowseResultsRenderer?.tabs
-
-        val contents =
-            if (tabs != null && tabs.size >= tabIndex) {
-                tabs[tabIndex]
-                    .tabRenderer.content
-                    ?.sectionListRenderer
-                    ?.contents
-                    ?.firstOrNull()
-            } else {
-                null
-            }
-
-        when {
-            contents?.gridRenderer != null -> {
-                LibraryPage(
-                    items =
-                        contents.gridRenderer.items
-                            .mapNotNull(GridRenderer.Item::musicTwoRowItemRenderer)
-                            .mapNotNull { LibraryPage.fromMusicTwoRowItemRenderer(it) },
-                    continuation = contents.gridRenderer.continuations?.getContinuation(),
-                )
-            }
-
-            else -> { // contents?.musicShelfRenderer != null
-                LibraryPage(
-                    items =
-                        contents
-                            ?.musicShelfRenderer
-                            ?.contents!!
-                            .mapNotNull(MusicShelfRenderer.Content::musicResponsiveListItemRenderer)
-                            .mapNotNull { LibraryPage.fromMusicResponsiveListItemRenderer(it) },
-                    continuation = contents.musicShelfRenderer.continuations?.getContinuation(),
-                )
-            }
-        }
+        LibraryResponseParser.pageOf(response, tabIndex)
     }
 
     suspend fun libraryContinuation(continuation: String) =
@@ -2121,31 +2087,7 @@ object YouTube {
                         setLogin = true,
                     ).body<BrowseResponse>()
 
-            val contents = response.continuationContents
-
-            when {
-                contents?.gridContinuation != null -> {
-                    LibraryContinuationPage(
-                        items =
-                            contents.gridContinuation.items
-                                .mapNotNull(GridRenderer.Item::musicTwoRowItemRenderer)
-                                .mapNotNull { LibraryPage.fromMusicTwoRowItemRenderer(it) },
-                        continuation = contents.gridContinuation.continuations?.getContinuation(),
-                    )
-                }
-
-                else -> { // contents?.musicShelfContinuation != null
-                    LibraryContinuationPage(
-                        items =
-                            contents
-                                ?.musicShelfContinuation
-                                ?.contents!!
-                                .mapNotNull(MusicShelfRenderer.Content::musicResponsiveListItemRenderer)
-                                .mapNotNull { LibraryPage.fromMusicResponsiveListItemRenderer(it) },
-                        continuation = contents.musicShelfContinuation.continuations?.getContinuation(),
-                    )
-                }
-            }
+            LibraryResponseParser.continuationPageOf(response)
         }
 
     /**
