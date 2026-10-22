@@ -1,0 +1,16 @@
+NEUROTUBE CHANGE LOG
+VERSION: 1.5.2
+DATE: 2026-10-22
+STATUS: RELEASE
+
+FIXES
+- Importing a signed-in account now brings in the albums you saved. They were never requested, so the import finished without them
+- The library import no longer stops after the first page. Each section now follows its continuation token, so long lists of songs, artists, playlists and albums all come in
+- Album and artist tiles in an imported library show up instead of being skipped when their data arrives in a different shape than expected
+
+NOTES
+- Importing only reads. Nothing is written back to the account and nothing is deleted
+- Re-importing is safe: anything already present is left as it is
+- The session is still a cookie, stored encrypted on the device only. It never leaves the phone except in requests to YouTube itself
+- One universal APK for every supported device, as before
+- Same signing key as every earlier release

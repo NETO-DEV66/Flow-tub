@@ -1,18 +1,22 @@
-# NeuroTube v1.5.1
+# NeuroTube v1.5.2
 
-**Release date:** 2026-10-21
+**Release date:** 2026-10-22
 
 A bug-fix release for the account library import added in v1.5.0.
 
 ## Fixes
 
-- **Subscriptions now arrive.** After signing in and importing, only liked songs showed up. The
-  account's subscription pages — the guide and the "All subscriptions" list — were being requested
-  while signed out, so YouTube returned an empty document and the import found nothing to add. They
-  are now sent as the signed-in viewer, so the channels your account follows come in as before.
-- **The feed is personalised straight away.** An import now teaches the recommendation engine the
-  channels it brought in and clears the cached lanes, so the next load is ranked for the account
-  you just signed in with rather than the previous identity.
+- **Saved albums are imported.** The import asked the account for its songs, artists and playlists
+  but never for the albums it saved, so they were missing from the library afterwards. Albums are
+  now requested like every other section and written into the app's own stores.
+- **The import no longer stops after one page.** Each library section hands out the rest of its
+  contents as a continuation token, and only one of the two token types the endpoint can send was
+  being read. A section with more items than fit on one page therefore ended early — with a large
+  library, most of it never arrived. Both token types are now followed to the end.
+- **Album and artist tiles are no longer dropped.** A saved album carries its playlist id in a
+  slightly different place than a normal playlist, and a missing optional field on an artist tile
+  aborted the whole import. Both shapes now parse, and a single unexpected item no longer takes the
+  rest of the page down with it.
 
 ## Notes
 

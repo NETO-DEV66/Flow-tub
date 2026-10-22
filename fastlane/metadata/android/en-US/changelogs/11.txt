@@ -1,0 +1,4 @@
+- Importing a signed-in account now brings in the albums you saved
+- The library import no longer stops after the first page, so long lists of songs, artists, playlists and albums all come in
+- Album and artist tiles now show up instead of being skipped
+- One universal APK, and the same signing key as every earlier release
