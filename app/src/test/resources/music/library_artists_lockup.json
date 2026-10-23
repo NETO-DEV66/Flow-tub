@@ -1,0 +1,281 @@
+{
+ "responseContext": {},
+ "contents": {
+  "singleColumnBrowseResultsRenderer": {
+   "tabs": [
+    {
+     "tabRenderer": {
+      "content": {
+       "sectionListRenderer": {
+        "contents": [
+         {
+          "musicShelfRenderer": {
+           "title": {
+            "runs": [
+             {
+              "text": "Artists"
+             }
+            ]
+           },
+           "contents": [
+            {
+             "lockupViewModel": {
+              "contentId": "UC9CoOnJkIBMdeijd9qYoT_g",
+              "contentType": "LOCKUP_CONTENT_TYPE_ARTIST",
+              "contentImage": {
+               "collectionThumbnailViewModel": {
+                "primaryThumbnail": {
+                 "thumbnailViewModel": {
+                  "image": {
+                   "sources": [
+                    {
+                     "url": "https://yt3.ggpht.com/artist0=s88-c-k-c0x00ffffff-no-rj",
+                     "width": 88,
+                     "height": 88
+                    }
+                   ]
+                  }
+                 }
+                }
+               }
+              },
+              "metadata": {
+               "lockupMetadataViewModel": {
+                "title": {
+                 "content": "Ariana Grande"
+                },
+                "image": {
+                 "decoratedAvatarViewModel": {
+                  "avatar": {
+                   "avatarViewModel": {
+                    "image": {
+                     "sources": [
+                      {
+                       "url": "https://yt3.ggpht.com/UC9CoOnJkIBMdeijd9qYoT_g=s88",
+                       "width": 68,
+                       "height": 68
+                      }
+                     ]
+                    },
+                    "avatarImageSize": "AVATAR_SIZE_M"
+                   }
+                  }
+                 }
+                },
+                "metadata": {
+                 "contentMetadataViewModel": {
+                  "metadataRows": [
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "Artist",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 6,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/channel/UC9CoOnJkIBMdeijd9qYoT_g",
+                             "webPageType": "WEB_PAGE_TYPE_CHANNEL",
+                             "apiUrl": "/youtubei/v1/browse"
+                            }
+                           },
+                           "browseEndpoint": {
+                            "browseId": "UC9CoOnJkIBMdeijd9qYoT_g"
+                           }
+                          }
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                }
+               }
+              }
+             }
+            },
+            {
+             "lockupViewModel": {
+              "contentId": "UC0C-w0YjGpqDXGB8IHb662A",
+              "contentType": "LOCKUP_CONTENT_TYPE_ARTIST",
+              "contentImage": {
+               "collectionThumbnailViewModel": {
+                "primaryThumbnail": {
+                 "thumbnailViewModel": {
+                  "image": {
+                   "sources": [
+                    {
+                     "url": "https://yt3.ggpht.com/artist1=s88-c-k-c0x00ffffff-no-rj",
+                     "width": 88,
+                     "height": 88
+                    }
+                   ]
+                  }
+                 }
+                }
+               }
+              },
+              "metadata": {
+               "lockupMetadataViewModel": {
+                "title": {
+                 "content": "The Weeknd"
+                },
+                "image": {
+                 "decoratedAvatarViewModel": {
+                  "avatar": {
+                   "avatarViewModel": {
+                    "image": {
+                     "sources": [
+                      {
+                       "url": "https://yt3.ggpht.com/UC0C-w0YjGpqDXGB8IHb662A=s88",
+                       "width": 68,
+                       "height": 68
+                      }
+                     ]
+                    },
+                    "avatarImageSize": "AVATAR_SIZE_M"
+                   }
+                  }
+                 }
+                },
+                "metadata": {
+                 "contentMetadataViewModel": {
+                  "metadataRows": [
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "Artist",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 6,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/channel/UC0C-w0YjGpqDXGB8IHb662A",
+                             "webPageType": "WEB_PAGE_TYPE_CHANNEL",
+                             "apiUrl": "/youtubei/v1/browse"
+                            }
+                           },
+                           "browseEndpoint": {
+                            "browseId": "UC0C-w0YjGpqDXGB8IHb662A"
+                           }
+                          }
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                }
+               }
+              }
+             }
+            },
+            {
+             "lockupViewModel": {
+              "contentId": "UCOxiootq2fWl2VY3YrJUK2A",
+              "contentType": "LOCKUP_CONTENT_TYPE_ARTIST",
+              "contentImage": {
+               "collectionThumbnailViewModel": {
+                "primaryThumbnail": {
+                 "thumbnailViewModel": {
+                  "image": {
+                   "sources": [
+                    {
+                     "url": "https://yt3.ggpht.com/artist2=s88-c-k-c0x00ffffff-no-rj",
+                     "width": 88,
+                     "height": 88
+                    }
+                   ]
+                  }
+                 }
+                }
+               }
+              },
+              "metadata": {
+               "lockupMetadataViewModel": {
+                "title": {
+                 "content": "Dua Lipa"
+                },
+                "image": {
+                 "decoratedAvatarViewModel": {
+                  "avatar": {
+                   "avatarViewModel": {
+                    "image": {
+                     "sources": [
+                      {
+                       "url": "https://yt3.ggpht.com/UCOxiootq2fWl2VY3YrJUK2A=s88",
+                       "width": 68,
+                       "height": 68
+                      }
+                     ]
+                    },
+                    "avatarImageSize": "AVATAR_SIZE_M"
+                   }
+                  }
+                 }
+                },
+                "metadata": {
+                 "contentMetadataViewModel": {
+                  "metadataRows": [
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "Artist",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 6,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/channel/UC0C-w0YjGpqDXGB8IHb662A",
+                             "webPageType": "WEB_PAGE_TYPE_CHANNEL",
+                             "apiUrl": "/youtubei/v1/browse"
+                            }
+                           },
+                           "browseEndpoint": {
+                            "browseId": "UCOxiootq2fWl2VY3YrJUK2A"
+                           }
+                          }
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                }
+               }
+              }
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     }
+    }
+   ]
+  }
+ }
+}

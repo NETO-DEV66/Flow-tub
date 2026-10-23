@@ -1,0 +1,5 @@
+- Saved playlists, artists and podcasts import again — a signed-in library now sends a newer row shape the import walked past
+- Your youtube.com video playlists now come across as playlists
+- Watch Later and your watch history now import as well
+- The finished screen reports video playlists, Watch Later and watch history
+- One universal APK, and the same signing key as every earlier release

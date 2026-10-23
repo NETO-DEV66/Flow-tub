@@ -2,11 +2,13 @@ package com.neurotube.app.account
 
 import com.google.common.truth.Truth.assertThat
 import com.neurotube.app.data.model.Channel
+import com.neurotube.app.data.model.Video
 import com.neurotube.app.innertube.models.AlbumItem
 import com.neurotube.app.innertube.models.Artist
 import com.neurotube.app.innertube.models.ArtistItem
 import com.neurotube.app.innertube.models.PlaylistItem
 import com.neurotube.app.innertube.models.SongItem
+import com.neurotube.app.innertube.pages.AccountVideoCollection
 import org.junit.Test
 
 /**
@@ -194,5 +196,67 @@ class AccountLibraryMapperTest {
     fun `an empty library reports nothing`() {
         assertThat(AccountImportReport().isEmpty).isTrue()
         assertThat(AccountImportReport(likedSongs = 1).isEmpty).isFalse()
+        assertThat(AccountImportReport(videoPlaylists = 1).isEmpty).isFalse()
+        assertThat(AccountImportReport(watchLater = 1).isEmpty).isFalse()
+        assertThat(AccountImportReport(history = 1).isEmpty).isFalse()
     }
+
+    @Test
+    fun `the watch later and liked lists YouTube owns are not imported as playlists`() {
+        val playlists =
+            listOf(
+                AccountVideoCollection("WL", "Watch Later", "", 12),
+                AccountVideoCollection("LL", "Liked videos", "", 40),
+                AccountVideoCollection("PLabc", "Chill", "", 7),
+            ).toSavedVideoPlaylists()
+
+        assertThat(playlists.map { it.id }).containsExactly("PLabc")
+    }
+
+    @Test
+    fun `a video playlist without a name is left out`() {
+        val playlists =
+            listOf(
+                AccountVideoCollection("PLabc", "", "", 7),
+                AccountVideoCollection("PLdef", "Chill", "", 7),
+            ).toSavedVideoPlaylists()
+
+        assertThat(playlists.map { it.id }).containsExactly("PLdef")
+    }
+
+    @Test
+    fun `watched videos become history entries, newest first`() {
+        val now = 1_700_000_000_000L
+        val entries =
+            listOf(
+                video("v1", "First watched"),
+                video("v2", "Second watched"),
+            ).toHistoryEntries(now)
+
+        assertThat(entries.map { it.videoId }).containsExactly("v1", "v2").inOrder()
+        assertThat(entries[0].timestamp).isEqualTo(now)
+        assertThat(entries[1].timestamp).isEqualTo(now - 1)
+        assertThat(entries[0].title).isEqualTo("First watched")
+    }
+
+    @Test
+    fun `a video watched twice is one history entry`() {
+        val entries = listOf(video("v1", "Once"), video("v1", "Once")).toHistoryEntries(1L)
+
+        assertThat(entries.map { it.videoId }).containsExactly("v1")
+    }
+
+    private fun video(
+        id: String,
+        title: String,
+    ) = Video(
+        id = id,
+        title = title,
+        channelName = "A Channel",
+        channelId = "UCchannel",
+        thumbnailUrl = "https://i.ytimg.com/vi/$id/hq.jpg",
+        duration = 210,
+        viewCount = 0,
+        uploadDate = "",
+    )
 }

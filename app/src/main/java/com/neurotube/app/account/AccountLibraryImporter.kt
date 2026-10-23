@@ -6,13 +6,16 @@ import com.neurotube.app.data.engagement.FeedInvalidationBus
 import com.neurotube.app.data.local.LikedVideosRepository
 import com.neurotube.app.data.local.PlaylistRepository
 import com.neurotube.app.data.local.SubscriptionRepository
+import com.neurotube.app.data.local.ViewHistory
 import com.neurotube.app.data.model.Channel
+import com.neurotube.app.data.model.Video
 import com.neurotube.app.data.music.YouTubeMusicService
 import com.neurotube.app.data.music.model.PlaylistDetails
 import com.neurotube.app.data.recommendation.FlowNeuroEngine
 import com.neurotube.app.innertube.YouTube
 import com.neurotube.app.innertube.models.ArtistItem
 import com.neurotube.app.innertube.models.YTItem
+import com.neurotube.app.innertube.pages.AccountVideoCollection
 import com.neurotube.app.innertube.utils.completed
 import com.neurotube.app.ui.screens.music.saveMusicCollection
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -48,6 +51,9 @@ enum class AccountImportStep {
     LIKED_SONGS,
     PLAYLISTS,
     ALBUMS,
+    VIDEO_PLAYLISTS,
+    WATCH_LATER,
+    HISTORY,
 }
 
 /** Progress through an import, so the screen can say what it is doing. */
@@ -82,6 +88,7 @@ class AccountLibraryImport
         private val subscriptions: SubscriptionRepository,
         private val likedVideos: LikedVideosRepository,
         private val musicPlaylists: PlaylistRepository,
+        private val viewHistory: ViewHistory,
     ) {
         /**
          * Reads the account's library and stores it. [onStep] is called before each part, and the
@@ -135,10 +142,87 @@ class AccountLibraryImport
                 report = report.copy(albums = saved)
             }
 
+            onStep(AccountImportStep.VIDEO_PLAYLISTS)
+            val videoPlaylists = runCatching { fetchVideoPlaylists() }.getOrElse { emptyList() }
+            if (videoPlaylists.isNotEmpty()) {
+                runCatching { musicPlaylists.saveVideoPlaylists(videoPlaylists) }
+                    .onSuccess { report = report.copy(videoPlaylists = it) }
+                    .onFailure { Log.w(TAG, "Importing video playlists failed", it) }
+            }
+
+            onStep(AccountImportStep.WATCH_LATER)
+            val watchLater = runCatching { fetchWatchLater() }.getOrElse { emptyList() }
+            if (watchLater.isNotEmpty()) {
+                runCatching { watchLater.forEach { video -> musicPlaylists.addToWatchLater(video) } }
+                    .onSuccess { report = report.copy(watchLater = watchLater.size) }
+                    .onFailure { Log.w(TAG, "Importing Watch Later failed", it) }
+            }
+
+            onStep(AccountImportStep.HISTORY)
+            val watched = runCatching { fetchWatchHistory() }.getOrElse { emptyList() }
+            if (watched.isNotEmpty()) {
+                runCatching { viewHistory.bulkSaveHistoryEntries(watched.toHistoryEntries(System.currentTimeMillis())) }
+                    .onSuccess { report = report.copy(history = watched.size) }
+                    .onFailure { Log.w(TAG, "Importing watch history failed", it) }
+            }
+
             seedFeedFromImport(report)
 
             return report
         }
+
+        /**
+         * The playlists the account keeps on youtube.com, paged to the end.
+         *
+         * This is a different list from the music library's saved playlists: it holds the ordinary
+         * video playlists, and it is what a viewer means by "my playlists".
+         */
+        private suspend fun fetchVideoPlaylists(): List<AccountVideoCollection> =
+            withContext(Dispatchers.IO) {
+                val all = mutableListOf<AccountVideoCollection>()
+                var continuation: String? = null
+                var pages = 0
+                do {
+                    val page = YouTube.accountPlaylists(continuation).getOrNull() ?: break
+                    all += page.playlists
+                    continuation = page.continuation
+                    pages++
+                } while (continuation != null && pages < MAX_CHANNEL_PAGES)
+
+                all.toSavedVideoPlaylists()
+            }
+
+        /** The account's Watch Later list, paged to the end. */
+        private suspend fun fetchWatchLater(): List<Video> =
+            withContext(Dispatchers.IO) {
+                val all = mutableListOf<Video>()
+                var continuation: String? = null
+                var pages = 0
+                do {
+                    val page = YouTube.watchLater(continuation).getOrNull() ?: break
+                    all += page.videos
+                    continuation = page.continuation
+                    pages++
+                } while (continuation != null && pages < MAX_CHANNEL_PAGES)
+
+                all.distinctBy { it.id }
+            }
+
+        /** The account's watch history, paged to the end. */
+        private suspend fun fetchWatchHistory(): List<Video> =
+            withContext(Dispatchers.IO) {
+                val all = mutableListOf<Video>()
+                var continuation: String? = null
+                var pages = 0
+                do {
+                    val page = YouTube.accountWatchHistory(continuation).getOrNull() ?: break
+                    all += page.videos
+                    continuation = page.continuation
+                    pages++
+                } while (continuation != null && pages < MAX_CHANNEL_PAGES)
+
+                all.distinctBy { it.id }
+            }
 
         /**
          * Teaches the recommendation engine the channels just imported and drops the feed caches, so

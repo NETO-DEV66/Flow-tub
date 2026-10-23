@@ -1,6 +1,7 @@
 package com.neurotube.app.innertube.models
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class MusicShelfRenderer(
@@ -14,6 +15,8 @@ data class MusicShelfRenderer(
     @Serializable
     data class Content(
         val musicResponsiveListItemRenderer: MusicResponsiveListItemRenderer? = null,
+        // A signed-in library now answers a shelf with lockup rows, as the grid does.
+        val lockupViewModel: JsonObject? = null,
         val continuationItemRenderer: ContinuationItemRenderer? = null,
         // A section item can itself be a grid, which is how some libraries return their saved
         // playlists and albums.

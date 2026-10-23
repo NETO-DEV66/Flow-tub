@@ -124,7 +124,7 @@ private fun JsonObject?.membersOnlyBadge(): String? {
 }
 
 /** The first metadata part that links to a channel, as the owner it names. */
-private fun JsonObject?.lockupByline(): FeedItemOwner? =
+internal fun JsonObject?.lockupByline(): FeedItemOwner? =
     this
         ?.get("metadata")
         .objectOrNull()
@@ -160,7 +160,7 @@ private fun JsonObject?.lockupByline(): FeedItemOwner? =
             FeedItemOwner(id = channelId, name = name)
         }.firstOrNull()
 
-private fun JsonObject?.metadataParts(): List<String> =
+internal fun JsonObject?.metadataParts(): List<String> =
     this
         ?.get("metadata")
         .objectOrNull()
@@ -197,10 +197,10 @@ private fun JsonObject.thumbnailViewModel(): JsonObject? =
                     .objectOrNull()
         }
 
-private fun JsonObject.lockupThumbnailUrl(): String? = thumbnailViewModel()?.get("image").largestImageUrl()
+internal fun JsonObject.lockupThumbnailUrl(): String? = thumbnailViewModel()?.get("image").largestImageUrl()
 
 /** Duration, "12 videos" and the LIVE marker all arrive as thumbnail badges. */
-private fun JsonObject.lockupBadges(): List<String> =
+internal fun JsonObject.lockupBadges(): List<String> =
     thumbnailViewModel()
         ?.get("overlays")
         .arrayOrNull()

@@ -1,0 +1,168 @@
+{
+ "responseContext": {},
+ "contents": {
+  "singleColumnBrowseResultsRenderer": {
+   "tabs": [
+    {
+     "tabRenderer": {
+      "content": {
+       "sectionListRenderer": {
+        "contents": [
+         {
+          "gridRenderer": {
+           "items": [
+            {
+             "lockupViewModel": {
+              "contentImage": {
+               "collectionThumbnailViewModel": {
+                "primaryThumbnail": {
+                 "thumbnailViewModel": {
+                  "image": {
+                   "sources": [
+                    {
+                     "url": "https://i.ytimg.com/pl_c/PL8mG-RkN2uTw7PhlnAr4pZZz2QubIbujH/studio_square_thumbnail.jpg?sqp=CMzDmtUG-oaymwEICPABEPABSFqi85f_AwYIwe77sQY=&rs=AOn4CLDvGOhG5Yy8ODF1mJIlCp2V3Hc9aQ",
+                     "width": 240,
+                     "height": 240
+                    },
+                    {
+                     "url": "https://i.ytimg.com/pl_c/PL8mG-RkN2uTw7PhlnAr4pZZz2QubIbujH/studio_square_thumbnail.jpg?sqp=CKq5mtUG-oaymwEICOADEOADSFqi85f_AwYIwe77sQY=&rs=AOn4CLCvqdiM5vSJD2svXWOrVSut6I96lQ",
+                     "width": 480,
+                     "height": 480
+                    }
+                   ]
+                  },
+                  "overlays": [
+                   {
+                    "thumbnailOverlayBadgeViewModel": {
+                     "thumbnailBadges": [
+                      {
+                       "thumbnailBadgeViewModel": {
+                        "icon": {
+                         "sources": [
+                          {
+                           "clientResource": {
+                            "imageName": "BROADCAST"
+                           }
+                          }
+                         ]
+                        },
+                        "text": "578 episodes",
+                        "badgeStyle": "THUMBNAIL_OVERLAY_BADGE_STYLE_DEFAULT",
+                        "backgroundColor": {
+                         "lightTheme": 3355443,
+                         "darkTheme": 3355443
+                        }
+                       }
+                      }
+                     ],
+                     "position": "THUMBNAIL_OVERLAY_BADGE_POSITION_BOTTOM_END"
+                    }
+                   },
+                   {}
+                  ],
+                  "backgroundColor": {
+                   "lightTheme": 4144959,
+                   "darkTheme": 4144959
+                  }
+                 }
+                },
+                "stackColor": {
+                 "lightTheme": 10066329,
+                 "darkTheme": 9211020
+                }
+               }
+              },
+              "metadata": {
+               "lockupMetadataViewModel": {
+                "title": {
+                 "content": "The WAN Show"
+                },
+                "metadata": {
+                 "contentMetadataViewModel": {
+                  "metadataRows": [
+                   {},
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "View full podcast",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 17,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/playlist?list=PL8mG-RkN2uTw7PhlnAr4pZZz2QubIbujH",
+                             "webPageType": "WEB_PAGE_TYPE_PLAYLIST",
+                             "rootVe": 5754,
+                             "apiUrl": "/youtubei/v1/browse"
+                            }
+                           },
+                           "browseEndpoint": {
+                            "browseId": "VLPL8mG-RkN2uTw7PhlnAr4pZZz2QubIbujH"
+                           }
+                          }
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  ],
+                  "delimiter": " \u2022 "
+                 }
+                }
+               }
+              },
+              "contentId": "PL8mG-RkN2uTw7PhlnAr4pZZz2QubIbujH",
+              "contentType": "LOCKUP_CONTENT_TYPE_PODCAST",
+              "rendererContext": {
+               "loggingContext": {},
+               "commandContext": {
+                "onTap": {
+                 "innertubeCommand": {
+                  "commandMetadata": {
+                   "webCommandMetadata": {
+                    "url": "/watch?v=o4ub_WOWFoo&list=PL8mG-RkN2uTw7PhlnAr4pZZz2QubIbujH",
+                    "webPageType": "WEB_PAGE_TYPE_WATCH",
+                    "rootVe": 3832
+                   }
+                  },
+                  "watchEndpoint": {
+                   "videoId": "o4ub_WOWFoo",
+                   "playlistId": "PL8mG-RkN2uTw7PhlnAr4pZZz2QubIbujH",
+                   "params": "OAI%3D",
+                   "loggingContext": {
+                    "vssLoggingContext": {
+                     "serializedContextData": "GiJQTDhtRy1Sa04ydVR3N1BobG5BcjRwWlp6MlF1YklidWpI"
+                    }
+                   },
+                   "watchEndpointSupportedOnesieConfig": {
+                    "html5PlaybackOnesieConfig": {
+                     "commonConfig": {
+                      "url": "https://rr1---sn-vbxgv-cxts.googlevideo.com/initplayback?source=youtube&oeis=1&c=WEB&oad=3200&ovd=3200&oaad=11000&oavd=11000&ocs=700&oewis=1&oputc=1&olis=1&epbp=1&msp=1&odepv=1&id=a38b9bfd6396168a&ip=185.177.211.41&initcwndbps=92500&mt=1789310689&oweuc="
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     }
+    }
+   ]
+  }
+ }
+}

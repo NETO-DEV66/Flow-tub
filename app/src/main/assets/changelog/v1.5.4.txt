@@ -1,0 +1,19 @@
+NEUROTUBE CHANGE LOG
+VERSION: 1.5.4
+DATE: 2026-10-22
+STATUS: RELEASE
+
+FIXES
+- Saved playlists, artists and podcasts import again. A signed-in library now answers with a newer lockup row that the importer walked past, so the import finished with those lists still empty. Both row shapes are read now, on the first page and on every later one
+
+NEW
+- Your video playlists come across. The playlists you keep on youtube.com are imported as playlists of their own, beside the ones saved in YouTube Music
+- Watch Later and your watch history come across, so a new install starts with the lists you already had
+- The finished screen now reports video playlists, Watch Later and watch history along with the subscriptions, artists, liked songs, playlists and albums it already reported
+
+NOTES
+- Importing only reads. Nothing is written back to the account and nothing is deleted
+- Re-importing is safe: anything already present is left as it is, and each part is tried on its own
+- The session is still a cookie, stored encrypted on the device only. It never leaves the phone except in requests to YouTube itself
+- One universal APK for every supported device, as before
+- Same signing key as every earlier release

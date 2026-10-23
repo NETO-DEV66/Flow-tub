@@ -1,3 +1,35 @@
+# NeuroTube v1.5.4
+
+**Release date:** 2026-10-22
+
+A second bug-fix release for the account library import, and the first to bring in the account's
+youtube.com data as well as its YouTube Music data.
+
+## Fixes
+
+- **Saved playlists and artists are imported again.** A signed-in music library now answers with
+  `lockupViewModel` rows in place of the `musicTwoRowItemRenderer` rows the import knew, and the
+  reader walked past the new shape. The import therefore finished with the playlists, artists and
+  podcasts lists still empty — the same class of bug that hid the subscriptions. Both shapes are
+  read now, on the first page and on every continuation.
+
+## Features
+
+- **Your video playlists come across.** The playlists you keep on youtube.com are imported as
+  playlists of their own, so they sit beside the ones saved in YouTube Music.
+- **Watch Later and watch history come across.** Your Watch Later list and your watch history are
+  imported as well, so a new install starts with the lists you already had.
+- **The import reports everything it brought in.** The finished screen now counts video playlists,
+  Watch Later and watch history along with the subscriptions, artists, liked songs, playlists and
+  albums it already reported.
+
+## Notes
+
+- Importing only reads. Nothing is written back to the account and nothing is deleted.
+- Re-importing is safe: anything already present is left as it is, and each part is tried on its
+  own, so one failing does not lose the others.
+- One universal APK, signed with the same key as every earlier release.
+
 # NeuroTube v1.5.3
 
 **Release date:** 2026-10-22

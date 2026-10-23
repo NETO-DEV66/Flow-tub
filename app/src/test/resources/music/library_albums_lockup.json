@@ -1,0 +1,111 @@
+{
+ "responseContext": {},
+ "contents": {
+  "singleColumnBrowseResultsRenderer": {
+   "tabs": [
+    {
+     "tabRenderer": {
+      "content": {
+       "sectionListRenderer": {
+        "contents": [
+         {
+          "gridRenderer": {
+           "items": [
+            {
+             "lockupViewModel": {
+              "contentId": "MPREb_E7NpKw54NIT",
+              "contentType": "LOCKUP_CONTENT_TYPE_ALBUM",
+              "contentImage": {
+               "collectionThumbnailViewModel": {
+                "primaryThumbnail": {
+                 "thumbnailViewModel": {
+                  "image": {
+                   "sources": [
+                    {
+                     "url": "https://lh3.googleusercontent.com/album0=w544-h544-l90-rj",
+                     "width": 544,
+                     "height": 544
+                    }
+                   ]
+                  }
+                 }
+                }
+               }
+              },
+              "itemPlayback": {
+               "inlinePlayerData": {
+                "onSelect": {
+                 "innertubeCommand": {
+                  "watchEndpoint": {
+                   "videoId": "v0",
+                   "playlistId": "OLAK5uy_m8Yan_MSAia_ZYmZpl6xm1AINDg8LF1NI",
+                   "params": "OAI%3D"
+                  }
+                 }
+                }
+               }
+              },
+              "metadata": {
+               "lockupMetadataViewModel": {
+                "title": {
+                 "content": "After Hours"
+                }
+               }
+              }
+             }
+            },
+            {
+             "lockupViewModel": {
+              "contentId": "MPREb_1Z2YhBZM8QE",
+              "contentType": "LOCKUP_CONTENT_TYPE_ALBUM",
+              "contentImage": {
+               "collectionThumbnailViewModel": {
+                "primaryThumbnail": {
+                 "thumbnailViewModel": {
+                  "image": {
+                   "sources": [
+                    {
+                     "url": "https://lh3.googleusercontent.com/album1=w544-h544-l90-rj",
+                     "width": 544,
+                     "height": 544
+                    }
+                   ]
+                  }
+                 }
+                }
+               }
+              },
+              "itemPlayback": {
+               "inlinePlayerData": {
+                "onSelect": {
+                 "innertubeCommand": {
+                  "watchEndpoint": {
+                   "videoId": "v1",
+                   "playlistId": "OLAK5uy_l9RX7nM_1aDqKfKmMPfFhWYFq0h9S1a2A",
+                   "params": "OAI%3D"
+                  }
+                 }
+                }
+               }
+              },
+              "metadata": {
+               "lockupMetadataViewModel": {
+                "title": {
+                 "content": "Starboy"
+                }
+               }
+              }
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     }
+    }
+   ]
+  }
+ }
+}

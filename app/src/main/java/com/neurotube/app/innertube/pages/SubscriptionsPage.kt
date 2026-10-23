@@ -128,31 +128,7 @@ private fun JsonObject.channelName(): String? =
 /**
  * The token for the next page of channels, or null on the last one.
  *
- * Taken as the last token in the response: a channels page carries one at the end of its grid, and
- * anything earlier belongs to a shelf or the header rather than to the list being paged. Both the
- * `continuationItemRenderer` a grid appends and the newer `continuationItemViewModel` carry it.
+ * A channels page carries one token at the end of its grid, and anything earlier belongs to a shelf
+ * or the header rather than to the list being paged, so the last one wins.
  */
-internal fun JsonElement.nextChannelContinuation(): String? {
-    var token: String? = null
-    forEachObject { node ->
-        val endpoint =
-            node["continuationItemRenderer"]
-                .objectOrNull()
-                ?.get("continuationEndpoint")
-                .objectOrNull()
-        val tokenValue =
-            endpoint
-                ?.get("continuationCommand")
-                .objectOrNull()
-                ?.get("token")
-                .stringOrNull()
-                ?: node["continuationItemViewModel"]
-                    .objectOrNull()
-                    ?.get("continuationCommand")
-                    .objectOrNull()
-                    ?.get("token")
-                    .stringOrNull()
-        tokenValue?.takeIf(String::isNotBlank)?.let { token = it }
-    }
-    return token
-}
+internal fun JsonElement.nextChannelContinuation(): String? = nextToken()

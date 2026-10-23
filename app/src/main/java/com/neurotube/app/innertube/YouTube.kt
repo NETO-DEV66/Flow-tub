@@ -111,6 +111,7 @@ import com.neurotube.app.innertube.pages.search.SearchSuggestion
 import com.neurotube.app.innertube.pages.search.parseSearchSuggestions
 import com.neurotube.app.innertube.pages.search.toSearchResultsPage
 import com.neurotube.app.innertube.pages.toCommentRepliesPage
+import com.neurotube.app.innertube.pages.toMainSiteFeedPage
 import com.neurotube.app.innertube.pages.toSubscribedChannels
 import com.neurotube.app.innertube.pages.toVideoCommentsPage
 import com.neurotube.app.innertube.pages.toVideoDescriptionPage
@@ -846,7 +847,63 @@ object YouTube {
             communityPostCommentsPage(continuation = continuation)
         }
 
-    /** A YouTube playlist's first page when [continuation] is null, otherwise the page it points to. */
+    /**
+     * The playlists a signed-in viewer keeps on youtube.com, one page at a time.
+     *
+     * `FEplaylist_aggregation` is the page YouTube's own "Playlists" view shows; it needs the
+     * viewer's cookie, and answers signed out with a sign-in document rather than an error.
+     */
+    suspend fun accountPlaylists(continuation: String? = null) =
+        runCatching {
+            val response =
+                innerTube
+                    .mainSiteBrowse(
+                        client = WEB_AUTHENTICATED,
+                        browseId = if (continuation == null) "FEplaylist_aggregation" else null,
+                        continuation = continuation,
+                        setLogin = true,
+                    ).bodyAsText()
+
+            Json.parseToJsonElement(response).toMainSiteFeedPage()
+        }
+
+    /**
+     * The viewer's watch history, one page at a time.
+     *
+     * `FEhistory` is the page YouTube's own history view shows, and like the playlists page it needs
+     * the viewer's cookie.
+     */
+    suspend fun accountWatchHistory(continuation: String? = null) =
+        runCatching {
+            val response =
+                innerTube
+                    .mainSiteBrowse(
+                        client = WEB_AUTHENTICATED,
+                        browseId = if (continuation == null) "FEhistory" else null,
+                        continuation = continuation,
+                        setLogin = true,
+                    ).bodyAsText()
+
+            Json.parseToJsonElement(response).toMainSiteFeedPage()
+        }
+
+    /**
+     * The viewer's Watch Later list, one page at a time.
+     *
+     * `VLWL` is the special playlist behind it, and it is paged like any other playlist page.
+     */
+    suspend fun watchLater(continuation: String? = null): Result<VideoPlaylistPage> =
+        runCatching {
+            val response =
+                innerTube.channelBrowse(
+                    client = currentWebClient(),
+                    channelId = "VLWL".takeIf { continuation == null },
+                    params = null,
+                    continuation = continuation,
+                )
+            Json.parseToJsonElement(response.bodyAsText()).toVideoPlaylistPage()
+        }
+
     suspend fun videoPlaylistPage(
         playlistId: String,
         continuation: String? = null,

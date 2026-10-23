@@ -162,13 +162,17 @@ object LibraryResponseParser {
     }
 
     private fun List<GridRenderer.Item>.toLibraryItems(): List<YTItem> =
-        mapNotNull(GridRenderer.Item::musicTwoRowItemRenderer)
-            .mapNotNull { LibraryPage.fromMusicTwoRowItemRenderer(it) }
+        mapNotNull { item ->
+            item.musicTwoRowItemRenderer?.let { LibraryPage.fromMusicTwoRowItemRenderer(it) }
+                ?: item.lockupViewModel?.toLibraryItem()
+        }
 
     private fun MusicShelfRenderer?.toItems(): List<YTItem> =
         this
             ?.contents
             .orEmpty()
-            .mapNotNull(MusicShelfRenderer.Content::musicResponsiveListItemRenderer)
-            .mapNotNull { LibraryPage.fromMusicResponsiveListItemRenderer(it) }
+            .mapNotNull { content ->
+                content.musicResponsiveListItemRenderer?.let { LibraryPage.fromMusicResponsiveListItemRenderer(it) }
+                    ?: content.lockupViewModel?.toLibraryItem()
+            }
 }

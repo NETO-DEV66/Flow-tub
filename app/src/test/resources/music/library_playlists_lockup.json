@@ -1,0 +1,883 @@
+{
+ "responseContext": {},
+ "contents": {
+  "singleColumnBrowseResultsRenderer": {
+   "tabs": [
+    {
+     "tabRenderer": {
+      "content": {
+       "sectionListRenderer": {
+        "contents": [
+         {
+          "gridRenderer": {
+           "items": [
+            {
+             "lockupViewModel": {
+              "contentImage": {
+               "collectionThumbnailViewModel": {
+                "primaryThumbnail": {
+                 "thumbnailViewModel": {
+                  "image": {
+                   "sources": [
+                    {
+                     "url": "https://i.ytimg.com/vi/oB5vv14f2OQ/hq720.jpg?sqp=-oaymwEXCOgCEMoBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCW__wOsFwHWS89Bg0PjttuPZjPtw",
+                     "width": 360,
+                     "height": 202
+                    },
+                    {
+                     "url": "https://i.ytimg.com/vi/oB5vv14f2OQ/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDFy6q9R9zfRxGyYh7yPZNHAilCTA",
+                     "width": 720,
+                     "height": 404
+                    }
+                   ]
+                  },
+                  "overlays": [
+                   {
+                    "thumbnailOverlayBadgeViewModel": {
+                     "thumbnailBadges": [
+                      {
+                       "thumbnailBadgeViewModel": {
+                        "icon": {
+                         "sources": [
+                          {
+                           "clientResource": {
+                            "imageName": "PLAYLISTS"
+                           }
+                          }
+                         ]
+                        },
+                        "text": "24 videos",
+                        "badgeStyle": "THUMBNAIL_OVERLAY_BADGE_STYLE_DEFAULT",
+                        "backgroundColor": {
+                         "lightTheme": 2630667,
+                         "darkTheme": 2630667
+                        }
+                       }
+                      }
+                     ],
+                     "position": "THUMBNAIL_OVERLAY_BADGE_POSITION_BOTTOM_END"
+                    }
+                   },
+                   {
+                    "thumbnailHoverOverlayViewModel": {
+                     "icon": {
+                      "sources": [
+                       {
+                        "clientResource": {
+                         "imageName": "PLAY_ALL"
+                        }
+                       }
+                      ]
+                     },
+                     "text": {
+                      "content": "Play all",
+                      "styleRuns": [
+                       {
+                        "startIndex": 0,
+                        "length": 8
+                       }
+                      ]
+                     },
+                     "style": "THUMBNAIL_HOVER_OVERLAY_STYLE_COVER"
+                    }
+                   }
+                  ],
+                  "backgroundColor": {
+                   "lightTheme": 4998166,
+                   "darkTheme": 4998166
+                  }
+                 }
+                },
+                "stackColor": {
+                 "lightTheme": 12564101,
+                 "darkTheme": 9209968
+                }
+               }
+              },
+              "metadata": {
+               "lockupMetadataViewModel": {
+                "title": {
+                 "content": "Sam Sulek Playlist"
+                },
+                "metadata": {
+                 "contentMetadataViewModel": {
+                  "metadataRows": [
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "Vanilla Frosty",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 14,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/@Beaverwitafrosty292",
+                             "webPageType": "WEB_PAGE_TYPE_CHANNEL",
+                             "rootVe": 3611,
+                             "apiUrl": "/youtubei/v1/browse"
+                            }
+                           },
+                           "browseEndpoint": {
+                            "browseId": "UCOH7R5Tml9P5Gpm7eq6ybgw",
+                            "canonicalBaseUrl": "/@Beaverwitafrosty292"
+                           }
+                          }
+                         }
+                        }
+                       ],
+                       "styleRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 14,
+                         "weightLabel": "FONT_WEIGHT_NORMAL"
+                        }
+                       ]
+                      }
+                     },
+                     {
+                      "text": {
+                       "content": "Playlist",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 8,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/@Beaverwitafrosty292",
+                             "webPageType": "WEB_PAGE_TYPE_CHANNEL",
+                             "rootVe": 3611,
+                             "apiUrl": "/youtubei/v1/browse"
+                            }
+                           },
+                           "browseEndpoint": {
+                            "browseId": "UCOH7R5Tml9P5Gpm7eq6ybgw",
+                            "canonicalBaseUrl": "/@Beaverwitafrosty292"
+                           }
+                          }
+                         }
+                        }
+                       ],
+                       "styleRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 8,
+                         "weightLabel": "FONT_WEIGHT_NORMAL"
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "isSpacerRow": true
+                   },
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "Dark Beach - Remake Cover \u00b7 3:38",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 33,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/watch?v=oB5vv14f2OQ&list=PLURuVoTH7QJdYTGLR3Ly_SFIegmRQ3eZU&pp=0gcJCfUE0aJEHMZM",
+                             "webPageType": "WEB_PAGE_TYPE_WATCH",
+                             "rootVe": 3832
+                            }
+                           },
+                           "watchEndpoint": {
+                            "videoId": "oB5vv14f2OQ",
+                            "playlistId": "PLURuVoTH7QJdYTGLR3Ly_SFIegmRQ3eZU",
+                            "loggingContext": {
+                             "vssLoggingContext": {
+                              "serializedContextData": "GiJQTFVSdVZvVEg3UUpkWVRHTFIzTHlfU0ZJZWdtUlEzZVpV"
+                             }
+                            }
+                           }
+                          }
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "\u589c\u843d \u00b7 4:07",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 14,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/watch?v=EnICJspCsu8&list=PLURuVoTH7QJdYTGLR3Ly_SFIegmRQ3eZU",
+                             "webPageType": "WEB_PAGE_TYPE_WATCH",
+                             "rootVe": 3832
+                            }
+                           },
+                           "watchEndpoint": {
+                            "videoId": "EnICJspCsu8",
+                            "playlistId": "PLURuVoTH7QJdYTGLR3Ly_SFIegmRQ3eZU",
+                            "loggingContext": {
+                             "vssLoggingContext": {
+                              "serializedContextData": "GiJQTFVSdVZvVEg3UUpkWVRHTFIzTHlfU0ZJZWdtUlEzZVpV"
+                             }
+                            }
+                           }
+                          }
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "isSpacerRow": true
+                   },
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "View full playlist",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 18,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/playlist?list=PLURuVoTH7QJdYTGLR3Ly_SFIegmRQ3eZU",
+                             "webPageType": "WEB_PAGE_TYPE_PLAYLIST",
+                             "rootVe": 5754,
+                             "apiUrl": "/youtubei/v1/browse"
+                            }
+                           },
+                           "browseEndpoint": {
+                            "browseId": "VLPLURuVoTH7QJdYTGLR3Ly_SFIegmRQ3eZU"
+                           }
+                          }
+                         }
+                        }
+                       ],
+                       "styleRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 18,
+                         "weightLabel": "FONT_WEIGHT_MEDIUM"
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  ],
+                  "delimiter": " \u2022 "
+                 }
+                }
+               }
+              },
+              "contentId": "PLURuVoTH7QJdYTGLR3Ly_SFIegmRQ3eZU",
+              "contentType": "LOCKUP_CONTENT_TYPE_PLAYLIST"
+             }
+            },
+            {
+             "lockupViewModel": {
+              "contentImage": {
+               "collectionThumbnailViewModel": {
+                "primaryThumbnail": {
+                 "thumbnailViewModel": {
+                  "image": {
+                   "sources": [
+                    {
+                     "url": "https://i.ytimg.com/vi/AR7pkA9CK80/hq720.jpg?sqp=-oaymwEXCOgCEMoBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCCRVWZNSDHakDg6mFvh40XXA9cUg",
+                     "width": 360,
+                     "height": 202
+                    },
+                    {
+                     "url": "https://i.ytimg.com/vi/AR7pkA9CK80/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBT2iTC44OGMVagAQhk6CerBSKAUg",
+                     "width": 720,
+                     "height": 404
+                    }
+                   ]
+                  },
+                  "overlays": [
+                   {
+                    "thumbnailOverlayBadgeViewModel": {
+                     "thumbnailBadges": [
+                      {
+                       "thumbnailBadgeViewModel": {
+                        "icon": {
+                         "sources": [
+                          {
+                           "clientResource": {
+                            "imageName": "PLAYLISTS"
+                           }
+                          }
+                         ]
+                        },
+                        "text": "66 videos",
+                        "badgeStyle": "THUMBNAIL_OVERLAY_BADGE_STYLE_DEFAULT",
+                        "backgroundColor": {
+                         "lightTheme": 2631720,
+                         "darkTheme": 2631720
+                        }
+                       }
+                      }
+                     ],
+                     "position": "THUMBNAIL_OVERLAY_BADGE_POSITION_BOTTOM_END"
+                    }
+                   },
+                   {
+                    "thumbnailHoverOverlayViewModel": {
+                     "icon": {
+                      "sources": [
+                       {
+                        "clientResource": {
+                         "imageName": "PLAY_ALL"
+                        }
+                       }
+                      ]
+                     },
+                     "text": {
+                      "content": "Play all",
+                      "styleRuns": [
+                       {
+                        "startIndex": 0,
+                        "length": 8
+                       }
+                      ]
+                     },
+                     "style": "THUMBNAIL_HOVER_OVERLAY_STYLE_COVER"
+                    }
+                   }
+                  ],
+                  "backgroundColor": {
+                   "lightTheme": 3815994,
+                   "darkTheme": 3815994
+                  }
+                 }
+                },
+                "stackColor": {
+                 "lightTheme": 12566463,
+                 "darkTheme": 9211020
+                }
+               }
+              },
+              "metadata": {
+               "lockupMetadataViewModel": {
+                "title": {
+                 "content": "Sam Sulek's \"The Bulk\""
+                },
+                "metadata": {
+                 "contentMetadataViewModel": {
+                  "metadataRows": [
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "robotslayer",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 11,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/@robotslayer_",
+                             "webPageType": "WEB_PAGE_TYPE_CHANNEL",
+                             "rootVe": 3611,
+                             "apiUrl": "/youtubei/v1/browse"
+                            }
+                           },
+                           "browseEndpoint": {
+                            "browseId": "UCAn877Odgrc54p6m7vazwIQ",
+                            "canonicalBaseUrl": "/@robotslayer_"
+                           }
+                          }
+                         }
+                        }
+                       ],
+                       "styleRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 11,
+                         "weightLabel": "FONT_WEIGHT_NORMAL"
+                        }
+                       ]
+                      }
+                     },
+                     {
+                      "text": {
+                       "content": "Playlist",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 8,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/@robotslayer_",
+                             "webPageType": "WEB_PAGE_TYPE_CHANNEL",
+                             "rootVe": 3611,
+                             "apiUrl": "/youtubei/v1/browse"
+                            }
+                           },
+                           "browseEndpoint": {
+                            "browseId": "UCAn877Odgrc54p6m7vazwIQ",
+                            "canonicalBaseUrl": "/@robotslayer_"
+                           }
+                          }
+                         }
+                        }
+                       ],
+                       "styleRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 8,
+                         "weightLabel": "FONT_WEIGHT_NORMAL"
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "isSpacerRow": true
+                   },
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "The Bulk Day 1 - Chest \u00b7 42:45",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 31,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/watch?v=AR7pkA9CK80&list=PLqYKnHAH2-zm205VHgjLu3Be6XywSMU_p",
+                             "webPageType": "WEB_PAGE_TYPE_WATCH",
+                             "rootVe": 3832
+                            }
+                           },
+                           "watchEndpoint": {
+                            "videoId": "AR7pkA9CK80",
+                            "playlistId": "PLqYKnHAH2-zm205VHgjLu3Be6XywSMU_p",
+                            "loggingContext": {
+                             "vssLoggingContext": {
+                              "serializedContextData": "GiJQTHFZS25IQUgyLXptMjA1Vkhnakx1M0JlNlh5d1NNVV9w"
+                             }
+                            }
+                           }
+                          }
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "The Bulk - Weight Gain Focused Grocery Trip \u00b7 16:55",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 52,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/watch?v=9WmRF4wC7bI&list=PLqYKnHAH2-zm205VHgjLu3Be6XywSMU_p",
+                             "webPageType": "WEB_PAGE_TYPE_WATCH",
+                             "rootVe": 3832
+                            }
+                           },
+                           "watchEndpoint": {
+                            "videoId": "9WmRF4wC7bI",
+                            "playlistId": "PLqYKnHAH2-zm205VHgjLu3Be6XywSMU_p",
+                            "loggingContext": {
+                             "vssLoggingContext": {
+                              "serializedContextData": "GiJQTHFZS25IQUgyLXptMjA1Vkhnakx1M0JlNlh5d1NNVV9w"
+                             }
+                            }
+                           }
+                          }
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "isSpacerRow": true
+                   },
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "View full playlist",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 18,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/playlist?list=PLqYKnHAH2-zm205VHgjLu3Be6XywSMU_p",
+                             "webPageType": "WEB_PAGE_TYPE_PLAYLIST",
+                             "rootVe": 5754,
+                             "apiUrl": "/youtubei/v1/browse"
+                            }
+                           },
+                           "browseEndpoint": {
+                            "browseId": "VLPLqYKnHAH2-zm205VHgjLu3Be6XywSMU_p"
+                           }
+                          }
+                         }
+                        }
+                       ],
+                       "styleRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 18,
+                         "weightLabel": "FONT_WEIGHT_MEDIUM"
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  ],
+                  "delimiter": " \u2022 "
+                 }
+                }
+               }
+              },
+              "contentId": "PLqYKnHAH2-zm205VHgjLu3Be6XywSMU_p",
+              "contentType": "LOCKUP_CONTENT_TYPE_PLAYLIST"
+             }
+            },
+            {
+             "lockupViewModel": {
+              "contentImage": {
+               "collectionThumbnailViewModel": {
+                "primaryThumbnail": {
+                 "thumbnailViewModel": {
+                  "image": {
+                   "sources": [
+                    {
+                     "url": "https://i.ytimg.com/vi/PA3CiFurW_E/hq720.jpg?sqp=-oaymwEXCOgCEMoBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBe71i7IQJPgA-jxb4b4GphvSap5w",
+                     "width": 360,
+                     "height": 202
+                    },
+                    {
+                     "url": "https://i.ytimg.com/vi/PA3CiFurW_E/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAZ7aeYY2t8qN1ETiu1THMSofS9mw",
+                     "width": 720,
+                     "height": 404
+                    }
+                   ]
+                  },
+                  "overlays": [
+                   {
+                    "thumbnailOverlayBadgeViewModel": {
+                     "thumbnailBadges": [
+                      {
+                       "thumbnailBadgeViewModel": {
+                        "icon": {
+                         "sources": [
+                          {
+                           "clientResource": {
+                            "imageName": "PLAYLISTS"
+                           }
+                          }
+                         ]
+                        },
+                        "text": "14 videos",
+                        "badgeStyle": "THUMBNAIL_OVERLAY_BADGE_STYLE_DEFAULT",
+                        "backgroundColor": {
+                         "lightTheme": 2631711,
+                         "darkTheme": 2631711
+                        }
+                       }
+                      }
+                     ],
+                     "position": "THUMBNAIL_OVERLAY_BADGE_POSITION_BOTTOM_END"
+                    }
+                   },
+                   {
+                    "thumbnailHoverOverlayViewModel": {
+                     "icon": {
+                      "sources": [
+                       {
+                        "clientResource": {
+                         "imageName": "PLAY_ALL"
+                        }
+                       }
+                      ]
+                     },
+                     "text": {
+                      "content": "Play all",
+                      "styleRuns": [
+                       {
+                        "startIndex": 0,
+                        "length": 8
+                       }
+                      ]
+                     },
+                     "style": "THUMBNAIL_HOVER_OVERLAY_STYLE_COVER"
+                    }
+                   }
+                  ],
+                  "backgroundColor": {
+                   "lightTheme": 4079408,
+                   "darkTheme": 4079408
+                  }
+                 }
+                },
+                "stackColor": {
+                 "lightTheme": 12369810,
+                 "darkTheme": 9079920
+                }
+               }
+              },
+              "metadata": {
+               "lockupMetadataViewModel": {
+                "title": {
+                 "content": "Sam Sulek Full Days of Eating"
+                },
+                "metadata": {
+                 "contentMetadataViewModel": {
+                  "metadataRows": [
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "JulianVGC",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 9,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/@JulianVGC",
+                             "webPageType": "WEB_PAGE_TYPE_CHANNEL",
+                             "rootVe": 3611,
+                             "apiUrl": "/youtubei/v1/browse"
+                            }
+                           },
+                           "browseEndpoint": {
+                            "browseId": "UCmqk5iO4wAhoYZqbiaKfGJg",
+                            "canonicalBaseUrl": "/@JulianVGC"
+                           }
+                          }
+                         }
+                        }
+                       ],
+                       "styleRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 9,
+                         "weightLabel": "FONT_WEIGHT_NORMAL"
+                        }
+                       ]
+                      }
+                     },
+                     {
+                      "text": {
+                       "content": "Playlist",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 8,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/@JulianVGC",
+                             "webPageType": "WEB_PAGE_TYPE_CHANNEL",
+                             "rootVe": 3611,
+                             "apiUrl": "/youtubei/v1/browse"
+                            }
+                           },
+                           "browseEndpoint": {
+                            "browseId": "UCmqk5iO4wAhoYZqbiaKfGJg",
+                            "canonicalBaseUrl": "/@JulianVGC"
+                           }
+                          }
+                         }
+                        }
+                       ],
+                       "styleRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 8,
+                         "weightLabel": "FONT_WEIGHT_NORMAL"
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "isSpacerRow": true
+                   },
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "SAM SULEK FULL DAY OF EATING with FOUAD ABIAD & PAUL LAUZON | Hosstile Supplements \u00b7 32:08",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 91,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/watch?v=PA3CiFurW_E&list=PLCbSv1akGBxMxTcx-APIhifGCPfFy0Txd",
+                             "webPageType": "WEB_PAGE_TYPE_WATCH",
+                             "rootVe": 3832
+                            }
+                           },
+                           "watchEndpoint": {
+                            "videoId": "PA3CiFurW_E",
+                            "playlistId": "PLCbSv1akGBxMxTcx-APIhifGCPfFy0Txd",
+                            "loggingContext": {
+                             "vssLoggingContext": {
+                              "serializedContextData": "GiJQTENiU3YxYWtHQnhNeFRjeC1BUEloaWZHQ1BmRnkwVHhk"
+                             }
+                            }
+                           }
+                          }
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "SAM SULEK GROCERY HAUL | Fouad Abiad, Sam Sulek & Paul Lauzon | Hosstile \u00b7 10:53",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 81,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/watch?v=u6Sd_8H4FwY&list=PLCbSv1akGBxMxTcx-APIhifGCPfFy0Txd",
+                             "webPageType": "WEB_PAGE_TYPE_WATCH",
+                             "rootVe": 3832
+                            }
+                           },
+                           "watchEndpoint": {
+                            "videoId": "u6Sd_8H4FwY",
+                            "playlistId": "PLCbSv1akGBxMxTcx-APIhifGCPfFy0Txd",
+                            "loggingContext": {
+                             "vssLoggingContext": {
+                              "serializedContextData": "GiJQTENiU3YxYWtHQnhNeFRjeC1BUEloaWZHQ1BmRnkwVHhk"
+                             }
+                            }
+                           }
+                          }
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "isSpacerRow": true
+                   },
+                   {
+                    "metadataParts": [
+                     {
+                      "text": {
+                       "content": "View full playlist",
+                       "commandRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 18,
+                         "onTap": {
+                          "innertubeCommand": {
+                           "commandMetadata": {
+                            "webCommandMetadata": {
+                             "url": "/playlist?list=PLCbSv1akGBxMxTcx-APIhifGCPfFy0Txd",
+                             "webPageType": "WEB_PAGE_TYPE_PLAYLIST",
+                             "rootVe": 5754,
+                             "apiUrl": "/youtubei/v1/browse"
+                            }
+                           },
+                           "browseEndpoint": {
+                            "browseId": "VLPLCbSv1akGBxMxTcx-APIhifGCPfFy0Txd"
+                           }
+                          }
+                         }
+                        }
+                       ],
+                       "styleRuns": [
+                        {
+                         "startIndex": 0,
+                         "length": 18,
+                         "weightLabel": "FONT_WEIGHT_MEDIUM"
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  ],
+                  "delimiter": " \u2022 "
+                 }
+                }
+               }
+              },
+              "contentId": "PLCbSv1akGBxMxTcx-APIhifGCPfFy0Txd",
+              "contentType": "LOCKUP_CONTENT_TYPE_PLAYLIST"
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     }
+    }
+   ]
+  }
+ }
+}

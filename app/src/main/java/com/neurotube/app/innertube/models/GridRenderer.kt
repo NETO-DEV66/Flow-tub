@@ -1,6 +1,7 @@
 package com.neurotube.app.innertube.models
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class GridRenderer(
@@ -26,5 +27,8 @@ data class GridRenderer(
         val musicNavigationButtonRenderer: MusicNavigationButtonRenderer? = null,
         val musicTwoRowItemRenderer: MusicTwoRowItemRenderer? = null,
         val continuationItemRenderer: ContinuationItemRenderer? = null,
+        // A signed-in music library now answers with lockup rows in place of the two-row ones, so
+        // the grid is read through both shapes.
+        val lockupViewModel: JsonObject? = null,
     )
 }

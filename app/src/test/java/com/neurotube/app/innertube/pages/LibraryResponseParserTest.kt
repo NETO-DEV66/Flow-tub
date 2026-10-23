@@ -1,5 +1,7 @@
 package com.neurotube.app.innertube.pages
 
+import com.neurotube.app.account.toSavedMusicCollections
+import com.neurotube.app.account.toSubscribedArtists
 import com.neurotube.app.innertube.models.AlbumItem
 import com.neurotube.app.innertube.models.ArtistItem
 import com.neurotube.app.innertube.models.PlaylistItem
@@ -154,5 +156,139 @@ class LibraryResponseParserTest {
         assertEquals(25, page.items.size)
         assertTrue(page.items.all { it is ArtistItem })
         assertNotNull(page.continuation)
+    }
+
+    @Test
+    fun `a library served as lockup rows still imports its saved playlists`() {
+        val page = LibraryResponseParser.pageOf(response("library_playlists_lockup.json"))
+
+        val playlists = page.items.filterIsInstance<PlaylistItem>()
+        assertEquals("every lockup row must be read, not walked past", 3, playlists.size)
+        assertTrue(playlists.any { it.title == "Sam Sulek Playlist" })
+        assertTrue("a lockup playlist must carry a thumbnail", playlists.all { !it.thumbnail.isNullOrBlank() })
+    }
+
+    @Test
+    fun `a lockup podcast row is imported as a playlist`() {
+        val page = LibraryResponseParser.pageOf(response("library_podcasts_lockup.json"))
+
+        assertEquals(1, page.items.filterIsInstance<PlaylistItem>().size)
+    }
+
+    @Test
+    fun `a library served as lockup artist rows imports its artists`() {
+        val page = LibraryResponseParser.pageOf(response("library_artists_lockup.json"))
+
+        val artists = page.items.filterIsInstance<ArtistItem>()
+        assertEquals(3, artists.size)
+        assertEquals("Ariana Grande", artists.first().title)
+        assertTrue("an artist row must keep a channel id", artists.all { it.channelId != null })
+    }
+
+    @Test
+    fun `a library served as lockup album rows imports its albums`() {
+        val page = LibraryResponseParser.pageOf(response("library_albums_lockup.json"))
+
+        val albums = page.items.filterIsInstance<AlbumItem>()
+        assertEquals(2, albums.size)
+        assertEquals("MPREb_E7NpKw54NIT", albums.first().browseId)
+        assertEquals(
+            "the album's playlist id comes from its play action",
+            "OLAK5uy_m8Yan_MSAia_ZYmZpl6xm1AINDg8LF1NI",
+            albums.first().playlistId,
+        )
+    }
+
+    @Test
+    fun `a lockup grid still reads its continuation`() {
+        val page =
+            LibraryResponseParser.pageOf(
+                decode(
+                    """
+                    {"responseContext":{},
+                     "contents":{"singleColumnBrowseResultsRenderer":{"tabs":[
+                       {"tabRenderer":{"content":{"sectionListRenderer":{"contents":[
+                         {"gridRenderer":{"items":[
+                           {"lockupViewModel":{"contentId":"PL1","contentType":"LOCKUP_CONTENT_TYPE_PLAYLIST",
+                             "metadata":{"lockupMetadataViewModel":{"title":{"content":"One"}}}}},
+                           {"continuationItemRenderer":{"continuationEndpoint":
+                             {"continuationCommand":{"token":"LOCKUP_NEXT"}}}}
+                         ]}}
+                       ]}}}}
+                     ]}}}
+                    """.trimIndent(),
+                ),
+            )
+
+        assertEquals(1, page.items.size)
+        assertEquals("LOCKUP_NEXT", page.continuation)
+    }
+
+    @Test
+    fun `lockup rows wrapped in an item section are still read`() {
+        val page =
+            LibraryResponseParser.pageOf(
+                decode(
+                    """
+                    {"responseContext":{},
+                     "contents":{"singleColumnBrowseResultsRenderer":{"tabs":[
+                       {"tabRenderer":{"content":{"sectionListRenderer":{
+                         "contents":[{"itemSectionRenderer":{"contents":[
+                           {"lockupViewModel":{"contentId":"PL1","contentType":"LOCKUP_CONTENT_TYPE_PLAYLIST",
+                             "metadata":{"lockupMetadataViewModel":{"title":{"content":"One"}}}}}
+                         ]}}],
+                         "continuations":[{"reloadContinuationData":{"continuation":"WRAPPED_NEXT"}}]
+                       }}}}
+                     ]}}}
+                    """.trimIndent(),
+                ),
+            )
+
+        assertEquals(1, page.items.size)
+        assertTrue(page.items.single() is PlaylistItem)
+        assertEquals("WRAPPED_NEXT", page.continuation)
+    }
+
+    @Test
+    fun `a continuation of lockup rows is read with its next token`() {
+        val page =
+            LibraryResponseParser.continuationPageOf(
+                decode(
+                    """
+                    {"responseContext":{},
+                     "continuationContents":{"gridContinuation":{
+                       "items":[
+                         {"lockupViewModel":{"contentId":"MPREb_1","contentType":"LOCKUP_CONTENT_TYPE_ALBUM",
+                           "itemPlayback":{"inlinePlayerData":{"onSelect":{"innertubeCommand":{"watchEndpoint":
+                             {"videoId":"v1","playlistId":"OLAK5uy_1"}}}}},
+                           "metadata":{"lockupMetadataViewModel":{"title":{"content":"An Album"}}}}},
+                         {"continuationItemRenderer":{"continuationEndpoint":
+                           {"continuationCommand":{"token":"NEXT_ALBUMS"}}}}
+                       ]
+                     }}}
+                    """.trimIndent(),
+                ),
+            )
+
+        val album = page.items.single() as AlbumItem
+        assertEquals("MPREb_1", album.browseId)
+        assertEquals("OLAK5uy_1", album.playlistId)
+        assertEquals("NEXT_ALBUMS", page.continuation)
+    }
+
+    @Test
+    fun `lockup artist rows reach the subscriptions store`() {
+        val subscriptions = LibraryResponseParser.pageOf(response("library_artists_lockup.json")).items.toSubscribedArtists()
+
+        assertEquals(3, subscriptions.size)
+        assertTrue("an imported artist must be subscribed by channel id", subscriptions.all { it.channelId.startsWith("UC") })
+    }
+
+    @Test
+    fun `lockup playlist rows reach the saved collections`() {
+        val collections = LibraryResponseParser.pageOf(response("library_playlists_lockup.json")).items.toSavedMusicCollections()
+
+        assertEquals("every saved playlist must survive as a collection", 3, collections.size)
+        assertTrue(collections.all { it.id.isNotBlank() && it.title.isNotBlank() })
     }
 }

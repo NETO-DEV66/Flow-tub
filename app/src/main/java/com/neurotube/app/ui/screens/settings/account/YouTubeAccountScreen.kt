@@ -245,6 +245,9 @@ private fun importStepText(step: AccountImportStep): Int =
         AccountImportStep.LIKED_SONGS -> R.string.youtube_account_import_step_liked_songs
         AccountImportStep.PLAYLISTS -> R.string.youtube_account_import_step_playlists
         AccountImportStep.ALBUMS -> R.string.youtube_account_import_step_albums
+        AccountImportStep.VIDEO_PLAYLISTS -> R.string.youtube_account_import_step_video_playlists
+        AccountImportStep.WATCH_LATER -> R.string.youtube_account_import_step_watch_later
+        AccountImportStep.HISTORY -> R.string.youtube_account_import_step_history
     }
 
 @Composable
@@ -256,4 +259,7 @@ private fun importSummary(report: AccountImportReport): String =
         report.likedSongs,
         report.playlists,
         report.albums,
+        report.videoPlaylists,
+        report.watchLater,
+        report.history,
     )

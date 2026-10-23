@@ -2,12 +2,15 @@ package com.neurotube.app.account
 
 import com.neurotube.app.data.local.ChannelSubscription
 import com.neurotube.app.data.local.LikedVideoInfo
+import com.neurotube.app.data.local.VideoHistoryEntry
 import com.neurotube.app.data.model.Channel
+import com.neurotube.app.data.model.Video
 import com.neurotube.app.innertube.models.AlbumItem
 import com.neurotube.app.innertube.models.ArtistItem
 import com.neurotube.app.innertube.models.PlaylistItem
 import com.neurotube.app.innertube.models.SongItem
 import com.neurotube.app.innertube.models.YTItem
+import com.neurotube.app.innertube.pages.AccountVideoCollection
 
 /** A playlist or album the account keeps in its YouTube Music library, as that page lists it. */
 data class AccountMusicCollection(
@@ -24,8 +27,20 @@ data class AccountImportReport(
     val likedSongs: Int = 0,
     val playlists: Int = 0,
     val albums: Int = 0,
+    val videoPlaylists: Int = 0,
+    val watchLater: Int = 0,
+    val history: Int = 0,
 ) {
-    val isEmpty: Boolean get() = channels == 0 && artists == 0 && likedSongs == 0 && playlists == 0 && albums == 0
+    val isEmpty: Boolean
+        get() =
+            channels == 0 &&
+                artists == 0 &&
+                likedSongs == 0 &&
+                playlists == 0 &&
+                albums == 0 &&
+                videoPlaylists == 0 &&
+                watchLater == 0 &&
+                history == 0
 }
 
 /** The browse ids the music library uses for collections that are not a person's own playlist. */
@@ -132,3 +147,43 @@ internal fun List<YTItem>.toSavedMusicCollections(): List<AccountMusicCollection
         }
     }.filter { it.id.isNotBlank() && it.id !in RESERVED_COLLECTION_IDS && it.title.isNotBlank() }
         .distinctBy { it.id }
+
+/**
+ * The playlists a signed-in account keeps on youtube.com, as the playlists page lists them.
+ *
+ * These are the plain video playlists, not the music library's: they are saved as external
+ * playlists so the app can open and play them, and the "Watch Later" and "Liked videos" lists
+ * YouTube owns are left out, since the app keeps its own.
+ */
+internal fun List<AccountVideoCollection>.toSavedVideoPlaylists(): List<AccountVideoCollection> =
+    filter { it.id.isNotBlank() && it.title.isNotBlank() }
+        .filter { it.id != WATCH_LATER_PLAYLIST_ID && it.id != LIKED_VIDEOS_PLAYLIST_ID }
+        .distinctBy { it.id }
+
+/** The two lists YouTube keeps for every account, which the app has its own version of. */
+internal const val WATCH_LATER_PLAYLIST_ID = "WL"
+internal const val LIKED_VIDEOS_PLAYLIST_ID = "LL"
+
+/**
+ * The videos a signed-in account watched, newest first, as history entries.
+ *
+ * [now] anchors the order: the history page lists its newest watch first, and the history store
+ * sorts by the time it is given, so the first row is stamped [now] and each later one a millisecond
+ * earlier. A watch with no duration is kept — the position is simply unknown — because losing the
+ * row would lose the fact that the video was watched at all.
+ */
+internal fun List<Video>.toHistoryEntries(now: Long): List<VideoHistoryEntry> =
+    distinctBy { it.id }
+        .filter { it.id.isNotBlank() }
+        .mapIndexed { index, video ->
+            VideoHistoryEntry(
+                videoId = video.id,
+                position = 0L,
+                duration = video.duration.toLong(),
+                timestamp = now - index,
+                title = video.title,
+                thumbnailUrl = video.thumbnailUrl,
+                channelName = video.channelName,
+                channelId = video.channelId,
+            )
+        }

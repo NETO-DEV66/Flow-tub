@@ -9,6 +9,7 @@ import com.neurotube.app.data.local.entity.VideoEntity
 import com.neurotube.app.data.model.PlaylistInfo
 import com.neurotube.app.data.model.Video
 import com.neurotube.app.innertube.YouTube
+import com.neurotube.app.innertube.pages.AccountVideoCollection
 import com.neurotube.app.utils.relativedate.RelativeUploadDateParser
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
@@ -250,6 +251,34 @@ class PlaylistRepository
             )
             return playlistId
         }
+
+        /**
+         * Saves the account's youtube.com playlists as external playlists, one row each.
+         *
+         * The playlists themselves are what is kept; their videos are fetched when the user opens
+         * one, which keeps an import from spending a request per playlist on songs the user may
+         * never play. Returns how many rows were written.
+         */
+        suspend fun saveVideoPlaylists(playlists: List<AccountVideoCollection>): Int =
+            playlists.count { playlist ->
+                runCatching {
+                    val existing = playlistDao.getPlaylist(playlist.id)
+                    if (existing != null && existing.isUserCreated) return@runCatching false
+                    playlistDao.insertPlaylist(
+                        PlaylistEntity(
+                            id = playlist.id,
+                            name = playlist.title,
+                            description = "",
+                            thumbnailUrl = playlist.thumbnailUrl,
+                            isPrivate = false,
+                            createdAt = System.currentTimeMillis(),
+                            isMusic = false,
+                            isUserCreated = false,
+                        ),
+                    )
+                    true
+                }.getOrDefault(false)
+            }
 
         suspend fun saveExternalVideoPlaylist(
             id: String,
