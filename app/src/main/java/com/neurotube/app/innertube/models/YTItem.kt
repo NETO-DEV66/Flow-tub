@@ -12,7 +12,7 @@ sealed class YTItem {
 
 data class Artist(
     val name: String,
-    val id: String?,
+    val id: String? = null,
 )
 
 data class Album(
@@ -23,7 +23,7 @@ data class Album(
 data class SongItem(
     override val id: String,
     override val title: String,
-    val artists: List<Artist>,
+    val artists: List<Artist> = emptyList(),
     val album: Album? = null,
     val duration: Int? = null,
     val musicVideoType: String? = null,
@@ -48,7 +48,7 @@ data class AlbumItem(
     val playlistId: String,
     override val id: String = browseId,
     override val title: String,
-    val artists: List<Artist>?,
+    val artists: List<Artist>? = null,
     val year: Int? = null,
     override val thumbnail: String,
     override val explicit: Boolean = false,
@@ -60,12 +60,12 @@ data class AlbumItem(
 data class PlaylistItem(
     override val id: String,
     override val title: String,
-    val author: Artist?,
-    val songCountText: String?,
+    val author: Artist? = null,
+    val songCountText: String? = null,
     override val thumbnail: String?,
-    val playEndpoint: WatchEndpoint?,
-    val shuffleEndpoint: WatchEndpoint?,
-    val radioEndpoint: WatchEndpoint?,
+    val playEndpoint: WatchEndpoint? = null,
+    val shuffleEndpoint: WatchEndpoint? = null,
+    val radioEndpoint: WatchEndpoint? = null,
     val isEditable: Boolean = false,
 ) : YTItem() {
     override val explicit: Boolean
@@ -80,8 +80,8 @@ data class ArtistItem(
     override val thumbnail: String?,
     val channelId: String? = null,
     val playEndpoint: WatchEndpoint? = null,
-    val shuffleEndpoint: WatchEndpoint?,
-    val radioEndpoint: WatchEndpoint?,
+    val shuffleEndpoint: WatchEndpoint? = null,
+    val radioEndpoint: WatchEndpoint? = null,
     val subscriberCountText: String? = null,
 ) : YTItem() {
     override val explicit: Boolean

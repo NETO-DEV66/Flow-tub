@@ -6,17 +6,17 @@ import kotlinx.serialization.json.JsonNames
 
 @Serializable
 data class SectionListRenderer(
-    val header: Header?,
-    val contents: List<Content>?,
-    val continuations: List<Continuation>?,
+    val header: Header? = null,
+    val contents: List<Content>? = null,
+    val continuations: List<Continuation>? = null,
 ) {
     @Serializable
     data class Header(
-        val chipCloudRenderer: ChipCloudRenderer?,
+        val chipCloudRenderer: ChipCloudRenderer? = null,
     ) {
         @Serializable
         data class ChipCloudRenderer(
-            val chips: List<Chip>,
+            val chips: List<Chip> = emptyList(),
         ) {
             @Serializable
             data class Chip(
@@ -29,7 +29,7 @@ data class SectionListRenderer(
                     val onDeselectedCommand: NavigationEndpoint? = null,
                     // The close button doesn't have the following two fields
                     val text: Runs?,
-                    val uniqueId: String?,
+                    val uniqueId: String? = null,
                 )
             }
         }
@@ -52,7 +52,7 @@ data class SectionListRenderer(
 
     @Serializable
     data class ItemSectionRenderer(
-        val contents: List<MusicShelfRenderer.Content>?,
+        val contents: List<MusicShelfRenderer.Content>? = null,
         val gridRenderer: GridRenderer? = null,
         val musicShelfRenderer: MusicShelfRenderer? = null,
     )

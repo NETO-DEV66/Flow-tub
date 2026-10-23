@@ -1,0 +1,19 @@
+NEUROTUBE CHANGE LOG
+VERSION: 1.5.5
+DATE: 2026-10-23
+STATUS: RELEASE
+
+FIXES
+- Every part of the account import comes across again, not just liked songs. The library pages were decoded with a JSON setting that treats an absent key as an error, and a real music library omits one key in its response context. That single missing key failed the whole response, so the reader saw no page at all and the subscriptions, artists, albums, playlists, video playlists and history all came back empty while the liked songs still worked
+- The library path now uses the same tolerant JSON configuration as the rest of the app, and the models treat their optional fields as optional, so one absent key can no longer wipe out a whole page
+- The import now says which part failed and why. A finished import names the parts that did not come across and carries the error for each one
+
+NEW
+- The diagnostics report holds a line-by-line trace of the last import: the shape and size of every response, and the error of every part. A failed import can be read back instead of reproduced
+
+NOTES
+- Importing only reads. Nothing is written back to the account and nothing is deleted
+- Re-importing is safe: anything already present is left as it is, and each part is tried on its own
+- The session is still a cookie, stored encrypted on the device only. It never leaves the phone except in requests to YouTube itself
+- One universal APK for every supported device, as before
+- Same signing key as every earlier release

@@ -4,18 +4,18 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PlaylistPanelRenderer(
-    val title: String?,
-    val titleText: Runs?,
-    val shortBylineText: Runs?,
-    val contents: List<Content>,
-    val isInfinite: Boolean?,
-    val numItemsToShow: Int?,
-    val playlistId: String?,
-    val continuations: List<Continuation>?,
+    val title: String? = null,
+    val titleText: Runs? = null,
+    val shortBylineText: Runs? = null,
+    val contents: List<Content> = emptyList(),
+    val isInfinite: Boolean? = null,
+    val numItemsToShow: Int? = null,
+    val playlistId: String? = null,
+    val continuations: List<Continuation>? = null,
 ) {
     @Serializable
     data class Content(
-        val playlistPanelVideoRenderer: PlaylistPanelVideoRenderer?,
-        val automixPreviewVideoRenderer: AutomixPreviewVideoRenderer?,
+        val playlistPanelVideoRenderer: PlaylistPanelVideoRenderer? = null,
+        val automixPreviewVideoRenderer: AutomixPreviewVideoRenderer? = null,
     )
 }

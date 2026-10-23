@@ -9,14 +9,12 @@ data class MusicEditablePlaylistDetailHeaderRenderer(
 ) {
     @Serializable
     data class Header(
-        val musicDetailHeaderRenderer: MusicDetailHeaderRenderer?,
-        val musicResponsiveHeaderRenderer: MusicResponsiveHeaderRenderer?
-    )
+        val musicDetailHeaderRenderer: MusicDetailHeaderRenderer? = null,
+        val musicResponsiveHeaderRenderer: MusicResponsiveHeaderRenderer? = null)
 
     @Serializable
     data class EditHeader(
-        val musicPlaylistEditHeaderRenderer: MusicPlaylistEditHeaderRenderer?
-    )
+        val musicPlaylistEditHeaderRenderer: MusicPlaylistEditHeaderRenderer? = null)
 }
 
 @Serializable
@@ -24,12 +22,11 @@ data class MusicDetailHeaderRenderer(
     val title: Runs,
     val subtitle: Runs,
     val secondSubtitle: Runs,
-    val description: Runs?,
+    val description: Runs? = null,
     val thumbnail: ThumbnailRenderer,
     val menu: Menu,
 )
 
 @Serializable
 data class MusicPlaylistEditHeaderRenderer(
-    val editTitle: Runs?
-)
+    val editTitle: Runs? = null)

@@ -2147,7 +2147,7 @@ object YouTube {
 
         if (ImportDiagnostics.recording) logResponse("library($browseId)", 200, body)
         LibraryResponseParser.pageOf(
-            Json { ignoreUnknownKeys = true }.decodeFromString<BrowseResponse>(body),
+            lenientJson.decodeFromString<BrowseResponse>(body),
             tabIndex,
         )
     }.onFailure { error -> if (ImportDiagnostics.recording) logFailure("library($browseId)", error) }
@@ -2164,7 +2164,7 @@ object YouTube {
 
             if (ImportDiagnostics.recording) logResponse("libraryPage", 200, body)
             LibraryResponseParser.continuationPageOf(
-                Json { ignoreUnknownKeys = true }.decodeFromString<BrowseResponse>(body),
+                lenientJson.decodeFromString<BrowseResponse>(body),
             )
         }.onFailure { error -> if (ImportDiagnostics.recording) logFailure("libraryPage", error) }
 

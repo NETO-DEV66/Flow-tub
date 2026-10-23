@@ -74,7 +74,7 @@ data class BrowseEndpoint(
 
 @Serializable
 data class SearchEndpoint(
-    val params: String?,
+    val params: String? = null,
     val query: String,
 ) : Endpoint()
 
@@ -102,17 +102,17 @@ data class ShareEntityEndpoint(
 
 @Serializable
 data class DefaultServiceEndpoint(
-    var subscribeEndpoint: SubscribeEndpoint?,
-    var feedbackEndpoint: FeedbackEndpoint?
+    var subscribeEndpoint: SubscribeEndpoint? = null,
+    var feedbackEndpoint: FeedbackEndpoint? = null,
 ) : Endpoint() {
     @Serializable
     data class SubscribeEndpoint(
-        val channelIds: List<String>,
+        val channelIds: List<String> = emptyList(),
         val params: String? = null,
     ) : Endpoint()
 }
 
 @Serializable
 data class ToggledServiceEndpoint(
-    var feedbackEndpoint: FeedbackEndpoint?
+    var feedbackEndpoint: FeedbackEndpoint? = null,
 ) : Endpoint()

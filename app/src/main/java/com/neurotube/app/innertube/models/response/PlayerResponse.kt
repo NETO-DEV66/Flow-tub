@@ -13,9 +13,9 @@ import kotlinx.serialization.json.JsonArray
 data class PlayerResponse(
     val responseContext: ResponseContext,
     val playabilityStatus: PlayabilityStatus,
-    val playerConfig: PlayerConfig?,
-    val streamingData: StreamingData?,
-    val videoDetails: VideoDetails?,
+    val playerConfig: PlayerConfig? = null,
+    val streamingData: StreamingData? = null,
+    val videoDetails: VideoDetails? = null,
     val captions: Captions? = null,
     @SerialName("playbackTracking")
     val playbackTracking: PlaybackTracking?,
@@ -114,7 +114,7 @@ data class PlayerResponse(
     @Serializable
     data class PlayabilityStatus(
         val status: String,
-        val reason: String?,
+        val reason: String? = null,
         val liveStreamability: LiveStreamability? = null,
     ) {
         @Serializable
@@ -146,8 +146,8 @@ data class PlayerResponse(
     ) {
         @Serializable
         data class AudioConfig(
-            val loudnessDb: Double?,
-            val perceptualLoudnessDb: Double?,
+            val loudnessDb: Double? = null,
+            val perceptualLoudnessDb: Double? = null,
             val loudnessTargetLkfs: Double? = null,
             val enablePerFormatLoudness: Boolean? = null,
             val trackAbsoluteLoudnessLkfs: Double? = null,
@@ -185,23 +185,23 @@ data class PlayerResponse(
         @Serializable
         data class Format(
             val itag: Int,
-            val url: String?,
+            val url: String? = null,
             val mimeType: String,
             val bitrate: Int,
-            val width: Int?,
-            val height: Int?,
-            val contentLength: Long?,
+            val width: Int? = null,
+            val height: Int? = null,
+            val contentLength: Long? = null,
             val quality: String,
-            val fps: Int?,
-            val qualityLabel: String?,
-            val averageBitrate: Int?,
-            val audioQuality: String?,
-            val approxDurationMs: String?,
-            val audioSampleRate: Int?,
-            val audioChannels: Int?,
-            val loudnessDb: Double?,
-            val lastModified: Long?,
-            val signatureCipher: String?,
+            val fps: Int? = null,
+            val qualityLabel: String? = null,
+            val averageBitrate: Int? = null,
+            val audioQuality: String? = null,
+            val approxDurationMs: String? = null,
+            val audioSampleRate: Int? = null,
+            val audioChannels: Int? = null,
+            val loudnessDb: Double? = null,
+            val lastModified: Long? = null,
+            val signatureCipher: String? = null,
             val cipher: String? = null,
             val audioTrack: AudioTrack? = null,
             val isDrc: Boolean? = null,
@@ -251,8 +251,8 @@ data class PlayerResponse(
 
             @Serializable
             data class AudioTrack(
-                val displayName: String?,
-                val id: String?,
+                val displayName: String? = null,
+                val id: String? = null,
                 val isAutoDubbed: Boolean? = null,
                 val audioIsDefault: Boolean? = null,
             )
@@ -279,8 +279,8 @@ data class PlayerResponse(
     @Serializable
     data class VideoDetails(
         val videoId: String,
-        val title: String?,
-        val author: String?,
+        val title: String? = null,
+        val author: String? = null,
         val channelId: String,
         val shortDescription: String? = null,
         val lengthSeconds: String = "0",

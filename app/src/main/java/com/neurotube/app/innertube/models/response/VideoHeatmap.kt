@@ -23,8 +23,8 @@ data class HeatmapHighlight(
 )
 
 data class VideoHeatmap(
-    val markers: List<HeatmapMarker>,
-    val highlights: List<HeatmapHighlight>,
+    val markers: List<HeatmapMarker> = emptyList(),
+    val highlights: List<HeatmapHighlight> = emptyList(),
 ) {
     val isEmpty: Boolean get() = markers.isEmpty()
 }

@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AccountMenuResponse(
-    val actions: List<Action>,
+    val actions: List<Action> = emptyList(),
 ) {
     @Serializable
     data class Action(
@@ -24,7 +24,7 @@ data class AccountMenuResponse(
             ) {
                 @Serializable
                 data class MultiPageMenuRenderer(
-                    val header: Header?,
+                    val header: Header? = null,
                 ) {
                     @Serializable
                     data class Header(
@@ -33,8 +33,8 @@ data class AccountMenuResponse(
                         @Serializable
                         data class ActiveAccountHeaderRenderer(
                             val accountName: Runs,
-                            val email: Runs?,
-                            val channelHandle: Runs?,
+                            val email: Runs? = null,
+                            val channelHandle: Runs? = null,
                             val accountPhoto: Thumbnails,
                         ) {
                             fun toAccountInfo() =

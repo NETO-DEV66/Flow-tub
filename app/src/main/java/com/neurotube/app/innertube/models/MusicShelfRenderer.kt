@@ -5,11 +5,11 @@ import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class MusicShelfRenderer(
-    val title: Runs?,
-    val contents: List<Content>?,
-    val continuations: List<Continuation>?,
-    val bottomEndpoint: NavigationEndpoint?,
-    val moreContentButton: Button?,
+    val title: Runs? = null,
+    val contents: List<Content>? = null,
+    val continuations: List<Continuation>? = null,
+    val bottomEndpoint: NavigationEndpoint? = null,
+    val moreContentButton: Button? = null,
     val subheaders: List<Subheader>? = null,
 ) {
     @Serializable
@@ -25,41 +25,41 @@ data class MusicShelfRenderer(
 
     @Serializable
     data class Subheader(
-        val musicSideAlignedItemRenderer: MusicSideAlignedItemRenderer?,
+        val musicSideAlignedItemRenderer: MusicSideAlignedItemRenderer? = null,
     ) {
         @Serializable
         data class MusicSideAlignedItemRenderer(
-            val startItems: List<StartItem>?,
+            val startItems: List<StartItem>? = null,
         )
 
         @Serializable
         data class StartItem(
-            val musicSortFilterButtonRenderer: MusicSortFilterButtonRenderer?,
+            val musicSortFilterButtonRenderer: MusicSortFilterButtonRenderer? = null,
         )
 
         @Serializable
         data class MusicSortFilterButtonRenderer(
-            val menu: SortFilterMenu?,
+            val menu: SortFilterMenu? = null,
         )
 
         @Serializable
         data class SortFilterMenu(
-            val musicMultiSelectMenuRenderer: MusicMultiSelectMenuRenderer?,
+            val musicMultiSelectMenuRenderer: MusicMultiSelectMenuRenderer? = null,
         )
 
         @Serializable
         data class MusicMultiSelectMenuRenderer(
-            val options: List<Option>?,
+            val options: List<Option>? = null,
         )
 
         @Serializable
         data class Option(
-            val musicMultiSelectMenuItemRenderer: MusicMultiSelectMenuItemRenderer?,
+            val musicMultiSelectMenuItemRenderer: MusicMultiSelectMenuItemRenderer? = null,
         )
 
         @Serializable
         data class MusicMultiSelectMenuItemRenderer(
-            val formItemEntityKey: String?,
+            val formItemEntityKey: String? = null,
         )
     }
 }

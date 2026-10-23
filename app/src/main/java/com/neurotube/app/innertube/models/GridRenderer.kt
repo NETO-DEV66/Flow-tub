@@ -5,9 +5,12 @@ import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class GridRenderer(
-    val header: Header?,
-    val items: List<Item>,
-    val continuations: List<Continuation>?,
+    // A grid may omit its header and its continuation list entirely; a nullable field without a
+    // default is required by kotlinx, so defaulting every optional field is what keeps one absent
+    // key from failing the whole response.
+    val header: Header? = null,
+    val items: List<Item> = emptyList(),
+    val continuations: List<Continuation>? = null,
 ) {
     @Serializable
     data class Header(

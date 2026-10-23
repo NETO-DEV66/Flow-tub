@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class GetTranscriptResponse(
-    val actions: List<Action>?,
+    val actions: List<Action>? = null,
 ) {
     @Serializable
     data class Action(
@@ -28,7 +28,7 @@ data class GetTranscriptResponse(
                     ) {
                         @Serializable
                         data class TranscriptBodyRenderer(
-                            val cueGroups: List<CueGroup>,
+                            val cueGroups: List<CueGroup> = emptyList(),
                         ) {
                             @Serializable
                             data class CueGroup(
@@ -36,7 +36,7 @@ data class GetTranscriptResponse(
                             ) {
                                 @Serializable
                                 data class TranscriptCueGroupRenderer(
-                                    val cues: List<Cue>,
+                                    val cues: List<Cue> = emptyList(),
                                 ) {
                                     @Serializable
                                     data class Cue(

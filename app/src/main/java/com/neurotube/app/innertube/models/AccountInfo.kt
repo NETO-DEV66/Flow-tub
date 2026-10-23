@@ -2,7 +2,7 @@ package com.neurotube.app.innertube.models
 
 data class AccountInfo(
     val name: String,
-    val email: String?,
-    val channelHandle: String?,
-    val thumbnailUrl: String?,
+    val email: String? = null,
+    val channelHandle: String? = null,
+    val thumbnailUrl: String? = null,
 )

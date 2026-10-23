@@ -20,7 +20,7 @@ import kotlinx.serialization.json.JsonNames
 data class MusicResponsiveListItemRenderer(
     val badges: List<Badges>? = null,
     val fixedColumns: List<FlexColumn>? = null,
-    val flexColumns: List<FlexColumn>,
+    val flexColumns: List<FlexColumn> = emptyList(),
     val thumbnail: ThumbnailRenderer? = null,
     val menu: Menu? = null,
     val playlistItemData: PlaylistItemData? = null,
@@ -83,13 +83,13 @@ data class MusicResponsiveListItemRenderer(
     ) {
         @Serializable
         data class MusicResponsiveListItemFlexColumnRenderer(
-            val text: Runs?,
+            val text: Runs? = null,
         )
     }
 
     @Serializable
     data class PlaylistItemData(
-        val playlistSetVideoId: String?,
+        val playlistSetVideoId: String? = null,
         val videoId: String,
     )
 
@@ -107,7 +107,7 @@ data class MusicResponsiveListItemRenderer(
             ) {
                 @Serializable
                 data class MusicPlayButtonRenderer(
-                    val playNavigationEndpoint: NavigationEndpoint?,
+                    val playNavigationEndpoint: NavigationEndpoint? = null,
                 )
             }
         }

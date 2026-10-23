@@ -1,0 +1,4 @@
+- Every part of the account import comes across again, not just liked songs — a real library omits one key the reader treated as required, and that one missing key failed the whole page
+- The library path now uses the same tolerant JSON configuration as the rest of the app, so one absent key can no longer wipe out a whole page
+- The finished screen names the parts that did not come across, with the error for each one
+- One universal APK, same signing key as before

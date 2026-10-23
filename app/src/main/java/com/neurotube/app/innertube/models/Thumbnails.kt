@@ -4,12 +4,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Thumbnails(
-    val thumbnails: List<Thumbnail>,
+    val thumbnails: List<Thumbnail> = emptyList(),
 )
 
 @Serializable
 data class Thumbnail(
     val url: String,
-    val width: Int?,
-    val height: Int?,
+    val width: Int? = null,
+    val height: Int? = null,
 )

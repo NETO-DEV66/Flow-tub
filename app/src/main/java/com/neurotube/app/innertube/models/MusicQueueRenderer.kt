@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MusicQueueRenderer(
-    val content: Content?,
-    val header: Header?,
+    val content: Content? = null,
+    val header: Header? = null,
 ) {
     @Serializable
     data class Content(
@@ -14,12 +14,12 @@ data class MusicQueueRenderer(
 
     @Serializable
     data class Header(
-        val musicQueueHeaderRenderer: MusicQueueHeaderRenderer?,
+        val musicQueueHeaderRenderer: MusicQueueHeaderRenderer? = null,
     ) {
         @Serializable
         data class MusicQueueHeaderRenderer(
-            val title: Runs?,
-            val subtitle: Runs?,
+            val title: Runs? = null,
+            val subtitle: Runs? = null,
         )
     }
 }

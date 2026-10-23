@@ -1,3 +1,32 @@
+# NeuroTube v1.5.5
+
+**Release date:** 2026-10-23
+
+A bug-fix release for the account library import. Importing a signed-in account brought in the
+liked songs but left the subscriptions, artists, albums, playlists, video playlists and history
+empty.
+
+## Fixes
+
+- **Every part of the import is imported again, not just liked songs.** The library pages were
+  decoded with a JSON configuration that treats an absent key as an error. A real music library
+  omits `responseContext.visitorData`, and that one missing key failed the whole response, so the
+  reader saw no page at all and every part but liked songs came back empty. The library path now
+  uses the same tolerant configuration as the rest of the app, and the models treat their optional
+  fields as optional, so one absent key can no longer wipe out a whole page.
+- **The import says which part failed and why.** A finished import now names the parts that did
+  not come across and carries the error for each one, and the diagnostics report holds a
+  line-by-line trace of the last import — the shape and size of every response, and the error of
+  every part. A failed import can be read back instead of reproduced.
+
+## Notes
+
+- Importing only reads. Nothing is written back to the account and nothing is deleted.
+- Re-importing is safe: anything already present is left as it is, and each part is tried on its
+  own, so one failing does not lose the others.
+- The session is a cookie, stored encrypted on the device only and sent only to YouTube.
+- One universal APK, and the same signing key as every earlier release.
+
 # NeuroTube v1.5.4
 
 **Release date:** 2026-10-22

@@ -8,15 +8,15 @@ import kotlinx.serialization.json.JsonNames
 @Serializable
 data class ThumbnailRenderer(
     @JsonNames("croppedSquareThumbnailRenderer")
-    val musicThumbnailRenderer: MusicThumbnailRenderer?,
-    val musicAnimatedThumbnailRenderer: MusicAnimatedThumbnailRenderer?,
-    val croppedSquareThumbnailRenderer: MusicThumbnailRenderer?,
+    val musicThumbnailRenderer: MusicThumbnailRenderer? = null,
+    val musicAnimatedThumbnailRenderer: MusicAnimatedThumbnailRenderer? = null,
+    val croppedSquareThumbnailRenderer: MusicThumbnailRenderer? = null,
 ) {
     @Serializable
     data class MusicThumbnailRenderer(
         val thumbnail: Thumbnails,
-        val thumbnailCrop: String?,
-        val thumbnailScale: String?,
+        val thumbnailCrop: String? = null,
+        val thumbnailScale: String? = null,
     ) {
         fun getThumbnailUrl() = thumbnail.thumbnails.lastOrNull()?.url
     }

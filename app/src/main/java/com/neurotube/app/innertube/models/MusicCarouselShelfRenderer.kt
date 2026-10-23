@@ -4,10 +4,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MusicCarouselShelfRenderer(
-    val header: Header?,
-    val contents: List<Content>,
+    val header: Header? = null,
+    val contents: List<Content> = emptyList(),
     val itemSize: String,
-    val numItemsPerColumn: Int?,
+    val numItemsPerColumn: Int? = null,
 ) {
     @Serializable
     data class Header(
@@ -15,17 +15,17 @@ data class MusicCarouselShelfRenderer(
     ) {
         @Serializable
         data class MusicCarouselShelfBasicHeaderRenderer(
-            val strapline: Runs?,
+            val strapline: Runs? = null,
             val title: Runs,
-            val thumbnail: ThumbnailRenderer?,
-            val moreContentButton: Button?,
+            val thumbnail: ThumbnailRenderer? = null,
+            val moreContentButton: Button? = null,
         )
     }
 
     @Serializable
     data class Content(
-        val musicTwoRowItemRenderer: MusicTwoRowItemRenderer?,
-        val musicResponsiveListItemRenderer: MusicResponsiveListItemRenderer?,
-        val musicNavigationButtonRenderer: MusicNavigationButtonRenderer?, // navigation button in explore tab
+        val musicTwoRowItemRenderer: MusicTwoRowItemRenderer? = null,
+        val musicResponsiveListItemRenderer: MusicResponsiveListItemRenderer? = null,
+        val musicNavigationButtonRenderer: MusicNavigationButtonRenderer? = null, // navigation button in explore tab
     )
 }

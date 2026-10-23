@@ -23,7 +23,7 @@ data class Context(
         val utcOffsetMinutes: Int? = null,
         val gl: String,
         val hl: String,
-        val visitorData: String?,
+        val visitorData: String? = null,
         val userAgent: String? = null,
     )
 

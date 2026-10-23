@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MusicPlaylistShelfRenderer(
-    val playlistId: String?,
-    val contents: List<MusicShelfRenderer.Content>?,
+    val playlistId: String? = null,
+    val contents: List<MusicShelfRenderer.Content>? = null,
     val collapsedItemCount: Int,
 )

@@ -7,11 +7,11 @@ data class MusicCardShelfRenderer(
     val title: Runs,
     val subtitle: Runs,
     val thumbnail: ThumbnailRenderer,
-    val header: Header?,
-    val contents: List<Content>?,
-    val buttons: List<Button>,
+    val header: Header? = null,
+    val contents: List<Content>? = null,
+    val buttons: List<Button> = emptyList(),
     val onTap: NavigationEndpoint,
-    val subtitleBadges: List<Badges>?,
+    val subtitleBadges: List<Badges>? = null,
 ) {
     @Serializable
     data class Header(
@@ -25,6 +25,6 @@ data class MusicCardShelfRenderer(
 
     @Serializable
     data class Content(
-        val musicResponsiveListItemRenderer: MusicResponsiveListItemRenderer?,
+        val musicResponsiveListItemRenderer: MusicResponsiveListItemRenderer? = null,
     )
 }
