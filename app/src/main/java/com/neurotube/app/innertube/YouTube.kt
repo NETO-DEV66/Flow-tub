@@ -117,8 +117,11 @@ import com.neurotube.app.innertube.pages.toVideoCommentsPage
 import com.neurotube.app.innertube.pages.toVideoDescriptionPage
 import com.neurotube.app.innertube.pages.toVideoPlaylistPage
 import com.neurotube.app.innertube.pages.videoCommentsContinuation
+import com.neurotube.app.utils.ImportDiagnostics
 import com.neurotube.app.utils.PerformanceDispatcher
 import com.neurotube.app.utils.avatarImageIdentityKey
+import com.neurotube.app.utils.logFailure
+import com.neurotube.app.utils.logResponse
 import com.neurotube.app.utils.relativedate.RelativeUploadDateParser
 import io.ktor.client.call.body
 import io.ktor.client.statement.bodyAsText
@@ -155,6 +158,13 @@ object YouTube {
     private const val CHANNEL_LIVE_PARAMS = "EgdzdHJlYW1z8gYECgJ6AA%3D%3D"
     private const val CHANNEL_POSTS_PARAMS = "EgVwb3N0c_IGBAoCSgA="
     private const val CHANNEL_SHORTS_PARAMS = "EgZzaG9ydHPyBgUKA5oBAA=="
+
+    /** Tolerant of keys the app does not read, for parsing a body the diagnostic has already seen. */
+    private val lenientJson =
+        Json {
+            ignoreUnknownKeys = true
+            explicitNulls = false
+        }
 
     var locale: YouTubeLocale
         get() = innerTube.locale
@@ -864,8 +874,9 @@ object YouTube {
                         setLogin = true,
                     ).bodyAsText()
 
+            if (ImportDiagnostics.recording) logResponse("accountPlaylists", 200, response)
             Json.parseToJsonElement(response).toMainSiteFeedPage()
-        }
+        }.onFailure { error -> if (ImportDiagnostics.recording) logFailure("accountPlaylists", error) }
 
     /**
      * The viewer's watch history, one page at a time.
@@ -884,8 +895,9 @@ object YouTube {
                         setLogin = true,
                     ).bodyAsText()
 
+            if (ImportDiagnostics.recording) logResponse("accountWatchHistory", 200, response)
             Json.parseToJsonElement(response).toMainSiteFeedPage()
-        }
+        }.onFailure { error -> if (ImportDiagnostics.recording) logFailure("accountWatchHistory", error) }
 
     /**
      * The viewer's Watch Later list, one page at a time.
@@ -894,15 +906,17 @@ object YouTube {
      */
     suspend fun watchLater(continuation: String? = null): Result<VideoPlaylistPage> =
         runCatching {
-            val response =
-                innerTube.channelBrowse(
-                    client = currentWebClient(),
-                    channelId = "VLWL".takeIf { continuation == null },
-                    params = null,
-                    continuation = continuation,
-                )
-            Json.parseToJsonElement(response.bodyAsText()).toVideoPlaylistPage()
-        }
+            val body =
+                innerTube
+                    .channelBrowse(
+                        client = currentWebClient(),
+                        channelId = "VLWL".takeIf { continuation == null },
+                        params = null,
+                        continuation = continuation,
+                    ).bodyAsText()
+            if (ImportDiagnostics.recording) logResponse("watchLater", 200, body)
+            Json.parseToJsonElement(body).toVideoPlaylistPage()
+        }.onFailure { error -> if (ImportDiagnostics.recording) logFailure("watchLater", error) }
 
     suspend fun videoPlaylistPage(
         playlistId: String,
@@ -2123,29 +2137,36 @@ object YouTube {
         browseId: String,
         tabIndex: Int = 0,
     ) = runCatching {
-        val response =
+        val body =
             innerTube
                 .browse(
                     client = WEB_REMIX,
                     browseId = browseId,
                     setLogin = true,
-                ).body<BrowseResponse>()
+                ).bodyAsText()
 
-        LibraryResponseParser.pageOf(response, tabIndex)
-    }
+        if (ImportDiagnostics.recording) logResponse("library($browseId)", 200, body)
+        LibraryResponseParser.pageOf(
+            Json { ignoreUnknownKeys = true }.decodeFromString<BrowseResponse>(body),
+            tabIndex,
+        )
+    }.onFailure { error -> if (ImportDiagnostics.recording) logFailure("library($browseId)", error) }
 
     suspend fun libraryContinuation(continuation: String) =
         runCatching {
-            val response =
+            val body =
                 innerTube
                     .browse(
                         client = WEB_REMIX,
                         continuation = continuation,
                         setLogin = true,
-                    ).body<BrowseResponse>()
+                    ).bodyAsText()
 
-            LibraryResponseParser.continuationPageOf(response)
-        }
+            if (ImportDiagnostics.recording) logResponse("libraryPage", 200, body)
+            LibraryResponseParser.continuationPageOf(
+                Json { ignoreUnknownKeys = true }.decodeFromString<BrowseResponse>(body),
+            )
+        }.onFailure { error -> if (ImportDiagnostics.recording) logFailure("libraryPage", error) }
 
     /**
      * The channels the viewer follows, one page at a time.
@@ -2164,12 +2185,13 @@ object YouTube {
                         setLogin = true,
                     ).bodyAsText()
 
+            if (ImportDiagnostics.recording) logResponse("subscribedChannels", 200, response)
             val json = Json.parseToJsonElement(response)
             SubscriptionsPage(
                 channels = json.toSubscribedChannels(),
                 continuation = json.nextChannelContinuation(),
             )
-        }
+        }.onFailure { error -> if (ImportDiagnostics.recording) logFailure("subscribedChannels", error) }
 
     /**
      * The guide sidebar's subscriptions, which YouTube caps at the first handful of channels.

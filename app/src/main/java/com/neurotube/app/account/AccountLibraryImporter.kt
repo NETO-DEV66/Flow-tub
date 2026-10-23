@@ -18,6 +18,9 @@ import com.neurotube.app.innertube.models.YTItem
 import com.neurotube.app.innertube.pages.AccountVideoCollection
 import com.neurotube.app.innertube.utils.completed
 import com.neurotube.app.ui.screens.music.saveMusicCollection
+import com.neurotube.app.utils.ImportDiagnostics
+import com.neurotube.app.utils.ImportStepDiagnostic
+import com.neurotube.app.utils.describeFailure
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -96,79 +99,112 @@ class AccountLibraryImport
          */
         suspend fun run(onStep: (AccountImportStep) -> Unit = {}): AccountImportReport {
             var report = AccountImportReport()
+            val steps = mutableListOf<ImportStepDiagnostic>()
+            ImportDiagnostics.begin()
+            try {
+                onStep(AccountImportStep.SUBSCRIPTIONS)
+                val channels = fetchPart(AccountImportStep.SUBSCRIPTIONS, steps) { fetchSubscriptions() }
+                if (channels.isNotEmpty()) {
+                    runCatching { subscriptions.subscribeAll(channels.toSubscribedChannels()) }
+                        .onSuccess { report = report.copy(channels = channels.size) }
+                        .onFailure { Log.w(TAG, "Importing channels failed", it) }
+                }
 
-            onStep(AccountImportStep.SUBSCRIPTIONS)
-            val channels = runCatching { fetchSubscriptions() }.getOrElse { emptyList() }
-            if (channels.isNotEmpty()) {
-                runCatching { subscriptions.subscribeAll(channels.toSubscribedChannels()) }
-                    .onSuccess { report = report.copy(channels = channels.size) }
-                    .onFailure { Log.w(TAG, "Importing channels failed", it) }
+                onStep(AccountImportStep.ARTISTS)
+                val artists = fetchPart(AccountImportStep.ARTISTS, steps) { fetchLibrary(LIBRARY_ARTISTS) }
+                if (artists.isNotEmpty()) {
+                    runCatching {
+                        val music = artists.toSubscribedArtists(resolveArtistChannels(artists))
+                        subscriptions.subscribeAll(music)
+                        music.size
+                    }.onSuccess { report = report.copy(artists = it) }
+                        .onFailure { Log.w(TAG, "Importing artists failed", it) }
+                }
+
+                onStep(AccountImportStep.LIKED_SONGS)
+                val songs = fetchPart(AccountImportStep.LIKED_SONGS, steps) { fetchLibrary(LIBRARY_LIKED_SONGS) }
+                if (songs.isNotEmpty()) {
+                    runCatching { likedVideos.importLikes(songs.toLikedSongs(System.currentTimeMillis())) }
+                        .onSuccess { report = report.copy(likedSongs = it.size) }
+                        .onFailure { Log.w(TAG, "Importing liked songs failed", it) }
+                }
+
+                onStep(AccountImportStep.PLAYLISTS)
+                val collections = fetchPart(AccountImportStep.PLAYLISTS, steps) { fetchLibrary(LIBRARY_PLAYLISTS) }
+                if (collections.isNotEmpty()) {
+                    val saved = saveCollections(collections.toSavedMusicCollections())
+                    report = report.copy(playlists = saved)
+                }
+
+                onStep(AccountImportStep.ALBUMS)
+                val albums = fetchPart(AccountImportStep.ALBUMS, steps) { fetchLibrary(LIBRARY_ALBUMS) }
+                if (albums.isNotEmpty()) {
+                    val saved = saveCollections(albums.toSavedMusicCollections())
+                    report = report.copy(albums = saved)
+                }
+
+                onStep(AccountImportStep.VIDEO_PLAYLISTS)
+                val videoPlaylists =
+                    fetchPart(AccountImportStep.VIDEO_PLAYLISTS, steps) { fetchVideoPlaylists() }
+                if (videoPlaylists.isNotEmpty()) {
+                    runCatching { musicPlaylists.saveVideoPlaylists(videoPlaylists) }
+                        .onSuccess { report = report.copy(videoPlaylists = it) }
+                        .onFailure { Log.w(TAG, "Importing video playlists failed", it) }
+                }
+
+                onStep(AccountImportStep.WATCH_LATER)
+                val watchLater = fetchPart(AccountImportStep.WATCH_LATER, steps) { fetchWatchLater() }
+                if (watchLater.isNotEmpty()) {
+                    runCatching { watchLater.forEach { video -> musicPlaylists.addToWatchLater(video) } }
+                        .onSuccess { report = report.copy(watchLater = watchLater.size) }
+                        .onFailure { Log.w(TAG, "Importing Watch Later failed", it) }
+                }
+
+                onStep(AccountImportStep.HISTORY)
+                val watched = fetchPart(AccountImportStep.HISTORY, steps) { fetchWatchHistory() }
+                if (watched.isNotEmpty()) {
+                    runCatching {
+                        viewHistory.bulkSaveHistoryEntries(watched.toHistoryEntries(System.currentTimeMillis()))
+                    }.onSuccess { report = report.copy(history = watched.size) }
+                        .onFailure { Log.w(TAG, "Importing watch history failed", it) }
+                }
+
+                seedFeedFromImport(report)
+            } finally {
+                ImportDiagnostics.end()
             }
 
-            onStep(AccountImportStep.ARTISTS)
-            val artists = runCatching { fetchLibrary(LIBRARY_ARTISTS) }.getOrElse { emptyList() }
-            if (artists.isNotEmpty()) {
-                runCatching {
-                    val music = artists.toSubscribedArtists(resolveArtistChannels(artists))
-                    subscriptions.subscribeAll(music)
-                    music.size
-                }.onSuccess { report = report.copy(artists = it) }
-                    .onFailure { Log.w(TAG, "Importing artists failed", it) }
-            }
+            return report.copy(steps = steps)
+        }
 
-            onStep(AccountImportStep.LIKED_SONGS)
-            val songs = runCatching { fetchLibrary(LIBRARY_LIKED_SONGS) }.getOrElse { emptyList() }
-            if (songs.isNotEmpty()) {
-                runCatching { likedVideos.importLikes(songs.toLikedSongs(System.currentTimeMillis())) }
-                    .onSuccess { report = report.copy(likedSongs = it.size) }
-                    .onFailure { Log.w(TAG, "Importing liked songs failed", it) }
-            }
-
-            onStep(AccountImportStep.PLAYLISTS)
-            val collections = runCatching { fetchLibrary(LIBRARY_PLAYLISTS) }.getOrElse { emptyList() }
-            if (collections.isNotEmpty()) {
-                val saved =
-                    runCatching { saveCollections(collections.toSavedMusicCollections()) }
-                        .getOrElse { 0 }
-                report = report.copy(playlists = saved)
-            }
-
-            onStep(AccountImportStep.ALBUMS)
-            val albums = runCatching { fetchLibrary(LIBRARY_ALBUMS) }.getOrElse { emptyList() }
-            if (albums.isNotEmpty()) {
-                val saved =
-                    runCatching { saveCollections(albums.toSavedMusicCollections()) }
-                        .getOrElse { 0 }
-                report = report.copy(albums = saved)
-            }
-
-            onStep(AccountImportStep.VIDEO_PLAYLISTS)
-            val videoPlaylists = runCatching { fetchVideoPlaylists() }.getOrElse { emptyList() }
-            if (videoPlaylists.isNotEmpty()) {
-                runCatching { musicPlaylists.saveVideoPlaylists(videoPlaylists) }
-                    .onSuccess { report = report.copy(videoPlaylists = it) }
-                    .onFailure { Log.w(TAG, "Importing video playlists failed", it) }
-            }
-
-            onStep(AccountImportStep.WATCH_LATER)
-            val watchLater = runCatching { fetchWatchLater() }.getOrElse { emptyList() }
-            if (watchLater.isNotEmpty()) {
-                runCatching { watchLater.forEach { video -> musicPlaylists.addToWatchLater(video) } }
-                    .onSuccess { report = report.copy(watchLater = watchLater.size) }
-                    .onFailure { Log.w(TAG, "Importing Watch Later failed", it) }
-            }
-
-            onStep(AccountImportStep.HISTORY)
-            val watched = runCatching { fetchWatchHistory() }.getOrElse { emptyList() }
-            if (watched.isNotEmpty()) {
-                runCatching { viewHistory.bulkSaveHistoryEntries(watched.toHistoryEntries(System.currentTimeMillis())) }
-                    .onSuccess { report = report.copy(history = watched.size) }
-                    .onFailure { Log.w(TAG, "Importing watch history failed", it) }
-            }
-
-            seedFeedFromImport(report)
-
-            return report
+        /**
+         * Runs one part, recording what it found and, on failure, the error rather than swallowing it.
+         *
+         * The diagnostics log already carries the shape of every response, so a part that returns
+         * nothing is distinguishable from one that threw: the former records `found=0`, the latter
+         * records the exception's class and message.
+         */
+        private suspend fun <T> fetchPart(
+            step: AccountImportStep,
+            steps: MutableList<ImportStepDiagnostic>,
+            fetch: suspend () -> List<T>,
+        ): List<T> {
+            ImportDiagnostics.record("step ${step.name}: begin")
+            return runCatching { fetch() }
+                .onSuccess { ImportDiagnostics.record("step ${step.name}: found=${it.size}") }
+                .onFailure {
+                    Log.w(TAG, "Importing ${step.name} failed", it)
+                    ImportDiagnostics.record("step ${step.name}: FAILED ${describeFailure(it)}")
+                }.fold(
+                    onSuccess = { items ->
+                        steps += ImportStepDiagnostic(step.name, items.size)
+                        items
+                    },
+                    onFailure = { error ->
+                        steps += ImportStepDiagnostic(step.name, 0, describeFailure(error))
+                        emptyList()
+                    },
+                )
         }
 
         /**
@@ -183,7 +219,19 @@ class AccountLibraryImport
                 var continuation: String? = null
                 var pages = 0
                 do {
-                    val page = YouTube.accountPlaylists(continuation).getOrNull() ?: break
+                    val result = YouTube.accountPlaylists(continuation)
+                    if (result.isFailure) {
+                        ImportDiagnostics.record(
+                            "videoPlaylists page ${pages + 1}: FAILED ${describeFailure(result.exceptionOrNull()!!)}",
+                        )
+                        if (continuation == null) throw result.exceptionOrNull()!!
+                        break
+                    }
+                    val page = result.getOrThrow()
+                    ImportDiagnostics.record(
+                        "videoPlaylists page ${pages + 1}: playlists=${page.playlists.size} " +
+                            "next=${page.continuation != null}",
+                    )
                     all += page.playlists
                     continuation = page.continuation
                     pages++
@@ -199,7 +247,18 @@ class AccountLibraryImport
                 var continuation: String? = null
                 var pages = 0
                 do {
-                    val page = YouTube.watchLater(continuation).getOrNull() ?: break
+                    val result = YouTube.watchLater(continuation)
+                    if (result.isFailure) {
+                        ImportDiagnostics.record(
+                            "watchLater page ${pages + 1}: FAILED ${describeFailure(result.exceptionOrNull()!!)}",
+                        )
+                        if (continuation == null) throw result.exceptionOrNull()!!
+                        break
+                    }
+                    val page = result.getOrThrow()
+                    ImportDiagnostics.record(
+                        "watchLater page ${pages + 1}: videos=${page.videos.size} next=${page.continuation != null}",
+                    )
                     all += page.videos
                     continuation = page.continuation
                     pages++
@@ -215,7 +274,18 @@ class AccountLibraryImport
                 var continuation: String? = null
                 var pages = 0
                 do {
-                    val page = YouTube.accountWatchHistory(continuation).getOrNull() ?: break
+                    val result = YouTube.accountWatchHistory(continuation)
+                    if (result.isFailure) {
+                        ImportDiagnostics.record(
+                            "history page ${pages + 1}: FAILED ${describeFailure(result.exceptionOrNull()!!)}",
+                        )
+                        if (continuation == null) throw result.exceptionOrNull()!!
+                        break
+                    }
+                    val page = result.getOrThrow()
+                    ImportDiagnostics.record(
+                        "history page ${pages + 1}: videos=${page.videos.size} next=${page.continuation != null}",
+                    )
                     all += page.videos
                     continuation = page.continuation
                     pages++
@@ -253,12 +323,26 @@ class AccountLibraryImport
         private suspend fun fetchSubscriptions(): List<Channel> =
             withContext(Dispatchers.IO) {
                 val all = mutableListOf<Channel>()
-                all += YouTube.guideSubscriptions().getOrDefault(emptyList())
+                val guide = YouTube.guideSubscriptions().getOrDefault(emptyList())
+                ImportDiagnostics.record("subscriptions guide: channels=${guide.size}")
+                all += guide
 
                 var continuation: String? = null
                 var pages = 0
                 do {
-                    val page = YouTube.subscribedChannels(continuation).getOrNull() ?: break
+                    val result = YouTube.subscribedChannels(continuation)
+                    if (result.isFailure) {
+                        ImportDiagnostics.record(
+                            "subscriptions FEchannels page ${pages + 1}: FAILED " +
+                                describeFailure(result.exceptionOrNull()!!),
+                        )
+                        break
+                    }
+                    val page = result.getOrThrow()
+                    ImportDiagnostics.record(
+                        "subscriptions FEchannels page ${pages + 1}: channels=${page.channels.size} " +
+                            "next=${page.continuation != null}",
+                    )
                     all += page.channels
                     continuation = page.continuation
                     pages++
@@ -271,9 +355,9 @@ class AccountLibraryImport
             YouTube
                 .library(browseId)
                 .completed()
-                .getOrNull()
-                ?.items
-                .orEmpty()
+                .getOrThrow()
+                .items
+                .also { ImportDiagnostics.record("library($browseId): items=${it.size}") }
 
         /**
          * Saves each collection with its songs, so the library can play it offline. Collections are

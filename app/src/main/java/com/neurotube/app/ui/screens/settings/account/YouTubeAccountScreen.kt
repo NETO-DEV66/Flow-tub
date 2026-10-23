@@ -83,6 +83,15 @@ internal fun YouTubeAccountScreen(
         }
     }
 
+    val done = importState as? AccountImportState.Done
+    val failures = done?.report?.failures.orEmpty()
+    val importFailureText =
+        if (failures.isEmpty()) {
+            null
+        } else {
+            failures.joinToString("\n") { "${it.step}: ${it.error}" }
+        }
+
     SettingsPage(
         title = stringResource(R.string.youtube_account_title),
         onBack = onBack,
@@ -111,6 +120,15 @@ internal fun YouTubeAccountScreen(
                 key = "account.import.result",
                 text = { importSummary(done.report) },
                 title = { stringResource(R.string.youtube_account_import_done_title) },
+            )
+        }
+        importFailureText?.let { text ->
+            notice(
+                key = "account.import.failure",
+                text = { text },
+                title = { stringResource(R.string.youtube_account_import_partial_title) },
+                icon = Icons.Outlined.Warning,
+                isWarning = true,
             )
         }
         notice(

@@ -11,6 +11,7 @@ import com.neurotube.app.innertube.models.PlaylistItem
 import com.neurotube.app.innertube.models.SongItem
 import com.neurotube.app.innertube.models.YTItem
 import com.neurotube.app.innertube.pages.AccountVideoCollection
+import com.neurotube.app.utils.ImportStepDiagnostic
 
 /** A playlist or album the account keeps in its YouTube Music library, as that page lists it. */
 data class AccountMusicCollection(
@@ -30,6 +31,8 @@ data class AccountImportReport(
     val videoPlaylists: Int = 0,
     val watchLater: Int = 0,
     val history: Int = 0,
+    /** What each part found, wrote and failed with, in the order they ran. */
+    val steps: List<ImportStepDiagnostic> = emptyList(),
 ) {
     val isEmpty: Boolean
         get() =
@@ -41,6 +44,14 @@ data class AccountImportReport(
                 videoPlaylists == 0 &&
                 watchLater == 0 &&
                 history == 0
+
+    /** Whether every part finished without an error, whatever it found. */
+    val isClean: Boolean
+        get() = steps.none { it.error != null }
+
+    /** The parts that failed, so the result can name them. */
+    val failures: List<ImportStepDiagnostic>
+        get() = steps.filter { it.error != null }
 }
 
 /** The browse ids the music library uses for collections that are not a person's own playlist. */
